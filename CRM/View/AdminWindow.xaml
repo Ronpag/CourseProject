@@ -1,16 +1,16 @@
-﻿<Window x:Class="CRM.MainWindow"
+<Window x:Class="CRM.View.AdminWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CRM"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:CRM.View"
         mc:Ignorable="d"
         Icon="../Assets/relic.ico"
-        Title="CRM" Height="450" Width="800">
+        Title="CRM Admin" Height="450" Width="800">
     <Grid>
         
-        <Label>User</Label>
-        <Button Height="300" Click="BackBtn">back</Button>
+        <Label>нихуя нету</Label>
+        <Button Height="300" Click="BackBtn"></Button>
         
     </Grid>
 </Window>

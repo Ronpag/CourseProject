@@ -8,16 +8,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CRM.View;
 
 namespace CRM;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
     public MainWindow()
     {
         InitializeComponent();
+    }
+
+    private void BackBtn(object sender, RoutedEventArgs e)
+    {
+        LoginWindow login = new LoginWindow();
+        login.Show();
+        
+        Window currentWindow = Window.GetWindow(this);
+        currentWindow?.Close();
     }
 }

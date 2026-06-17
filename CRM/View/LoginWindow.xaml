@@ -33,7 +33,7 @@
         <TextBox Name="Login" Grid.Row="2" Grid.Column="1"/>
         
         <Label Grid.Row="4" Grid.Column="1">
-            Passoword
+            Password
         </Label>
         <TextBox Name="Password" Grid.Row="5" Grid.Column="1"/>
         

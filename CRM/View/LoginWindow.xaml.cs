@@ -8,13 +8,43 @@ public partial class LoginWindow : Window
     {
         InitializeComponent();
     }
-    
+
     private void LoginBtn(object sender, RoutedEventArgs e)
     {
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.Show();
+        string login = string.IsNullOrEmpty(Login.Text) ? "": Login.Text;
+        string password = string.IsNullOrEmpty(Password.Text) ? "": Password.Text;
+
+        if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+        {
+            Console.WriteLine("Empty login or password");
+            return;
+        }
+
+        if (login == "admin" && password == "admin")
+        {
+            Console.WriteLine("Login admin success");
         
-        Window currentWindow = Window.GetWindow(this);
-        currentWindow?.Close();
+            AdminWindow adminWindow = new AdminWindow();
+            adminWindow.Show();
+        
+            Window currentWindow = Window.GetWindow(this);
+            currentWindow?.Close();
+            return;
+        }else if (login == "user" && password == "user")
+        {
+            Console.WriteLine("Login user success");
+        
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+        
+            Window currentWindow = Window.GetWindow(this);
+            currentWindow?.Close();
+            return;
+        }
+        else
+        {
+            Console.WriteLine("Invalid login or password");
+            return;
+        }
     }
 }
