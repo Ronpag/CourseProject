@@ -11,8 +11,8 @@ public partial class LoginWindow : Window
 
     private void LoginBtn(object sender, RoutedEventArgs e)
     {
-        string login = string.IsNullOrEmpty(Login.Text) ? "": Login.Text;
-        string password = string.IsNullOrEmpty(Password.Text) ? "": Password.Text;
+        string login = Login.Text?.Trim() ?? "";
+        string password = Password.Text?.Trim() ?? "";
 
         if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
         {
