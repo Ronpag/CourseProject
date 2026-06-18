@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:CRM.View"
       mc:Ignorable="d"
       Icon="../Assets/relic.ico"
-      Title="FirstStartUp" Height="450" Width="400">
+      Title="CRM" Height="450" Width="400">
     <Grid ShowGridLines="True">
         
         <Grid.RowDefinitions>

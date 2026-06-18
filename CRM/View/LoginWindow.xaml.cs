@@ -1,4 +1,5 @@
 using System.Windows;
+using CRM.Data;
 
 namespace CRM.View;
 
@@ -20,31 +21,33 @@ public partial class LoginWindow : Window
             return;
         }
 
-        if (login == "admin" && password == "admin")
-        {
-            Console.WriteLine("Login admin success");
-        
-            AdminWindow adminWindow = new AdminWindow();
-            adminWindow.Show();
-        
-            Window currentWindow = Window.GetWindow(this);
-            currentWindow?.Close();
-            return;
-        }else if (login == "user" && password == "user")
-        {
-            Console.WriteLine("Login user success");
-        
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-        
-            Window currentWindow = Window.GetWindow(this);
-            currentWindow?.Close();
-            return;
-        }
-        else
+        using var db = new AppDbContext();
+
+        var user = db.Users
+            .FirstOrDefault(u => u.Name == login && u.Password == password);
+
+        if (user == null)
         {
             Console.WriteLine("Invalid login or password");
             return;
         }
+
+        Console.WriteLine($"Login success: {user.Name} (Id: {user.Id})");
+
+        Window window;
+
+        if (user.IsAdmin)
+        {
+            window = new AdminWindow();
+        }
+        else
+        {
+            window = new MainWindow();
+        }
+
+        window.Show();
+
+        Window currentWindow = Window.GetWindow(this);
+        currentWindow?.Close();
     }
 }
