@@ -1,0 +1,32 @@
+<Page x:Class="CRM.View.RegistrationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:CRM.View"
+      mc:Ignorable="d"
+      Title="RegistrationPage" Height="450" Width="800">
+    
+    <Grid ShowGridLines="False">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBox Name="Login" Grid.Row="1" Grid.Column="1" Background="AliceBlue"></TextBox>
+        <TextBox Name="Password" Grid.Row="1" Grid.Column="3" Background="AliceBlue"></TextBox>
+        <Button Grid.Row="1" Grid.Column="2" Click="RegisterBtn">register</Button>
+        
+    </Grid>
+</Page>
