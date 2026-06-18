@@ -12,9 +12,9 @@ using CRM.View;
 
 namespace CRM;
 
-public partial class MainWindow : Window
+public partial class UserWindow : Window
 {
-    public MainWindow()
+    public UserWindow()
     {
         InitializeComponent();
     }

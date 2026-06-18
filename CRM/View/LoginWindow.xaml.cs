@@ -42,7 +42,7 @@ public partial class LoginWindow : Window
         }
         else
         {
-            window = new MainWindow();
+            window = new UserWindow();
         }
 
         window.Show();

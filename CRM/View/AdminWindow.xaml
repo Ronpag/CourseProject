@@ -7,10 +7,31 @@
         mc:Ignorable="d"
         Icon="../Assets/relic.ico"
         Title="CRM Admin" Height="450" Width="800">
-    <Grid>
+    <Grid ShowGridLines="True">
         
-        <Label>нихуя нету</Label>
-        <Button Height="300" Click="BackBtn"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBox Name="Login" Grid.Row="1" Grid.Column="1" Background="AliceBlue"></TextBox>
+        <TextBox Name="Password" Grid.Row="1" Grid.Column="3" Background="AliceBlue"></TextBox>
+        <Button Grid.Row="1" Grid.Column="2" Click="RegisterBtn">register</Button>
+        
+        <Label>Admin Panel</Label>
+        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Click="BackBtn">
+            hello, WHY
+        </Button>
         
     </Grid>
 </Window>
