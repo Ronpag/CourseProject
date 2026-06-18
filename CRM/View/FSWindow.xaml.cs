@@ -4,7 +4,7 @@ using CRM.Data;
 
 namespace CRM.View;
 
-public partial class FSWindow : Page
+public partial class FSWindow : Window
 {
     public FSWindow()
     {
