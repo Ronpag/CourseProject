@@ -19,8 +19,18 @@ public partial class AdminWindow : Window
         currentWindow?.Close();
     }
     
-    private void StartRegPage_click(object sender, RoutedEventArgs e)
+    private void WorkerPageBtn(object sender, RoutedEventArgs e)
     {
-        MainFrame.Navigate(new RegistrationPage());
+        MainFrame.Navigate(new WorkerPage());
+    }
+    
+    private void ClientsPageBtn(object sender, RoutedEventArgs e)
+    {
+        MainFrame.Navigate(new ClientPage());
+    }
+    
+    private void TasksPageBtn(object sender, RoutedEventArgs e)
+    {
+        MainFrame.Navigate(new TasksPage());
     }
 }
