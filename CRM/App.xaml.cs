@@ -13,7 +13,8 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        using var db = new AppDbContext();
+        //uncomment this after test
+        /*using var db = new AppDbContext();
 
         db.Database.EnsureCreated();
 
@@ -30,6 +31,6 @@ public partial class App : Application
             window = new LoginWindow();
         }
 
-        window.Show();
+        window.Show();*/
     }
 }
