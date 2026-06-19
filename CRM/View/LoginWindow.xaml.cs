@@ -17,7 +17,11 @@ public partial class LoginWindow : Window
 
         if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
         {
-            Console.WriteLine("Empty login or password");
+            MessageBox.Show(
+                "Empty login or password",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);   
             return;
         }
 
@@ -28,10 +32,14 @@ public partial class LoginWindow : Window
 
         if (user == null)
         {
-            Console.WriteLine("Invalid login or password");
+            MessageBox.Show(
+                "Invalid login or password",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);   
             return;
         }
-
+        
         Console.WriteLine($"Login success: {user.Name} (Id: {user.Id})");
 
         Window window;

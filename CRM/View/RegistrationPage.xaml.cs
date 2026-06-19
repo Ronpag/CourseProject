@@ -18,19 +18,21 @@ public partial class RegistrationPage : Page
 
         if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
         {
-            Console.WriteLine("Empty login or password");
+            MessageBox.Show(
+                "The password or login is empty",
+                "Empty",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);   
             return;
         }
 
-        if (login.Length < 3 || password.Length < 3)
+        if (login.Length <= 3 || password.Length <= 3)
         {
-            Console.WriteLine("Small password or login");
-            return;
-        }
-        
-        if (login.Length < 3 || password.Length < 3)
-        {
-            Console.WriteLine("Small password or login");
+            MessageBox.Show(
+                "The password or login is too short",
+                "Short",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);   
             return;
         }
         
@@ -40,7 +42,11 @@ public partial class RegistrationPage : Page
 
         if (userExists)
         {
-            Console.WriteLine("User already exists");
+            MessageBox.Show(
+                "This login is exists",
+                "Login",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);   
             return;
         }
 
@@ -54,6 +60,10 @@ public partial class RegistrationPage : Page
         db.Users.Add(user);
         db.SaveChanges();
 
-        Console.WriteLine("User registered");
+        MessageBox.Show(
+            "User was created",
+            "Sucscess",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);   
     }
 }

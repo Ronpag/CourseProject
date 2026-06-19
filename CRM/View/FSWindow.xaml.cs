@@ -22,9 +22,13 @@ public partial class FSWindow : Window
             return;
         }
 
-        if (login.Length < 3 || password.Length < 3)
+        if (login.Length <= 3 || password.Length <= 3)
         {
-            Console.WriteLine("Small password or login");
+            MessageBox.Show(
+                "The password or login is too short",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);   
             return;
         }
         
