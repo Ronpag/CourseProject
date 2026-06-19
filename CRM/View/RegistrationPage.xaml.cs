@@ -102,12 +102,39 @@ public partial class RegistrationPage : Page
             MessageBoxImage.Information);
     }
     
+    private void UpdateBtn(object sender, RoutedEventArgs e)
+    {
+        if (UsersList.SelectedItem is not User selectedUser)
+        {
+            MessageBox.Show(
+                "Select a user",
+                "Warning",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return;
+        }
+
+        var window = new WorkerUpdateWindow(selectedUser);
+
+        bool? result = window.ShowDialog();
+
+        if (result == true)
+        {
+            LoadUsers();
+
+            MessageBox.Show(
+                "User updated",
+                "Success",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
+    }
+    
     private void LoadUsers()
     {
         using var db = new AppDbContext();
-        
-        UsersList.ItemsSource = db.Users
-            .Select(u => $"ID: {u.Id} | Login: {u.Name}")
-            .ToList();
+
+        UsersList.ItemsSource = db.Users.ToList();
     }
 }

@@ -20,10 +20,10 @@
             <TextBox x:Name="Password" Width="150" Margin="0,0,10,0"/>
             <Button Content="Register" Width="100" Click="RegisterBtn"/>
             <Button Content="Delete" Width="100" Click="DeleteBtn"/>
+            <Button Content="Update" Width="100" Click="UpdateBtn"/>
         </StackPanel>
 
-        <ListBox x:Name="UsersList"
-                 Grid.Row="2"/>
+        <ListBox x:Name="UsersList" Grid.Row="2"/>
         
     </Grid>
 </Page>
