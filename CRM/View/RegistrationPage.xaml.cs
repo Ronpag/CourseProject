@@ -9,6 +9,7 @@ public partial class RegistrationPage : Page
     public RegistrationPage()
     {
         InitializeComponent();
+        LoadUsers();
     }
     
     private void RegisterBtn(object sender, RoutedEventArgs e)
@@ -59,11 +60,54 @@ public partial class RegistrationPage : Page
 
         db.Users.Add(user);
         db.SaveChanges();
+        
+        LoadUsers();
 
         MessageBox.Show(
             "User was created",
             "Sucscess",
             MessageBoxButton.OK,
             MessageBoxImage.Information);   
+    }
+    
+    private void DeleteBtn(object sender, RoutedEventArgs e)
+    {
+        if (UsersList.SelectedItem is not User selectedUser)
+        {
+            MessageBox.Show(
+                "Select a user",
+                "Warning",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return;
+        }
+
+        using var db = new AppDbContext();
+
+        var user = db.Users.FirstOrDefault(u => u.Id == selectedUser.Id);
+
+        if (user == null)
+            return;
+
+        db.Users.Remove(user);
+        db.SaveChanges();
+
+        LoadUsers();
+
+        MessageBox.Show(
+            "User deleted",
+            "Success",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+    }
+    
+    private void LoadUsers()
+    {
+        using var db = new AppDbContext();
+        
+        UsersList.ItemsSource = db.Users
+            .Select(u => $"ID: {u.Id} | Login: {u.Name}")
+            .ToList();
     }
 }

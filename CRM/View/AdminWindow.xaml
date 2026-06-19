@@ -7,10 +7,16 @@
         mc:Ignorable="d"
         Icon="../Assets/relic.ico"
         Title="CRM Admin" Height="450" Width="800">
-    <Grid ShowGridLines="False">
+    <Grid ShowGridLines="false">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -26,9 +32,15 @@
         
         
         <Button Grid.Row="1" Grid.Column="0" Background="AliceBlue"
-                Content="Registation" Click="StartRegPage_click"/>
+                Content="Worker" Click="StartRegPage_click"/>
+
+        <Button Grid.Row="2" Grid.Column="0" Background="AliceBlue"
+                Content="Clients" Click="StartRegPage_click"/>
+
+        <Button Grid.Row="3" Grid.Column="0" Background="AliceBlue"
+                Content="Tasks" Click="StartRegPage_click"/>
         
-        <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="4" x:Name="AppArea" Background="LightGray">
+        <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="9" Grid.ColumnSpan="4" x:Name="AppArea" Background="LightGray">
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
         

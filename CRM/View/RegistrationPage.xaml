@@ -7,26 +7,23 @@
       mc:Ignorable="d"
       Title="RegistrationPage" Height="450" Width="800">
     
-    <Grid ShowGridLines="False">
+    <Grid ShowGridLines="true">
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*"/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        
-        <TextBox Name="Login" Grid.Row="1" Grid.Column="1" Background="AliceBlue"></TextBox>
-        <TextBox Name="Password" Grid.Row="1" Grid.Column="3" Background="AliceBlue"></TextBox>
-        <Button Grid.Row="1" Grid.Column="2" Click="RegisterBtn">register</Button>
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="Login" Width="150" Margin="0,0,10,0"/>
+            <TextBox x:Name="Password" Width="150" Margin="0,0,10,0"/>
+            <Button Content="Register" Width="100" Click="RegisterBtn"/>
+            <Button Content="Delete" Width="100" Click="DeleteBtn"/>
+        </StackPanel>
+
+        <ListBox x:Name="UsersList"
+                 Grid.Row="2"/>
         
     </Grid>
 </Page>
