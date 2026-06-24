@@ -29,6 +29,19 @@ public partial class ClientPage : Page
 
         using var db = new AppDbContext();
 
+        bool clientExists = db.Client.Any(c => c.NameClient == nameClient);
+
+        if (clientExists)
+        {
+            MessageBox.Show(
+                "This client already exists",
+                "Client",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return;
+        }
+
         var client = new Client
         {
             NameClient = nameClient,
@@ -41,7 +54,7 @@ public partial class ClientPage : Page
         LoadClients();
 
         MessageBox.Show(
-            "Client created",
+            "Client was created",
             "Success",
             MessageBoxButton.OK,
             MessageBoxImage.Information);

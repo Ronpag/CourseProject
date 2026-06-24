@@ -17,11 +17,11 @@
 
             <StackPanel Orientation="Horizontal">
                   <TextBox x:Name="NameTask" Width="150" Margin="0,0,10,0"/>
-                  <TextBox x:Name="ClientId" Width="150" Margin="0,0,10,0"/>
-                  <TextBox x:Name="WorkerId" Width="150" Margin="0,0,10,0"/>
-                  <Button Content="Register" Width="50" Click="RegisterBtn"/>
-                  <Button Content="Delete" Width="50" Click="DeleteBtn"/>
-                  <Button Content="Update" Width="50" Click="UpdateBtn"/>
+                  <TextBox x:Name="ClientId" Width="100" Margin="0,0,10,0"/>
+                  <TextBox x:Name="WorkerId" Width="100" Margin="0,0,10,0"/>
+                  <Button Content="Register" Width="70" Click="RegisterBtn"/>
+                  <Button Content="Delete" Width="70" Click="DeleteBtn"/>
+                  <Button Content="Update" Width="70" Click="UpdateBtn"/>
             </StackPanel>
 
             <ListBox x:Name="TasksList" Grid.Row="2"/>

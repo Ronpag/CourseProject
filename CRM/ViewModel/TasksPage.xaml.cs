@@ -41,12 +41,41 @@ public partial class TasksPage : Page
 
         using var db = new AppDbContext();
 
+        var client = db.Client.FirstOrDefault(c => c.Id == clientId);
+
+        if (client == null)
+        {
+            MessageBox.Show(
+                "Client with this ID does not exist",
+                "Warning",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return;
+        }
+
+        var worker = db.Users.FirstOrDefault(u => u.Id == workerId);
+
+        if (worker == null)
+        {
+            MessageBox.Show(
+                "Worker with this ID does not exist",
+                "Warning",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return;
+        }
+
         var task = new CRM.Data.Task
         {
             NameTask = nameTask,
             ClientId = clientId,
-            WorkerId = workerId
+            WorkerId = workerId,
+            Status = CRM.Data.Task.TaskStatus.Assigned
         };
+
+        client.CountOrders++;
 
         db.Tasks.Add(task);
         db.SaveChanges();
@@ -75,12 +104,23 @@ public partial class TasksPage : Page
         if (task == null)
             return;
 
+        var client = db.Client.FirstOrDefault(c => c.Id == task.ClientId);
+
+        if (client != null && client.CountOrders > 0)
+        {
+            client.CountOrders--;
+        }
+
         db.Tasks.Remove(task);
         db.SaveChanges();
 
         LoadTasks();
 
-        MessageBox.Show("Task deleted");
+        MessageBox.Show(
+            "Task deleted",
+            "Success",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
     }
 
     private void UpdateBtn(object sender, RoutedEventArgs e)

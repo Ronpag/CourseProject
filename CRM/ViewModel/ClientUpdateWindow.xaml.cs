@@ -21,18 +21,59 @@ public partial class ClientUpdateWindow : Window
     {
         if (!int.TryParse(CountOrdersBox.Text, out int countOrders))
         {
-            MessageBox.Show("Invalid count orders");
+            MessageBox.Show(
+                "Invalid count orders",
+                "Warning",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return;
+        }
+
+        string newName = NameClientBox.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(newName))
+        {
+            MessageBox.Show(
+                "Client name is empty",
+                "Warning",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
             return;
         }
 
         using var db = new AppDbContext();
 
+        bool clientExists = db.Client.Any(c =>
+            c.Id != _clientId &&
+            c.NameClient.ToLower() == newName.ToLower());
+
+        if (clientExists)
+        {
+            MessageBox.Show(
+                "Client with this name already exists",
+                "Warning",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return;
+        }
+
         var client = db.Client.FirstOrDefault(c => c.Id == _clientId);
 
         if (client == null)
-            return;
+        {
+            MessageBox.Show(
+                "Client not found",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
 
-        client.NameClient = NameClientBox.Text.Trim();
+            return;
+        }
+
+        client.NameClient = newName;
         client.CountOrders = countOrders;
 
         db.SaveChanges();

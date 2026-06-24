@@ -16,36 +16,111 @@ public partial class TaskUpdateWindow : Window
         NameTaskBox.Text = task.NameTask;
         ClientIdBox.Text = task.ClientId.ToString();
         WorkerIdBox.Text = task.WorkerId.ToString();
+
+        StatusBox.ItemsSource =
+            Enum.GetValues(typeof(CRM.Data.Task.TaskStatus));
+
+        StatusBox.SelectedItem = task.Status;
     }
 
     private void SaveChangesBtn(object sender, RoutedEventArgs e)
+{
+    string taskName = NameTaskBox.Text.Trim();
+
+    if (string.IsNullOrWhiteSpace(taskName))
     {
-        if (!int.TryParse(ClientIdBox.Text, out int clientId))
-        {
-            MessageBox.Show("Invalid Client Id");
-            return;
-        }
+        MessageBox.Show(
+            "Task name is empty",
+            "Warning",
+            MessageBoxButton.OK,
+            MessageBoxImage.Warning);
 
-        if (!int.TryParse(WorkerIdBox.Text, out int workerId))
-        {
-            MessageBox.Show("Invalid Worker Id");
-            return;
-        }
-
-        using var db = new AppDbContext();
-
-        var task = db.Tasks.FirstOrDefault(t => t.Id == _taskId);
-
-        if (task == null)
-            return;
-
-        task.NameTask = NameTaskBox.Text.Trim();
-        task.ClientId = clientId;
-        task.WorkerId = workerId;
-
-        db.SaveChanges();
-
-        DialogResult = true;
-        Close();
+        return;
     }
+
+    if (!int.TryParse(ClientIdBox.Text, out int clientId))
+    {
+        MessageBox.Show(
+            "Invalid Client Id",
+            "Warning",
+            MessageBoxButton.OK,
+            MessageBoxImage.Warning);
+
+        return;
+    }
+
+    if (!int.TryParse(WorkerIdBox.Text, out int workerId))
+    {
+        MessageBox.Show(
+            "Invalid Worker Id",
+            "Warning",
+            MessageBoxButton.OK,
+            MessageBoxImage.Warning);
+
+        return;
+    }
+
+    using var db = new AppDbContext();
+
+    var task = db.Tasks.FirstOrDefault(t => t.Id == _taskId);
+
+    if (task == null)
+    {
+        MessageBox.Show(
+            "Task not found",
+            "Error",
+            MessageBoxButton.OK,
+            MessageBoxImage.Error);
+
+        return;
+    }
+
+    var client = db.Client.FirstOrDefault(c => c.Id == clientId);
+
+    if (client == null)
+    {
+        MessageBox.Show(
+            "Client with this ID does not exist",
+            "Warning",
+            MessageBoxButton.OK,
+            MessageBoxImage.Warning);
+
+        return;
+    }
+
+    var worker = db.Users.FirstOrDefault(u => u.Id == workerId);
+
+    if (worker == null)
+    {
+        MessageBox.Show(
+            "Worker with this ID does not exist",
+            "Warning",
+            MessageBoxButton.OK,
+            MessageBoxImage.Warning);
+
+        return;
+    }
+
+    if (task.ClientId != clientId)
+    {
+        var oldClient = db.Client.FirstOrDefault(c => c.Id == task.ClientId);
+
+        if (oldClient != null && oldClient.CountOrders > 0)
+        {
+            oldClient.CountOrders--;
+        }
+
+        client.CountOrders++;
+    }
+
+    task.NameTask = taskName;
+    task.ClientId = clientId;
+    task.WorkerId = workerId;
+    task.Status = (CRM.Data.Task.TaskStatus)StatusBox.SelectedItem;
+
+    db.SaveChanges();
+
+    DialogResult = true;
+    Close();
+}
 }
