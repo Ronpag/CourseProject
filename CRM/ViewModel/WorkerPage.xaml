@@ -18,9 +18,9 @@
         <StackPanel Orientation="Horizontal">
             <TextBox x:Name="Login" Width="150" Margin="0,0,10,0"/>
             <TextBox x:Name="Password" Width="150" Margin="0,0,10,0"/>
-            <Button Content="Register" Width="100" Click="RegisterBtn"/>
-            <Button Content="Delete" Width="100" Click="DeleteBtn"/>
-            <Button Content="Update" Width="100" Click="UpdateBtn"/>
+            <Button Content="Register" Width="70" Click="RegisterBtn"/>
+            <Button Content="Delete" Width="70" Click="DeleteBtn"/>
+            <Button Content="Update" Width="70" Click="UpdateBtn"/>
         </StackPanel>
         
         <ListBox x:Name="UsersList" Grid.Row="2"/>

@@ -1,12 +1,23 @@
 <Page x:Class="CRM.View.ClientPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CRM.View"
-      mc:Ignorable="d"
-      Title="ClientPage" Height="450" Width="800">
+      Title="ClientsPage">
+
     <Grid>
-        <Label>client</Label>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="NameClient" Width="150" Margin="0,0,10,0"/>
+            <Button Content="Register" Width="70" Click="RegisterBtn"/>
+            <Button Content="Delete" Width="70" Click="DeleteBtn"/>
+            <Button Content="Update" Width="70" Click="UpdateBtn"/>
+        </StackPanel>
+        <ListBox x:Name="ClientsList" Grid.Row="2"/>
+
     </Grid>
 </Page>
