@@ -45,7 +45,7 @@ public partial class ClientUpdateWindow : Window
 
         using var db = new AppDbContext();
 
-        bool clientExists = db.Client.Any(c =>
+        bool clientExists = db.Clients.Any(c =>
             c.Id != _clientId &&
             c.NameClient.ToLower() == newName.ToLower());
 
@@ -60,7 +60,7 @@ public partial class ClientUpdateWindow : Window
             return;
         }
 
-        var client = db.Client.FirstOrDefault(c => c.Id == _clientId);
+        var client = db.Clients.FirstOrDefault(c => c.Id == _clientId);
 
         if (client == null)
         {

@@ -6,7 +6,7 @@ public class AppDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Task> Tasks { get; set; }
-    public DbSet<Client> Client { get; set; }
+    public DbSet<Client> Clients { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

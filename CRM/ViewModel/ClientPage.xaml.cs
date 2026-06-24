@@ -29,7 +29,7 @@ public partial class ClientPage : Page
 
         using var db = new AppDbContext();
 
-        bool clientExists = db.Client.Any(c => c.NameClient == nameClient);
+        bool clientExists = db.Clients.Any(c => c.NameClient == nameClient);
 
         if (clientExists)
         {
@@ -48,7 +48,7 @@ public partial class ClientPage : Page
             CountOrders = 0
         };
 
-        db.Client.Add(client);
+        db.Clients.Add(client);
         db.SaveChanges();
 
         LoadClients();
@@ -70,12 +70,12 @@ public partial class ClientPage : Page
 
         using var db = new AppDbContext();
 
-        var client = db.Client.FirstOrDefault(c => c.Id == selectedClient.Id);
+        var client = db.Clients.FirstOrDefault(c => c.Id == selectedClient.Id);
 
         if (client == null)
             return;
 
-        db.Client.Remove(client);
+        db.Clients.Remove(client);
         db.SaveChanges();
 
         LoadClients();
@@ -116,6 +116,6 @@ public partial class ClientPage : Page
     {
         using var db = new AppDbContext();
 
-        ClientsList.ItemsSource = db.Client.ToList();
+        ClientsList.ItemsSource = db.Clients.ToList();
     }
 }

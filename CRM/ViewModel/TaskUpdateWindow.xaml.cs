@@ -75,7 +75,7 @@ public partial class TaskUpdateWindow : Window
         return;
     }
 
-    var client = db.Client.FirstOrDefault(c => c.Id == clientId);
+    var client = db.Clients.FirstOrDefault(c => c.Id == clientId);
 
     if (client == null)
     {
@@ -103,7 +103,7 @@ public partial class TaskUpdateWindow : Window
 
     if (task.ClientId != clientId)
     {
-        var oldClient = db.Client.FirstOrDefault(c => c.Id == task.ClientId);
+        var oldClient = db.Clients.FirstOrDefault(c => c.Id == task.ClientId);
 
         if (oldClient != null && oldClient.CountOrders > 0)
         {

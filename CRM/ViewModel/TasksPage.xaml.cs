@@ -41,7 +41,7 @@ public partial class TasksPage : Page
 
         using var db = new AppDbContext();
 
-        var client = db.Client.FirstOrDefault(c => c.Id == clientId);
+        var client = db.Clients.FirstOrDefault(c => c.Id == clientId);
 
         if (client == null)
         {
@@ -104,7 +104,7 @@ public partial class TasksPage : Page
         if (task == null)
             return;
 
-        var client = db.Client.FirstOrDefault(c => c.Id == task.ClientId);
+        var client = db.Clients.FirstOrDefault(c => c.Id == task.ClientId);
 
         if (client != null && client.CountOrders > 0)
         {
