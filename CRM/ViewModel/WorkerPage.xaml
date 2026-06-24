@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       Title="RegistrationPage" Height="450" Width="800">
     
-    <Grid ShowGridLines="true">
+    <Grid ShowGridLines="False">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,7 +22,7 @@
             <Button Content="Delete" Width="100" Click="DeleteBtn"/>
             <Button Content="Update" Width="100" Click="UpdateBtn"/>
         </StackPanel>
-
+        
         <ListBox x:Name="UsersList" Grid.Row="2"/>
         
     </Grid>

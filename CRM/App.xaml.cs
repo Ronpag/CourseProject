@@ -14,7 +14,7 @@ public partial class App : Application
         base.OnStartup(e);
 
         //uncomment this after test
-        /*using var db = new AppDbContext();
+        using var db = new AppDbContext();
 
         db.Database.EnsureCreated();
 
@@ -29,8 +29,10 @@ public partial class App : Application
         else
         {
             window = new LoginWindow();
+            //for test's
+            /*window = new AdminWindow();*/
         }
 
-        window.Show();*/
+        window.Show();
     }
 }
