@@ -7,11 +7,37 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="My Tasks" FontSize="10" FontWeight="Bold" Margin="0,0,0,10"/>
-        <ListBox x:Name="TasksList" Grid.Row="1"/>
+        <TextBlock Text="My Tasks"
+                   FontSize="18"
+                   FontWeight="Bold"/>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal">
+
+            <Button Content="Add Client"
+                    Width="100"
+                    Margin="0,0,10,0"
+                    Click="AddClientBtn"/>
+
+            <Button Content="Add Task"
+                    Width="100"
+                    Margin="0,0,10,0"
+                    Click="AddTaskBtn"/>
+
+            <Button Content="Change Status"
+                    Width="120"
+                    Click="ChangeStatusBtn"/>
+
+        </StackPanel>
+
+        <ListBox x:Name="TasksList"
+                 Grid.Row="3"
+                 Margin="0,10,0,0"/>
 
     </Grid>
 </Page>
