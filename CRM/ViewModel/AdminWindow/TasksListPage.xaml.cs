@@ -4,9 +4,9 @@ using CRM.Data;
 
 namespace CRM.View;
 
-public partial class TasksPage : Page
+public partial class TasksListPage : Page
 {
-    public TasksPage()
+    public TasksListPage()
     {
         InitializeComponent();
         LoadTasks();
@@ -14,7 +14,7 @@ public partial class TasksPage : Page
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
-        string nameTask = NameTask.Text?.Trim() ?? "";
+        string taskName = TaskName.Text?.Trim() ?? "";
 
         if (!int.TryParse(ClientId.Text, out int clientId))
         {
@@ -28,7 +28,7 @@ public partial class TasksPage : Page
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(nameTask))
+        if (string.IsNullOrWhiteSpace(taskName))
         {
             MessageBox.Show(
                 "Task name is empty",
@@ -69,7 +69,7 @@ public partial class TasksPage : Page
 
         var task = new CRM.Data.Task
         {
-            NameTask = nameTask,
+            TaskName = taskName,
             ClientId = clientId,
             WorkerId = workerId,
             Status = CRM.Data.Task.TaskStatus.Assigned

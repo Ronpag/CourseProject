@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CRM.View;
+using CRM.ViewModel.UserWindow;
 
 namespace CRM;
 
@@ -26,5 +27,10 @@ public partial class UserWindow : Window
         
         Window currentWindow = Window.GetWindow(this);
         currentWindow?.Close();
+    }
+    
+    private void UserPageBtn(object sender, RoutedEventArgs e)
+    {
+        MainFrame.Navigate(new WorkerPage());
     }
 }

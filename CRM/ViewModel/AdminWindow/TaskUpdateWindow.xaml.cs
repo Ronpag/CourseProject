@@ -13,7 +13,7 @@ public partial class TaskUpdateWindow : Window
 
         _taskId = task.Id;
 
-        NameTaskBox.Text = task.NameTask;
+        TaskNameBox.Text = task.TaskName;
         ClientIdBox.Text = task.ClientId.ToString();
         WorkerIdBox.Text = task.WorkerId.ToString();
 
@@ -25,7 +25,7 @@ public partial class TaskUpdateWindow : Window
 
     private void SaveChangesBtn(object sender, RoutedEventArgs e)
 {
-    string taskName = NameTaskBox.Text.Trim();
+    string taskName = TaskNameBox.Text.Trim();
 
     if (string.IsNullOrWhiteSpace(taskName))
     {
@@ -113,7 +113,7 @@ public partial class TaskUpdateWindow : Window
         client.CountOrders++;
     }
 
-    task.NameTask = taskName;
+    task.TaskName = taskName;
     task.ClientId = clientId;
     task.WorkerId = workerId;
     task.Status = (CRM.Data.Task.TaskStatus)StatusBox.SelectedItem;

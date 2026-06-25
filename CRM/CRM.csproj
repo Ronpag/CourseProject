@@ -24,27 +24,32 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\WorkerPage.xaml">
+      <Page Update="ViewModel\AdminWindow\ClientListPage.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\TasksPage.xaml">
+      <Page Update="ViewModel\AdminWindow\ClientUpdateWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\ClientPage.xaml">
+      <Page Update="ViewModel\AdminWindow\TasksListPage.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\TaskUpdateWindow.xaml">
+      <Page Update="ViewModel\AdminWindow\TaskUpdateWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\WorkerUpdateWindow.xaml">
+      <Page Update="ViewModel\AdminWindow\WorkerListPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="ViewModel\AdminWindow\WorkerUpdateWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>

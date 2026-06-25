@@ -28,9 +28,9 @@ public partial class App : Application
         }
         else
         {
-            window = new LoginWindow();
+            //window = new LoginWindow();
             //for test's
-            //window = new AdminWindow();
+            window = new AdminWindow();
         }
 
         window.Show();

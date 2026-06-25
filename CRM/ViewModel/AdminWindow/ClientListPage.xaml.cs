@@ -4,9 +4,9 @@ using CRM.Data;
 
 namespace CRM.View;
 
-public partial class ClientPage : Page
+public partial class ClientListPage : Page
 {
-    public ClientPage()
+    public ClientListPage()
     {
         InitializeComponent();
         LoadClients();
