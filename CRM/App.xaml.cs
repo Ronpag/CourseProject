@@ -12,10 +12,7 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-
-        //uncomment this after test
         using var db = new AppDbContext();
-
         db.Database.EnsureCreated();
 
         bool adminExists = db.Users.Any(u => u.IsAdmin);
@@ -28,11 +25,11 @@ public partial class App : Application
         }
         else
         {
-            //window = new LoginWindow();
+            window = new LoginWindow();
+            
             //for test's
-            window = new AdminWindow();
         }
-
+        
         window.Show();
     }
 }

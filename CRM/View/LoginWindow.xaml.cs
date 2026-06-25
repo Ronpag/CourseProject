@@ -50,7 +50,7 @@ public partial class LoginWindow : Window
         }
         else
         {
-            window = new UserWindow();
+            window = new UserWindow(user.Id);
         }
 
         window.Show();

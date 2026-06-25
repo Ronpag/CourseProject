@@ -1,14 +1,17 @@
 <Page x:Class="CRM.ViewModel.UserWindow.WorkerPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CRM.ViewModel.UserWindow"
-      mc:Ignorable="d"
-      Title="WorkerPage" Height="450" Width="800">
-    <Grid>
-        
-        
-        
+      Title="WorkerPage">
+
+    <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="My Tasks" FontSize="10" FontWeight="Bold" Margin="0,0,0,10"/>
+        <ListBox x:Name="TasksList" Grid.Row="1"/>
+
     </Grid>
 </Page>
