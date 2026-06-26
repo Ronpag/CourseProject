@@ -16,68 +16,39 @@ public partial class UserListPage : Page
     {
         string login = Login.Text?.Trim() ?? "";
         string password = Password.Text?.Trim() ?? "";
-        
-        if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
-        {
-            MessageBox.Show(
-                "The password or login is empty",
-                "Empty",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);   
-            return;
-        }
 
-        if (login.Length <= 3 || password.Length <= 3)
-        {
-            MessageBox.Show(
-                "The password or login is too short",
-                "Short",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+        if (!Validation.ValidateLoginPassword(login, password))
             return;
-        }
 
-        if (!Validation.IsEnglish(login) || !Validation.IsEnglish(password))
-        {
-            MessageBox.Show(
-                "Login and password must contain only English letters and numbers",
-                "Invalid characters",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-            return;
-        }
-        
         using var db = new AppDbContext();
-        
-        bool userExists = db.Users.Any(u => u.Name == login);
 
-        if (userExists)
+        if (db.Users.Any(u => u.Name == login))
         {
             MessageBox.Show(
-                "This login is exists",
+                "This login already exists",
                 "Login",
                 MessageBoxButton.OK,
-                MessageBoxImage.Warning);   
+                MessageBoxImage.Warning);
+
             return;
         }
 
-        var user = new User
+        db.Users.Add(new User
         {
             Name = login,
             Password = password,
             IsAdmin = false
-        };
+        });
 
-        db.Users.Add(user);
         db.SaveChanges();
-        
+
         LoadUsers();
 
         MessageBox.Show(
             "User was created",
-            "Sucscess",
+            "Success",
             MessageBoxButton.OK,
-            MessageBoxImage.Information);   
+            MessageBoxImage.Information);
     }
     
     private void DeleteBtn(object sender, RoutedEventArgs e)

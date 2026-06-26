@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace CRM;
 
@@ -7,5 +8,43 @@ public static class Validation
     public static bool IsEnglish(string text)
     {
         return Regex.IsMatch(text, @"^[A-Za-z0-9]+$");
+    }
+
+    public static bool ValidateLoginPassword(string login, string password)
+    {
+        if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
+        {
+            MessageBox.Show(
+                "The password or login is empty",
+                "Empty",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return false;
+        }
+
+        if (login.Length <= 3 || password.Length <= 3)
+        {
+            MessageBox.Show(
+                "The password or login is too short",
+                "Short",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return false;
+        }
+
+        if (!IsEnglish(login) || !IsEnglish(password))
+        {
+            MessageBox.Show(
+                "Login and password must contain only English letters and numbers",
+                "Invalid characters",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+
+            return false;
+        }
+
+        return true;
     }
 }

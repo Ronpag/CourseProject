@@ -22,35 +22,8 @@ public partial class UserUpdateWindow : Window
         string login = LoginBox.Text?.Trim() ?? "";
         string password = PasswordBox.Text?.Trim() ?? "";
 
-        if (!Validation.IsEnglish(login) || !Validation.IsEnglish(password))
-        {
-            MessageBox.Show(
-                "Login and password must contain only English letters and numbers",
-                "Invalid characters",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+        if (!Validation.ValidateLoginPassword(login, password))
             return;
-        }
-        
-        if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
-        {
-            MessageBox.Show(
-                "The password or login is empty",
-                "Empty",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-            return;
-        }
-
-        if (login.Length <= 3 || password.Length <= 3)
-        {
-            MessageBox.Show(
-                "The password or login is too short",
-                "Short",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-            return;
-        }
 
         using var db = new AppDbContext();
 
@@ -59,15 +32,14 @@ public partial class UserUpdateWindow : Window
         if (user == null)
             return;
 
-        bool userExists = db.Users.Any(u => u.Name == login && u.Id != _userId);
-
-        if (userExists)
+        if (db.Users.Any(u => u.Name == login && u.Id != _userId))
         {
             MessageBox.Show(
                 "This login already exists",
                 "Login",
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
+
             return;
         }
 

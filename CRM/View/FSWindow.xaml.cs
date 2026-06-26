@@ -16,51 +16,21 @@ public partial class FSWindow : Window
         string login = FLogin.Text?.Trim() ?? "";
         string password = FPassword.Text?.Trim() ?? "";
 
-        if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
-        {
-            Console.WriteLine("Empty login or password");
+        if (!Validation.ValidateLoginPassword(login, password))
             return;
-        }
-        
-        if (!Validation.IsEnglish(login) || !Validation.IsEnglish(password))
-        {
-            MessageBox.Show(
-                "Login and password must contain only English letters and numbers",
-                "Invalid characters",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-            return;
-        }
 
-        if (login.Length <= 3 || password.Length <= 3)
-        {
-            MessageBox.Show(
-                "The password or login is too short",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);   
-            return;
-        }
-        
         using var db = new AppDbContext();
 
-        var user = new User
+        db.Users.Add(new User
         {
-            Id = 1,
             Name = login,
             Password = password,
             IsAdmin = true
-        };
+        });
 
-        db.Users.Add(user);
         db.SaveChanges();
 
-        Console.WriteLine("User saved");
-        
-        LoginWindow loginWindow = new LoginWindow();
-        loginWindow.Show();
-        
-        Window currentWindow = Window.GetWindow(this);
-        currentWindow?.Close();
+        new LoginWindow().Show();
+        Close();
     }
 }
