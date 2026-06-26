@@ -6,15 +6,25 @@ namespace CRM.View;
 public partial class UserUpdateWindow : Window
 {
     private readonly int _userId;
+    private readonly bool _isAdmin;
 
     public UserUpdateWindow(User user)
     {
         InitializeComponent();
 
         _userId = user.Id;
+        _isAdmin = user.IsAdmin;
 
         LoginBox.Text = user.Name;
         PasswordBox.Text = user.Password;
+
+        IsActiveBox.IsChecked = user.IsActive;
+
+        // ❗ Админа нельзя редактировать
+        if (user.IsAdmin)
+        {
+            IsActiveBox.IsEnabled = false;
+        }
     }
 
     private void SaveChangesBtn(object sender, RoutedEventArgs e)
@@ -45,6 +55,11 @@ public partial class UserUpdateWindow : Window
 
         user.Name = login;
         user.Password = password;
+
+        if (!user.IsAdmin)
+        {
+            user.IsActive = IsActiveBox.IsChecked == true;
+        }
 
         db.SaveChanges();
 

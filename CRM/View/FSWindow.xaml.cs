@@ -25,7 +25,8 @@ public partial class FSWindow : Window
         {
             Name = login,
             Password = password,
-            IsAdmin = true
+            IsAdmin = true,
+            IsActive = true
         });
 
         db.SaveChanges();

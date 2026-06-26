@@ -37,7 +37,8 @@ public partial class UserListPage : Page
         {
             Name = login,
             Password = password,
-            IsAdmin = false
+            IsAdmin = false,
+            IsActive = true
         });
 
         db.SaveChanges();
@@ -70,6 +71,17 @@ public partial class UserListPage : Page
 
         if (user == null)
             return;
+        
+        if (user.IsAdmin)
+        {
+            MessageBox.Show(
+                "You cannot delete an admin account",
+                "Access denied",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+
+            return;
+        }
 
         db.Users.Remove(user);
         db.SaveChanges();

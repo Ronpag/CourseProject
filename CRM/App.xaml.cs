@@ -26,8 +26,6 @@ public partial class App : Application
         else
         {
             window = new LoginWindow();
-            
-            //for test's
         }
         
         window.Show();

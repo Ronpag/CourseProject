@@ -40,6 +40,16 @@ public partial class LoginWindow : Window
             return;
         }
         
+        if (!user.IsActive)
+        {
+            MessageBox.Show(
+                "Your account is disabled. Please contact administrator.",
+                "Access denied",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+        
         Console.WriteLine($"Login success: {user.Name} (Id: {user.Id})");
 
         Window window;
