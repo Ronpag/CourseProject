@@ -21,6 +21,16 @@ public partial class FSWindow : Window
             Console.WriteLine("Empty login or password");
             return;
         }
+        
+        if (!Validation.IsEnglish(login) || !Validation.IsEnglish(password))
+        {
+            MessageBox.Show(
+                "Login and password must contain only English letters and numbers",
+                "Invalid characters",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
 
         if (login.Length <= 3 || password.Length <= 3)
         {

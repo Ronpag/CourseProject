@@ -1,4 +1,4 @@
-<Page x:Class="CRM.ViewModel.UserWindow.WorkerPage"
+<Page x:Class="CRM.ViewModel.UserWindow.UserPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="WorkerPage">

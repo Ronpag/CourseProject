@@ -4,9 +4,9 @@ using CRM.Data;
 
 namespace CRM.View;
 
-public partial class WorkerListPage : Page
+public partial class UserListPage : Page
 {
-    public WorkerListPage()
+    public UserListPage()
     {
         InitializeComponent();
         LoadUsers();
@@ -16,7 +16,7 @@ public partial class WorkerListPage : Page
     {
         string login = Login.Text?.Trim() ?? "";
         string password = Password.Text?.Trim() ?? "";
-
+        
         if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
         {
             MessageBox.Show(
@@ -33,7 +33,17 @@ public partial class WorkerListPage : Page
                 "The password or login is too short",
                 "Short",
                 MessageBoxButton.OK,
-                MessageBoxImage.Warning);   
+                MessageBoxImage.Warning);
+            return;
+        }
+
+        if (!Validation.IsEnglish(login) || !Validation.IsEnglish(password))
+        {
+            MessageBox.Show(
+                "Login and password must contain only English letters and numbers",
+                "Invalid characters",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
             return;
         }
         
@@ -115,7 +125,7 @@ public partial class WorkerListPage : Page
             return;
         }
 
-        var window = new WorkerUpdateWindow(selectedUser);
+        var window = new UserUpdateWindow(selectedUser);
 
         bool? result = window.ShowDialog();
 

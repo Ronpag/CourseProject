@@ -24,6 +24,6 @@ public partial class UserWindow : Window
 
     private void UserPageBtn(object sender, RoutedEventArgs e)
     {
-        MainFrame.Navigate(new WorkerPage(_userId));
+        MainFrame.Navigate(new UserPage(_userId));
     }
 }

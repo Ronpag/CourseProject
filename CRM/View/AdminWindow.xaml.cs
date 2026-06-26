@@ -21,7 +21,7 @@ public partial class AdminWindow : Window
     
     private void WorkerPageBtn(object sender, RoutedEventArgs e)
     {
-        MainFrame.Navigate(new WorkerListPage());
+        MainFrame.Navigate(new UserListPage());
     }
     
     private void ClientsPageBtn(object sender, RoutedEventArgs e)

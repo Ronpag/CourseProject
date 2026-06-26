@@ -4,11 +4,11 @@ using CRM.Data;
 
 namespace CRM.ViewModel.UserWindow;
 
-public partial class WorkerPage : Page
+public partial class UserPage : Page
 {
     private readonly int _workerId;
 
-    public WorkerPage(int workerId)
+    public UserPage(int workerId)
     {
         InitializeComponent();
 

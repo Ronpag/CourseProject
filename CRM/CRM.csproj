@@ -44,12 +44,12 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\AdminWindow\WorkerListPage.xaml">
+      <Page Update="ViewModel\AdminWindow\UserListPage.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\AdminWindow\WorkerUpdateWindow.xaml">
+      <Page Update="ViewModel\AdminWindow\UserUpdateWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
