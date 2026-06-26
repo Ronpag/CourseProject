@@ -15,31 +15,22 @@ public partial class LoginWindow : Window
         string login = Login.Text?.Trim() ?? "";
         string password = Password.Text?.Trim() ?? "";
 
-        if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+        if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
         {
-            MessageBox.Show(
-                "Empty login or password",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);   
+            MessageBox.Show("Empty login or password", "Error");
             return;
         }
 
         using var db = new AppDbContext();
 
-        var user = db.Users
-            .FirstOrDefault(u => u.Name == login && u.Password == password);
+        var user = db.Users.FirstOrDefault(u => u.Name == login);
 
-        if (user == null)
+        if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
         {
-            MessageBox.Show(
-                "Invalid login or password",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);   
+            MessageBox.Show("Invalid login or password", "Error");
             return;
         }
-        
+
         if (!user.IsActive)
         {
             MessageBox.Show(
@@ -47,25 +38,15 @@ public partial class LoginWindow : Window
                 "Access denied",
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
+
             return;
         }
-        
-        Console.WriteLine($"Login success: {user.Name} (Id: {user.Id})");
 
-        Window window;
-
-        if (user.IsAdmin)
-        {
-            window = new AdminWindow();
-        }
-        else
-        {
-            window = new UserWindow(user.Id);
-        }
+        Window window = user.IsAdmin
+            ? new AdminWindow()
+            : new UserWindow(user.Id);
 
         window.Show();
-
-        Window currentWindow = Window.GetWindow(this);
-        currentWindow?.Close();
+        Close();
     }
 }

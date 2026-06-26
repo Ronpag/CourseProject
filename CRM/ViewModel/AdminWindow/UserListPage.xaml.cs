@@ -11,7 +11,7 @@ public partial class UserListPage : Page
         InitializeComponent();
         LoadUsers();
     }
-    
+
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
         string login = Login.Text?.Trim() ?? "";
@@ -24,19 +24,14 @@ public partial class UserListPage : Page
 
         if (db.Users.Any(u => u.Name == login))
         {
-            MessageBox.Show(
-                "This login already exists",
-                "Login",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Login already exists");
             return;
         }
 
         db.Users.Add(new User
         {
             Name = login,
-            Password = password,
+            Password = BCrypt.Net.BCrypt.HashPassword(password),
             IsAdmin = false,
             IsActive = true
         });
@@ -44,24 +39,14 @@ public partial class UserListPage : Page
         db.SaveChanges();
 
         LoadUsers();
-
-        MessageBox.Show(
-            "User was created",
-            "Success",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+        MessageBox.Show("User created");
     }
-    
+
     private void DeleteBtn(object sender, RoutedEventArgs e)
     {
         if (UsersList.SelectedItem is not User selectedUser)
         {
-            MessageBox.Show(
-                "Select a user",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Select user");
             return;
         }
 
@@ -69,17 +54,11 @@ public partial class UserListPage : Page
 
         var user = db.Users.FirstOrDefault(u => u.Id == selectedUser.Id);
 
-        if (user == null)
-            return;
-        
+        if (user == null) return;
+
         if (user.IsAdmin)
         {
-            MessageBox.Show(
-                "You cannot delete an admin account",
-                "Access denied",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
+            MessageBox.Show("Cannot delete admin");
             return;
         }
 
@@ -87,47 +66,25 @@ public partial class UserListPage : Page
         db.SaveChanges();
 
         LoadUsers();
-
-        MessageBox.Show(
-            "User deleted",
-            "Success",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
     }
-    
+
     private void UpdateBtn(object sender, RoutedEventArgs e)
     {
         if (UsersList.SelectedItem is not User selectedUser)
         {
-            MessageBox.Show(
-                "Select a user",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Select user");
             return;
         }
 
         var window = new UserUpdateWindow(selectedUser);
 
-        bool? result = window.ShowDialog();
-
-        if (result == true)
-        {
+        if (window.ShowDialog() == true)
             LoadUsers();
-
-            MessageBox.Show(
-                "User updated",
-                "Success",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-        }
     }
-    
+
     private void LoadUsers()
     {
         using var db = new AppDbContext();
-
         UsersList.ItemsSource = db.Users.ToList();
     }
 }

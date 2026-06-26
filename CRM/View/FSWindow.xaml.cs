@@ -24,7 +24,7 @@ public partial class FSWindow : Window
         db.Users.Add(new User
         {
             Name = login,
-            Password = password,
+            Password = BCrypt.Net.BCrypt.HashPassword(password),
             IsAdmin = true,
             IsActive = true
         });
