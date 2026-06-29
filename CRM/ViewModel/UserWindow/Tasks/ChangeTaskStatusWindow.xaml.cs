@@ -28,10 +28,19 @@ public partial class ChangeTaskStatusWindow : Window
         if (task == null)
             return;
 
-        task.Status =
-            (CRM.Data.Task.TaskStatus)StatusBox.SelectedItem;
+        db.TaskStatusRequests.Add(new TaskStatusRequest
+        {
+            TaskId = _taskId,
+            RequestedStatus =
+                (CRM.Data.Task.TaskStatus)StatusBox.SelectedItem,
+            IsProcessed = false
+        });
 
         db.SaveChanges();
+
+        MessageBox.Show(
+            "Request has been sent to administrator.",
+            "Success");
 
         DialogResult = true;
         Close();

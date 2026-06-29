@@ -40,6 +40,9 @@
         <Button Grid.Row="3" Grid.Column="0" Background="AliceBlue"
                 Content="Tasks" Click="TasksPageBtn"/>
         
+        <Button Grid.Row="4" Grid.Column="0" Background="AliceBlue"
+                Content="Requests" Click="RequestsBtn"/>
+        
         <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="9" Grid.ColumnSpan="4" x:Name="AppArea" Background="LightGray">
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>

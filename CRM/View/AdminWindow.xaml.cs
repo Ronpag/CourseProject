@@ -1,5 +1,6 @@
 using System.Windows;
 using CRM.Data;
+using CRM.ViewModel.AdminWindow;
 
 namespace CRM.View;
 
@@ -32,5 +33,10 @@ public partial class AdminWindow : Window
     private void TasksPageBtn(object sender, RoutedEventArgs e)
     {
         MainFrame.Navigate(new TaskListPage());
+    }
+    
+    private void RequestsBtn(object sender, RoutedEventArgs e)
+    {
+        MainFrame.Navigate(new TaskRequestsPage());
     }
 }
