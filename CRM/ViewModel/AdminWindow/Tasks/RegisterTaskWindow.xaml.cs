@@ -16,6 +16,7 @@ public partial class RegisterTaskWindow : Window
     private void LoadClients()
     {
         using var db = new AppDbContext();
+
         ClientsBox.ItemsSource = db.Clients.ToList();
     }
 
@@ -26,6 +27,14 @@ public partial class RegisterTaskWindow : Window
         WorkersBox.ItemsSource = db.Users
             .Where(u => !u.IsAdmin)
             .ToList();
+    }
+
+    private void AssignWorkerChanged(object sender, RoutedEventArgs e)
+    {
+        WorkersBox.Visibility =
+            AssignWorkerCheckBox.IsChecked == true
+                ? Visibility.Visible
+                : Visibility.Collapsed;
     }
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
@@ -43,7 +52,7 @@ public partial class RegisterTaskWindow : Window
             return;
         }
 
-        if (ClientsBox.SelectedItem is not Client client)
+        if (ClientsBox.SelectedItem is not Client selectedClient)
         {
             MessageBox.Show(
                 "Select client",
@@ -54,36 +63,50 @@ public partial class RegisterTaskWindow : Window
             return;
         }
 
-        if (WorkersBox.SelectedItem is not User worker)
+        using var db = new AppDbContext();
+
+        var client = db.Clients.FirstOrDefault(c => c.Id == selectedClient.Id);
+
+        if (client == null)
         {
             MessageBox.Show(
-                "Select worker",
-                "Warning",
+                "Client not found",
+                "Error",
                 MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+                MessageBoxImage.Error);
 
             return;
         }
 
-        using var db = new AppDbContext();
+        int? workerId = null;
+        CRM.Data.Task.TaskStatus status = CRM.Data.Task.TaskStatus.Available;
 
-        var selectedClient = db.Clients.FirstOrDefault(c => c.Id == client.Id);
-
-        if (selectedClient == null)
+        if (AssignWorkerCheckBox.IsChecked == true)
         {
-            MessageBox.Show("Client not found");
-            return;
+            if (WorkersBox.SelectedItem is not User selectedWorker)
+            {
+                MessageBox.Show(
+                    "Select worker",
+                    "Warning",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            workerId = selectedWorker.Id;
+            status = CRM.Data.Task.TaskStatus.Assigned;
         }
 
         db.Tasks.Add(new CRM.Data.Task
         {
             TaskName = taskName,
-            ClientId = selectedClient.Id,
-            WorkerId = worker.Id,
-            Status = CRM.Data.Task.TaskStatus.Assigned
+            ClientId = client.Id,
+            WorkerId = workerId,
+            Status = status
         });
 
-        selectedClient.CountOrders++;
+        client.CountOrders++;
 
         db.SaveChanges();
 

@@ -26,4 +26,9 @@ public partial class UserWindow : Window
     {
         MainFrame.Navigate(new UserPage(_userId));
     }
+    
+    private void AvailableBtn(object sender, RoutedEventArgs e)
+    {
+        MainFrame.Navigate(new AvailableTasksPage(_userId));
+    }
 }

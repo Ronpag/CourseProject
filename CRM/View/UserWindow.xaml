@@ -33,6 +33,8 @@
         
         <Button Grid.Row="1" Grid.Column="0" Background="AliceBlue"
                 Content="Worker" Click="UserPageBtn"/>
+        <Button Grid.Row="2" Grid.Column="0" Background="AliceBlue"
+                Content="Available Tasks" Click="AvailableBtn"/>
         
         <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="9" Grid.ColumnSpan="4" x:Name="AppArea" Background="LightGray">
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
