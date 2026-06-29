@@ -16,17 +16,6 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            
-            <StackPanel Margin="0,0,10,0">
-                <TextBlock Text="Login" />
-                <TextBox x:Name="Login" Width="150"/>
-            </StackPanel>
-            
-            <StackPanel Margin="0,0,10,0">
-                <TextBlock Text="Password" />
-                <TextBox x:Name="Password" Width="150"/>
-            </StackPanel>
-            
             <Button Content="Register" Width="70" Click="RegisterBtn"/>
             <Button Content="Delete" Width="70" Click="DeleteBtn"/>
             <Button Content="Update" Width="70" Click="UpdateBtn"/>

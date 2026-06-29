@@ -14,50 +14,18 @@ public partial class ClientListPage : Page
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
-        string nameClient = NameClient.Text?.Trim() ?? "";
+        var window = new RegisterClientWindow();
 
-        if (string.IsNullOrWhiteSpace(nameClient))
+        if (window.ShowDialog() == true)
         {
+            LoadClients();
+
             MessageBox.Show(
-                "Client name is empty",
-                "Warning",
+                "Client was created",
+                "Success",
                 MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
-            return;
+                MessageBoxImage.Information);
         }
-
-        using var db = new AppDbContext();
-
-        bool clientExists = db.Clients.Any(c => c.NameClient == nameClient);
-
-        if (clientExists)
-        {
-            MessageBox.Show(
-                "This client already exists",
-                "Client",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
-            return;
-        }
-
-        var client = new Client
-        {
-            NameClient = nameClient,
-            CountOrders = 0
-        };
-
-        db.Clients.Add(client);
-        db.SaveChanges();
-
-        LoadClients();
-
-        MessageBox.Show(
-            "Client was created",
-            "Success",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
     }
 
     private void DeleteBtn(object sender, RoutedEventArgs e)

@@ -14,32 +14,12 @@ public partial class UserListPage : Page
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
-        string login = Login.Text?.Trim() ?? "";
-        string password = Password.Text?.Trim() ?? "";
+        var window = new RegisterUserWindow();
 
-        if (!Validation.ValidateLoginPassword(login, password))
-            return;
-
-        using var db = new AppDbContext();
-
-        if (db.Users.Any(u => u.Name == login))
+        if (window.ShowDialog() == true)
         {
-            MessageBox.Show("Login already exists");
-            return;
+            LoadUsers();
         }
-
-        db.Users.Add(new User
-        {
-            Name = login,
-            Password = BCrypt.Net.BCrypt.HashPassword(password),
-            IsAdmin = false,
-            IsActive = true
-        });
-
-        db.SaveChanges();
-
-        LoadUsers();
-        MessageBox.Show("User created");
     }
 
     private void DeleteBtn(object sender, RoutedEventArgs e)

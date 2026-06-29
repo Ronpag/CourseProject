@@ -14,79 +14,18 @@ public partial class TaskListPage : Page
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
-        string taskName = TaskName.Text?.Trim() ?? "";
+        var window = new RegisterTaskWindow();
 
-        if (!int.TryParse(ClientId.Text, out int clientId))
+        if (window.ShowDialog() == true)
         {
-            MessageBox.Show("Invalid ClientId");
-            return;
-        }
+            LoadTasks();
 
-        if (!int.TryParse(WorkerId.Text, out int workerId))
-        {
-            MessageBox.Show("Invalid WorkerId");
-            return;
-        }
-
-        if (string.IsNullOrWhiteSpace(taskName))
-        {
             MessageBox.Show(
-                "Task name is empty",
-                "Warning",
+                "Task created",
+                "Success",
                 MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
-            return;
+                MessageBoxImage.Information);
         }
-
-        using var db = new AppDbContext();
-
-        var client = db.Clients.FirstOrDefault(c => c.Id == clientId);
-
-        if (client == null)
-        {
-            MessageBox.Show(
-                "Client with this ID does not exist",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
-            return;
-        }
-
-        var worker = db.Users.FirstOrDefault(u => u.Id == workerId);
-
-        if (worker == null)
-        {
-            MessageBox.Show(
-                "Worker with this ID does not exist",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
-            return;
-        }
-
-        var task = new CRM.Data.Task
-        {
-            TaskName = taskName,
-            ClientId = clientId,
-            WorkerId = workerId,
-            Status = CRM.Data.Task.TaskStatus.Assigned
-        };
-
-        client.CountOrders++;
-
-        db.Tasks.Add(task);
-        db.SaveChanges();
-
-        LoadTasks();
-
-        MessageBox.Show(
-            "Task created",
-            "Success",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
     }
 
     private void DeleteBtn(object sender, RoutedEventArgs e)

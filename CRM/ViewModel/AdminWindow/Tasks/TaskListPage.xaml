@@ -16,21 +16,6 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal">
-                <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="Task Name" />
-                    <TextBox x:Name="TaskName" Width="150"/>
-                </StackPanel>
-
-                <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="Client ID" />
-                    <TextBox x:Name="ClientId" Width="100"/>
-                </StackPanel>
-
-                <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="Worker ID" />
-                    <TextBox x:Name="WorkerId" Width="100"/>
-                </StackPanel>
-                
                   <Button Content="Register" Width="70" Click="RegisterBtn"/>
                   <Button Content="Delete" Width="70" Click="DeleteBtn"/>
                   <Button Content="Update" Width="70" Click="UpdateBtn"/>

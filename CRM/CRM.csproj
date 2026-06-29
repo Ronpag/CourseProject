@@ -25,32 +25,37 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\AdminWindow\ClientListPage.xaml">
+      <Page Update="ViewModel\AdminWindow\Tasks\TaskUpdateWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\AdminWindow\ClientUpdateWindow.xaml">
+      <Page Update="ViewModel\AdminWindow\Tasks\TaskListPage.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\AdminWindow\TaskListPage.xaml">
+      <Page Update="ViewModel\AdminWindow\Client\ClientUpdateWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\AdminWindow\TaskUpdateWindow.xaml">
+      <Page Update="ViewModel\AdminWindow\Client\ClientListPage.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\AdminWindow\UserListPage.xaml">
+      <Page Update="ViewModel\AdminWindow\User\RegisterUserWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\AdminWindow\UserUpdateWindow.xaml">
+      <Page Update="ViewModel\AdminWindow\User\UserListPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="ViewModel\AdminWindow\User\UserUpdateWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
