@@ -1,8 +1,8 @@
-<Window x:Class="CRM.View.RegisterUserWindow"
+<Window x:Class="CRM.View.ClientRegistrationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Register user"
-        Height="380"
+        Title="Client Registration"
+        Height="300"
         Width="350"
         WindowStartupLocation="CenterScreen">
 
@@ -14,13 +14,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Worker Name"/>
-        <TextBox x:Name="WorkerNameBox" Grid.Row="1" Margin="0,5,0,10"/>
+        <TextBlock Text="Client Name"/>
+        <TextBox x:Name="NameBox" Grid.Row="1" Margin="0,5,0,10"/>
 
         <TextBlock Grid.Row="2" Text="Login"/>
         <TextBox x:Name="LoginBox" Grid.Row="3" Margin="0,5,0,10"/>
@@ -28,11 +26,7 @@
         <TextBlock Grid.Row="4" Text="Password"/>
         <PasswordBox x:Name="PasswordBox" Grid.Row="5" Margin="0,5,0,10"/>
 
-        <StackPanel Grid.Row="6">
-            <CheckBox x:Name="ActiveCheckBox" Content="Active" IsChecked="True"/>
-        </StackPanel>
-
-        <Button Grid.Row="7" Margin="0,15,0,0" Height="35" Content="Register" Click="RegisterBtn"/>
+        <Button Grid.Row="6" Margin="0,15,0,0" Height="35" Content="Register" Click="RegisterBtn"/>
 
     </Grid>
 

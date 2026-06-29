@@ -25,28 +25,58 @@ public partial class LoginWindow : Window
 
         var user = db.Users.FirstOrDefault(u => u.Name == login);
 
-        if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
+        if (user != null)
+        {
+            if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
+            {
+                MessageBox.Show("Invalid login or password", "Error");
+                return;
+            }
+
+            if (!user.IsActive)
+            {
+                MessageBox.Show(
+                    "Your account is disabled. Please contact administrator.",
+                    "Access denied",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                return;
+            }
+
+            Window window = user.IsAdmin
+                ? new AdminWindow()
+                : new UserWindow(user.Id);
+
+            window.Show();
+            Close();
+            return;
+        }
+
+        var client = db.Clients.FirstOrDefault(c => c.Login == login);
+
+        if (client == null || !BCrypt.Net.BCrypt.Verify(password, client.Password))
         {
             MessageBox.Show("Invalid login or password", "Error");
             return;
         }
 
-        if (!user.IsActive)
+        var clientWindow = new ClientWindow(client.Id);
+        clientWindow.Show();
+        Close();
+    }
+
+    private void RegisterBtn(object sender, RoutedEventArgs e)
+    {
+        var window = new ClientRegistrationWindow();
+
+        if (window.ShowDialog() == true)
         {
             MessageBox.Show(
-                "Your account is disabled. Please contact administrator.",
-                "Access denied",
+                "Registration successful! You can now log in.",
+                "Success",
                 MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
-            return;
+                MessageBoxImage.Information);
         }
-
-        Window window = user.IsAdmin
-            ? new AdminWindow()
-            : new UserWindow(user.Id);
-
-        window.Show();
-        Close();
     }
 }

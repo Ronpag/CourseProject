@@ -41,5 +41,9 @@
             Login
         </Button>
         
+        <Button Grid.Row="8" Grid.Column="1" Click="RegisterBtn">
+            Register
+        </Button>
+        
     </Grid>
 </Window>

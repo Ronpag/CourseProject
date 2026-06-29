@@ -11,6 +11,7 @@ public partial class TaskRequestsPage : Page
     {
         InitializeComponent();
         LoadRequests();
+        LoadPendingOrders();
     }
 
     private void LoadRequests()
@@ -19,6 +20,15 @@ public partial class TaskRequestsPage : Page
 
         RequestsList.ItemsSource = db.TaskStatusRequests
             .Where(r => !r.IsProcessed)
+            .ToList();
+    }
+
+    private void LoadPendingOrders()
+    {
+        using var db = new AppDbContext();
+
+        PendingOrdersList.ItemsSource = db.Tasks
+            .Where(t => t.Status == CRM.Data.Task.TaskStatus.Pending)
             .ToList();
     }
 
@@ -53,11 +63,7 @@ public partial class TaskRequestsPage : Page
 
         db.SaveChanges();
 
-        MessageBox.Show(
-            "Status request approved.",
-            "Success",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+        MessageBox.Show("Status request approved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
         LoadRequests();
     }
@@ -83,12 +89,70 @@ public partial class TaskRequestsPage : Page
 
         db.SaveChanges();
 
-        MessageBox.Show(
-            "Status request rejected.",
-            "Rejected",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+        MessageBox.Show("Status request rejected.", "Rejected", MessageBoxButton.OK, MessageBoxImage.Information);
 
         LoadRequests();
+    }
+
+    private void ApproveOrderBtn(object sender, RoutedEventArgs e)
+    {
+        if (PendingOrdersList.SelectedItem is not CRM.Data.Task selectedTask)
+        {
+            MessageBox.Show("Select order");
+            return;
+        }
+
+        using var db = new AppDbContext();
+
+        var task = db.Tasks.FirstOrDefault(t => t.Id == selectedTask.Id);
+
+        if (task == null)
+            return;
+
+        task.Status = CRM.Data.Task.TaskStatus.Available;
+
+        db.SaveChanges();
+
+        MessageBox.Show("Order approved and set as Available.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+        LoadPendingOrders();
+    }
+
+    private void DeleteOrderBtn(object sender, RoutedEventArgs e)
+    {
+        if (PendingOrdersList.SelectedItem is not CRM.Data.Task selectedTask)
+        {
+            MessageBox.Show("Select order");
+            return;
+        }
+
+        var result = MessageBox.Show(
+            "Delete this order permanently?",
+            "Confirm deletion",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning);
+
+        if (result != MessageBoxResult.Yes)
+            return;
+
+        using var db = new AppDbContext();
+
+        var task = db.Tasks.FirstOrDefault(t => t.Id == selectedTask.Id);
+
+        if (task == null)
+            return;
+
+        var client = db.Clients.FirstOrDefault(c => c.Id == task.ClientId);
+
+        if (client != null)
+            client.CountOrders--;
+
+        db.Tasks.Remove(task);
+
+        db.SaveChanges();
+
+        MessageBox.Show("Order deleted.", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+
+        LoadPendingOrders();
     }
 }

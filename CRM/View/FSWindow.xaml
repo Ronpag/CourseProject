@@ -13,6 +13,8 @@
             <RowDefinition/>
             <RowDefinition Height="0.2*"/>
             <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.4*"/>
         </Grid.RowDefinitions>
@@ -28,13 +30,16 @@
         <Label Grid.Row="0" Grid.Column="0">First StartUp</Label>
         <Label Grid.Row="0" Grid.Column="1">Write login and password</Label>
         
-        <Label Grid.Row="1" Grid.Column="0">Login</Label>
-        <Label Grid.Row="1" Grid.Column="1">Password</Label>
-        
-        <TextBox Name="FLogin" Grid.Row="2" Grid.Column="0"></TextBox>
-        <TextBox Name="FPassword" Grid.Row="2" Grid.Column="1"></TextBox>
+        <Label Grid.Row="1" Grid.Column="0">Worker Name</Label>
+        <TextBox Name="FWorkerName" Grid.Row="2" Grid.Column="0"></TextBox>
 
-        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Click="FirstLoginBtn">START</Button>
+        <Label Grid.Row="3" Grid.Column="0">Login</Label>
+        <Label Grid.Row="3" Grid.Column="1">Password</Label>
+        
+        <TextBox Name="FLogin" Grid.Row="4" Grid.Column="0"></TextBox>
+        <TextBox Name="FPassword" Grid.Row="4" Grid.Column="1"></TextBox>
+
+        <Button Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Click="FirstLoginBtn">START</Button>
         
     </Grid>
 </Window>

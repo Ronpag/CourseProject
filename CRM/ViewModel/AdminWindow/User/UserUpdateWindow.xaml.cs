@@ -13,8 +13,9 @@ public partial class UserUpdateWindow : Window
 
         _userId = user.Id;
 
+        WorkerNameBox.Text = user.WorkerName;
         LoginBox.Text = user.Name;
-        PasswordBox.Text = ""; // пароль НЕ показываем
+        PasswordBox.Text = "";
 
         IsActiveBox.IsChecked = user.IsActive;
 
@@ -24,8 +25,15 @@ public partial class UserUpdateWindow : Window
 
     private void SaveChangesBtn(object sender, RoutedEventArgs e)
     {
+        string workerName = WorkerNameBox.Text.Trim();
         string login = LoginBox.Text?.Trim() ?? "";
         string password = PasswordBox.Text?.Trim() ?? "";
+
+        if (string.IsNullOrWhiteSpace(workerName))
+        {
+            MessageBox.Show("Enter worker name", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
 
         if (!Validation.ValidateLoginPassword(login, "1234"))
             return;
@@ -42,6 +50,7 @@ public partial class UserUpdateWindow : Window
             return;
         }
 
+        user.WorkerName = workerName;
         user.Name = login;
 
         if (!string.IsNullOrWhiteSpace(password))

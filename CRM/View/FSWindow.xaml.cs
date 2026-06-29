@@ -13,8 +13,15 @@ public partial class FSWindow : Window
     
     private void FirstLoginBtn(object sender, RoutedEventArgs e)
     {
+        string workerName = FWorkerName.Text?.Trim() ?? "";
         string login = FLogin.Text?.Trim() ?? "";
         string password = FPassword.Text?.Trim() ?? "";
+
+        if (string.IsNullOrWhiteSpace(workerName))
+        {
+            MessageBox.Show("Enter worker name", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
 
         if (!Validation.ValidateLoginPassword(login, password))
             return;
@@ -25,6 +32,7 @@ public partial class FSWindow : Window
         {
             Name = login,
             Password = BCrypt.Net.BCrypt.HashPassword(password),
+            WorkerName = workerName,
             IsAdmin = true,
             IsActive = true
         });

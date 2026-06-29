@@ -12,8 +12,15 @@ public partial class RegisterUserWindow : Window
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
+        string workerName = WorkerNameBox.Text.Trim();
         string login = LoginBox.Text.Trim();
         string password = PasswordBox.Password.Trim();
+
+        if (string.IsNullOrWhiteSpace(workerName))
+        {
+            MessageBox.Show("Enter worker name", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
 
         if (!Validation.ValidateLoginPassword(login, password))
             return;
@@ -38,6 +45,7 @@ public partial class RegisterUserWindow : Window
         {
             Name = login,
             Password = BCrypt.Net.BCrypt.HashPassword(password),
+            WorkerName = workerName,
             IsAdmin = false,
             IsActive = ActiveCheckBox.IsChecked == true
         });
