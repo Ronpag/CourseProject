@@ -31,6 +31,6 @@ public partial class AdminWindow : Window
     
     private void TasksPageBtn(object sender, RoutedEventArgs e)
     {
-        MainFrame.Navigate(new TasksListPage());
+        MainFrame.Navigate(new TaskListPage());
     }
 }

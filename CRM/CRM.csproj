@@ -35,7 +35,7 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="ViewModel\AdminWindow\TasksListPage.xaml">
+      <Page Update="ViewModel\AdminWindow\TaskListPage.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>

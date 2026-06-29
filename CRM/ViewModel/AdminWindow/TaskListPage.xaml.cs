@@ -4,9 +4,9 @@ using CRM.Data;
 
 namespace CRM.View;
 
-public partial class TasksListPage : Page
+public partial class TaskListPage : Page
 {
-    public TasksListPage()
+    public TaskListPage()
     {
         InitializeComponent();
         LoadTasks();
