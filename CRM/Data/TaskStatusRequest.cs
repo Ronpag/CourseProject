@@ -22,7 +22,7 @@ public class TaskStatusRequest
 
         var task = db.Tasks.FirstOrDefault(t => t.Id == TaskId);
 
-        string s = $"Task #{TaskId} ({task?.TaskName}) -> {RequestedStatus}";
+        string s = $"Task #{TaskId} ({task?.TaskName}): {task?.Status} -> {RequestedStatus}";
 
         if (!string.IsNullOrWhiteSpace(Comment))
             s += $" | Comment: {Comment}";
