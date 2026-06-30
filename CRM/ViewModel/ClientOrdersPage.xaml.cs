@@ -22,10 +22,6 @@ public partial class ClientOrdersPage : Page
     {
         if (OrdersList == null) return;
 
-        using var db = new AppDbContext();
-
-        var query = db.Tasks.Where(t => t.ClientId == _clientId);
-
         var statusFilters = new List<CRM.Data.Task.TaskStatus>();
         if (ChkPending.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Pending);
         if (ChkAvailable.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Available);
@@ -33,12 +29,10 @@ public partial class ClientOrdersPage : Page
         if (ChkInProgress.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.InProgress);
         if (ChkCompleted.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Completed);
 
-        if (statusFilters.Count > 0)
-            query = query.Where(t => statusFilters.Contains(t.Status));
+        var tasks = TaskService.GetFiltered(
+            clientId: _clientId, statusFilters: statusFilters);
 
-        OrdersList.ItemsSource = query
-            .OrderByDescending(t => t.Id)
-            .ToList();
+        OrdersList.ItemsSource = tasks.OrderByDescending(t => t.Id).ToList();
     }
 
     private void FilterChanged(object sender, RoutedEventArgs e)
@@ -69,25 +63,11 @@ public partial class ClientOrdersPage : Page
         if (result != MessageBoxResult.Yes)
             return;
 
-        using var db = new AppDbContext();
-
-        var task = db.Tasks.FirstOrDefault(t => t.Id == selectedTask.Id);
-
-        if (task == null)
-            return;
-
-        var client = db.Clients.FirstOrDefault(c => c.Id == _clientId);
-
-        if (client != null)
-            client.CountOrders--;
-
-        db.Tasks.Remove(task);
-
-        db.SaveChanges();
-
-        MessageBox.Show("Order deleted.", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
-
-        LoadOrders();
+        if (TaskService.Delete(selectedTask.Id))
+        {
+            MessageBox.Show("Order deleted.", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadOrders();
+        }
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)

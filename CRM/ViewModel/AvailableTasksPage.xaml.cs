@@ -23,11 +23,7 @@ public partial class AvailableTasksPage : Page
     {
         if (TasksList == null) return;
 
-        using var db = new AppDbContext();
-
-        TasksList.ItemsSource = db.Tasks
-            .Where(t => t.Status == CRM.Data.Task.TaskStatus.Available)
-            .ToList();
+        TasksList.ItemsSource = TaskService.GetAvailable();
     }
 
     private void TakeTaskBtn(object sender, RoutedEventArgs e)
@@ -38,28 +34,11 @@ public partial class AvailableTasksPage : Page
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var task = db.Tasks.FirstOrDefault(t => t.Id == selectedTask.Id);
-
-        if (task == null)
-            return;
-
-        if (task.StartDate.HasValue && DateTime.Now < task.StartDate.Value)
+        if (TaskService.TakeTask(selectedTask.Id, _workerId))
         {
-            MessageBox.Show("Task cannot be accepted before its start date.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
+            LoadTasks();
+            MessageBox.Show("Task accepted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
-        task.WorkerId = _workerId;
-        task.Status = CRM.Data.Task.TaskStatus.Assigned;
-        task.AcceptanceDate = DateTime.Now;
-
-        db.SaveChanges();
-
-        LoadTasks();
-
-        MessageBox.Show("Task accepted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)

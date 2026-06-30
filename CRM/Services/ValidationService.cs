@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace CRM;
 
-public static class Validation
+public static class ValidationService
 {
     public static bool IsEnglish(string text)
     {

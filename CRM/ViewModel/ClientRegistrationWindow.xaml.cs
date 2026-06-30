@@ -1,5 +1,4 @@
 using System.Windows;
-using CRM.Data;
 
 namespace CRM.View;
 
@@ -16,36 +15,10 @@ public partial class ClientRegistrationWindow : Window
         string login = LoginBox.Text.Trim();
         string password = PasswordBox.Password.Trim();
 
-        if (string.IsNullOrWhiteSpace(name))
+        if (ClientService.Create(name, login, password))
         {
-            MessageBox.Show("Enter client name", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
+            DialogResult = true;
+            Close();
         }
-
-        if (!Validation.ValidateLoginPassword(login, password))
-            return;
-
-        using var db = new AppDbContext();
-
-        bool loginExists = db.Clients.Any(c => c.Login == login);
-
-        if (loginExists)
-        {
-            MessageBox.Show("Login already taken", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        db.Clients.Add(new Client
-        {
-            NameClient = name,
-            Login = login,
-            Password = BCrypt.Net.BCrypt.HashPassword(password),
-            CountOrders = 0
-        });
-
-        db.SaveChanges();
-
-        DialogResult = true;
-        Close();
     }
 }

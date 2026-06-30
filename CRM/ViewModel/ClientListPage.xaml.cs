@@ -32,47 +32,25 @@ public partial class ClientListPage : Page
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var client = db.Clients.FirstOrDefault(c => c.Id == selectedClient.Id);
-
-        if (client == null)
-            return;
-
-        db.Clients.Remove(client);
-        db.SaveChanges();
-
-        LoadClients();
-
-        MessageBox.Show("Client deleted");
+        if (ClientService.Delete(selectedClient.Id))
+            LoadClients();
     }
 
     private void UpdateBtn(object sender, RoutedEventArgs e)
     {
         if (ClientsList.SelectedItem is not Client selectedClient)
         {
-            MessageBox.Show(
-                "Select client",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Select client", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
         var window = new ClientUpdateWindow(selectedClient);
 
-        bool? result = window.ShowDialog();
-
-        if (result == true)
+        if (window.ShowDialog() == true)
         {
             LoadClients();
 
-            MessageBox.Show(
-                "Client updated",
-                "Success",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            MessageBox.Show("Client updated", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
@@ -80,9 +58,7 @@ public partial class ClientListPage : Page
     {
         if (ClientsList == null) return;
 
-        using var db = new AppDbContext();
-
-        ClientsList.ItemsSource = db.Clients.ToList();
+        ClientsList.ItemsSource = ClientService.GetAll();
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)

@@ -1,6 +1,4 @@
-using System.Linq;
 using System.Windows;
-using CRM.Data;
 
 namespace CRM.View;
 
@@ -13,8 +11,7 @@ public partial class UserProfileWindow : Window
         InitializeComponent();
         _userId = userId;
 
-        using var db = new AppDbContext();
-        var user = db.Users.FirstOrDefault(u => u.Id == userId);
+        var user = UserService.GetById(userId);
 
         if (user == null)
         {
@@ -36,52 +33,12 @@ public partial class UserProfileWindow : Window
         string phone = PhoneBox.Text.Trim();
         string position = PositionBox.Text.Trim();
 
-        if (!string.IsNullOrWhiteSpace(email) && !Validation.ValidateEmail(email))
-            return;
-
-        if (!string.IsNullOrWhiteSpace(phone) && !Validation.ValidatePhone(phone))
-            return;
-
-        using var db = new AppDbContext();
-        var user = db.Users.FirstOrDefault(u => u.Id == _userId);
-
-        if (user == null)
+        if (RequestService.CreateProfileChangeRequest(
+                userId: _userId, clientId: null,
+                email, phone, position, isForUser: true))
         {
-            MessageBox.Show("User not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
+            DialogResult = true;
+            Close();
         }
-
-        bool hasChanges = false;
-
-        if (email != (user.Email ?? "")) hasChanges = true;
-        if (phone != (user.Phone ?? "")) hasChanges = true;
-        if (position != (user.Position ?? "")) hasChanges = true;
-
-        if (!hasChanges)
-        {
-            MessageBox.Show("No changes to submit", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
-        }
-
-        var request = new ProfileChangeRequest
-        {
-            UserId = _userId,
-            NewEmail = email != (user.Email ?? "") ? email : null,
-            NewPhone = phone != (user.Phone ?? "") ? phone : null,
-            NewPosition = position != (user.Position ?? "") ? position : null,
-            IsProcessed = false
-        };
-
-        db.ProfileChangeRequests.Add(request);
-        db.SaveChanges();
-
-        MessageBox.Show(
-            "Profile change request submitted for admin approval.",
-            "Success",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
-
-        DialogResult = true;
-        Close();
     }
 }

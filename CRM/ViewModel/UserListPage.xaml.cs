@@ -19,9 +19,7 @@ public partial class UserListPage : Page
         var window = new RegisterUserWindow();
 
         if (window.ShowDialog() == true)
-        {
             LoadUsers();
-        }
     }
 
     private void DeleteBtn(object sender, RoutedEventArgs e)
@@ -32,22 +30,8 @@ public partial class UserListPage : Page
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var user = db.Users.FirstOrDefault(u => u.Id == selectedUser.Id);
-
-        if (user == null) return;
-
-        if (user.IsAdmin)
-        {
-            MessageBox.Show("Cannot delete admin");
-            return;
-        }
-
-        db.Users.Remove(user);
-        db.SaveChanges();
-
-        LoadUsers();
+        if (UserService.Delete(selectedUser.Id))
+            LoadUsers();
     }
 
     private void UpdateBtn(object sender, RoutedEventArgs e)

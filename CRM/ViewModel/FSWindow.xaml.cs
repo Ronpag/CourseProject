@@ -1,6 +1,5 @@
 using System.Windows;
 using System.Windows.Controls;
-using CRM.Data;
 
 namespace CRM.View;
 
@@ -10,7 +9,7 @@ public partial class FSWindow : Window
     {
         InitializeComponent();
     }
-    
+
     private void FirstLoginBtn(object sender, RoutedEventArgs e)
     {
         string workerName = FWorkerName.Text?.Trim() ?? "";
@@ -23,23 +22,13 @@ public partial class FSWindow : Window
             return;
         }
 
-        if (!Validation.ValidateLoginPassword(login, password))
+        if (!ValidationService.ValidateLoginPassword(login, password))
             return;
 
-        using var db = new AppDbContext();
-
-        db.Users.Add(new User
+        if (UserService.Create(login, workerName, password, isAdmin: true, isActive: true))
         {
-            Name = login,
-            Password = BCrypt.Net.BCrypt.HashPassword(password),
-            WorkerName = workerName,
-            IsAdmin = true,
-            IsActive = true
-        });
-
-        db.SaveChanges();
-
-        new LoginWindow().Show();
-        Close();
+            new LoginWindow().Show();
+            Close();
+        }
     }
 }

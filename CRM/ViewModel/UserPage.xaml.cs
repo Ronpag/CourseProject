@@ -23,19 +23,13 @@ public partial class UserPage : Page
     {
         if (TasksList == null) return;
 
-        using var db = new AppDbContext();
-
-        var query = db.Tasks.Where(t => t.WorkerId == _workerId);
-
         var statusFilters = new List<CRM.Data.Task.TaskStatus>();
         if (ChkAssigned.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Assigned);
         if (ChkInProgress.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.InProgress);
         if (ChkCompleted.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Completed);
 
-        if (statusFilters.Count > 0)
-            query = query.Where(t => statusFilters.Contains(t.Status));
-
-        TasksList.ItemsSource = query.ToList();
+        TasksList.ItemsSource = TaskService.GetFiltered(
+            workerId: _workerId, statusFilters: statusFilters);
     }
 
     private void FilterChanged(object sender, RoutedEventArgs e)
@@ -54,9 +48,7 @@ public partial class UserPage : Page
         var window = new ChangeTaskStatusWindow(task);
 
         if (window.ShowDialog() == true)
-        {
             LoadTasks();
-        }
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)

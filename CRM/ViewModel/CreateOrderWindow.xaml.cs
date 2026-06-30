@@ -1,5 +1,4 @@
 using System.Windows;
-using CRM.Data;
 
 namespace CRM.ViewModel.ClientWindow;
 
@@ -23,32 +22,14 @@ public partial class CreateOrderWindow : Window
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var client = db.Clients.FirstOrDefault(c => c.Id == _clientId);
-
-        if (client == null)
+        if (TaskService.Create(orderName, DescriptionBox.Text.Trim(),
+                _clientId, null,
+                CRM.Data.Task.TaskStatus.Pending,
+                DateTime.Now, null))
         {
-            MessageBox.Show("Client not found");
-            return;
+            MessageBox.Show("Order created and sent for moderation.", "Success");
+            DialogResult = true;
+            Close();
         }
-
-        db.Tasks.Add(new CRM.Data.Task
-        {
-            TaskName = orderName,
-            Description = DescriptionBox.Text.Trim(),
-            ClientId = client.Id,
-            WorkerId = null,
-            Status = CRM.Data.Task.TaskStatus.Pending,
-            StartDate = DateTime.Now
-        });
-
-        client.CountOrders++;
-
-        db.SaveChanges();
-
-        MessageBox.Show("Order created and sent for moderation.", "Success");
-        DialogResult = true;
-        Close();
     }
 }

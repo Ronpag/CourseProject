@@ -9,24 +9,8 @@ public partial class RegisterTaskWindow : Window
     {
         InitializeComponent();
 
-        LoadClients();
-        LoadWorkers();
-    }
-
-    private void LoadClients()
-    {
-        using var db = new AppDbContext();
-
-        ClientsBox.ItemsSource = db.Clients.ToList();
-    }
-
-    private void LoadWorkers()
-    {
-        using var db = new AppDbContext();
-
-        WorkersBox.ItemsSource = db.Users
-            .Where(u => !u.IsAdmin)
-            .ToList();
+        ClientsBox.ItemsSource = ClientService.GetAll();
+        WorkersBox.ItemsSource = UserService.GetWorkers();
     }
 
     private void AssignWorkerChanged(object sender, RoutedEventArgs e)
@@ -53,18 +37,8 @@ public partial class RegisterTaskWindow : Window
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var client = db.Clients.FirstOrDefault(c => c.Id == selectedClient.Id);
-
-        if (client == null)
-        {
-            MessageBox.Show("Client not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            return;
-        }
-
         int? workerId = null;
-        CRM.Data.Task.TaskStatus status = CRM.Data.Task.TaskStatus.Available;
+        var status = CRM.Data.Task.TaskStatus.Available;
         DateTime? acceptanceDate = null;
 
         if (AssignWorkerCheckBox.IsChecked == true)
@@ -80,22 +54,12 @@ public partial class RegisterTaskWindow : Window
             acceptanceDate = DateTime.Now;
         }
 
-        db.Tasks.Add(new CRM.Data.Task
+        if (TaskService.Create(taskName, DescriptionBox.Text.Trim(),
+                selectedClient.Id, workerId, status,
+                DateTime.Now, acceptanceDate))
         {
-            TaskName = taskName,
-            Description = DescriptionBox.Text.Trim(),
-            ClientId = client.Id,
-            WorkerId = workerId,
-            Status = status,
-            StartDate = DateTime.Now,
-            AcceptanceDate = acceptanceDate
-        });
-
-        client.CountOrders++;
-
-        db.SaveChanges();
-
-        DialogResult = true;
-        Close();
+            DialogResult = true;
+            Close();
+        }
     }
 }

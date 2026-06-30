@@ -21,12 +21,7 @@ public partial class TaskListPage : Page
         if (window.ShowDialog() == true)
         {
             LoadTasks();
-
-            MessageBox.Show(
-                "Task created",
-                "Success",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            MessageBox.Show("Task created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
@@ -38,68 +33,33 @@ public partial class TaskListPage : Page
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var task = db.Tasks.FirstOrDefault(t => t.Id == selectedTask.Id);
-
-        if (task == null)
-            return;
-
-        var client = db.Clients.FirstOrDefault(c => c.Id == task.ClientId);
-
-        if (client != null && client.CountOrders > 0)
+        if (TaskService.Delete(selectedTask.Id))
         {
-            client.CountOrders--;
+            LoadTasks();
+            MessageBox.Show("Task deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
-        db.Tasks.Remove(task);
-        db.SaveChanges();
-
-        LoadTasks();
-
-        MessageBox.Show(
-            "Task deleted",
-            "Success",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
     }
 
     private void UpdateBtn(object sender, RoutedEventArgs e)
     {
         if (TasksList.SelectedItem is not CRM.Data.Task selectedTask)
         {
-            MessageBox.Show(
-                "Select task",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Select task", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
         var window = new TaskUpdateWindow(selectedTask);
 
-        bool? result = window.ShowDialog();
-
-        if (result == true)
+        if (window.ShowDialog() == true)
         {
             LoadTasks();
-
-            MessageBox.Show(
-                "Task updated",
-                "Success",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            MessageBox.Show("Task updated", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
     private void LoadTasks()
     {
         if (TasksList == null) return;
-
-        using var db = new AppDbContext();
-
-        var query = db.Tasks.AsQueryable();
 
         var statusFilters = new List<CRM.Data.Task.TaskStatus>();
         if (ChkPending.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Pending);
@@ -108,16 +68,10 @@ public partial class TaskListPage : Page
         if (ChkInProgress.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.InProgress);
         if (ChkCompleted.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Completed);
 
-        if (statusFilters.Count > 0)
-            query = query.Where(t => statusFilters.Contains(t.Status));
-
-        if (DateFrom?.SelectedDate != null)
-            query = query.Where(t => t.StartDate >= DateFrom.SelectedDate.Value);
-
-        if (DateTo?.SelectedDate != null)
-            query = query.Where(t => t.StartDate <= DateTo.SelectedDate.Value);
-
-        TasksList.ItemsSource = query.ToList();
+        TasksList.ItemsSource = TaskService.GetFiltered(
+            statusFilters: statusFilters,
+            dateFrom: DateFrom?.SelectedDate,
+            dateTo: DateTo?.SelectedDate);
     }
 
     private void FilterChanged(object sender, RoutedEventArgs e)

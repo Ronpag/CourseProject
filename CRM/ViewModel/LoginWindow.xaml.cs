@@ -1,5 +1,4 @@
 using System.Windows;
-using CRM.Data;
 
 namespace CRM.View;
 
@@ -21,18 +20,10 @@ public partial class LoginWindow : Window
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var user = db.Users.FirstOrDefault(u => u.Name == login);
+        var user = UserService.Authenticate(login, password);
 
         if (user != null)
         {
-            if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
-            {
-                MessageBox.Show("Invalid login or password", "Error");
-                return;
-            }
-
             if (!user.IsActive)
             {
                 MessageBox.Show(
@@ -53,9 +44,9 @@ public partial class LoginWindow : Window
             return;
         }
 
-        var client = db.Clients.FirstOrDefault(c => c.Login == login);
+        var client = ClientService.Authenticate(login, password);
 
-        if (client == null || !BCrypt.Net.BCrypt.Verify(password, client.Password))
+        if (client == null)
         {
             MessageBox.Show("Invalid login or password", "Error");
             return;

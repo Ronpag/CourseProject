@@ -13,14 +13,7 @@ public partial class CreateTaskWindow : Window
 
         _workerId = workerId;
 
-        LoadClients();
-    }
-
-    private void LoadClients()
-    {
-        using var db = new AppDbContext();
-
-        ClientsBox.ItemsSource = db.Clients.ToList();
+        ClientsBox.ItemsSource = ClientService.GetAll();
     }
 
     private void CreateBtn(object sender, RoutedEventArgs e)
@@ -39,32 +32,13 @@ public partial class CreateTaskWindow : Window
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var client = db.Clients.FirstOrDefault(c => c.Id == selectedClient.Id);
-
-        if (client == null)
+        if (TaskService.Create(taskName, DescriptionBox.Text.Trim(),
+                selectedClient.Id, _workerId,
+                CRM.Data.Task.TaskStatus.Assigned,
+                DateTime.Now, DateTime.Now))
         {
-            MessageBox.Show("Client not found");
-            return;
+            DialogResult = true;
+            Close();
         }
-
-        db.Tasks.Add(new CRM.Data.Task
-        {
-            TaskName = taskName,
-            Description = DescriptionBox.Text.Trim(),
-            ClientId = client.Id,
-            WorkerId = _workerId,
-            Status = CRM.Data.Task.TaskStatus.Assigned,
-            StartDate = DateTime.Now,
-            AcceptanceDate = DateTime.Now
-        });
-
-        client.CountOrders++;
-
-        db.SaveChanges();
-
-        DialogResult = true;
-        Close();
     }
 }

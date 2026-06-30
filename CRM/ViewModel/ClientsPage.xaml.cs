@@ -18,9 +18,7 @@ public partial class ClientsPage : Page
     {
         if (ClientsList == null) return;
 
-        using var db = new AppDbContext();
-
-        ClientsList.ItemsSource = db.Clients.ToList();
+        ClientsList.ItemsSource = ClientService.GetAll();
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)

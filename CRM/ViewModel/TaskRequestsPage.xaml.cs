@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,17 +13,25 @@ public partial class TaskRequestsPage : Page
     public TaskRequestsPage()
     {
         InitializeComponent();
+        LoadStatusRequests();
         LoadPendingOrders();
         LoadProfileRequests();
     }
 
+    private void LoadStatusRequests()
+    {
+        RequestsList.ItemsSource = RequestService.GetPendingStatusRequests();
+    }
+
     private void LoadPendingOrders()
     {
-        using var db = new AppDbContext();
+        PendingOrdersList.ItemsSource = TaskService.GetFiltered(
+            statusFilters: new List<CRM.Data.Task.TaskStatus> { CRM.Data.Task.TaskStatus.Pending });
+    }
 
-        PendingOrdersList.ItemsSource = db.Tasks
-            .Where(t => t.Status == CRM.Data.Task.TaskStatus.Pending)
-            .ToList();
+    private void LoadProfileRequests()
+    {
+        ProfileRequestsList.ItemsSource = RequestService.GetPendingProfileRequests();
     }
 
     private void ApproveBtn(object sender, RoutedEventArgs e)
@@ -33,43 +42,11 @@ public partial class TaskRequestsPage : Page
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var dbRequest = db.TaskStatusRequests
-            .FirstOrDefault(r => r.Id == request.Id);
-
-        if (dbRequest == null)
-            return;
-
-        var task = db.Tasks.FirstOrDefault(t => t.Id == dbRequest.TaskId);
-
-        if (task == null)
+        if (RequestService.ApproveStatusRequest(request.Id))
         {
-            MessageBox.Show("Task not found");
-            return;
+            MessageBox.Show("Status request approved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadStatusRequests();
         }
-
-        task.Status = dbRequest.RequestedStatus;
-
-        if (dbRequest.RequestedStatus == CRM.Data.Task.TaskStatus.Completed)
-        {
-            DateTime completionDate = dbRequest.RequestedCompletionDate ?? DateTime.Now;
-
-            if (task.AcceptanceDate.HasValue && completionDate < task.AcceptanceDate.Value)
-            {
-                MessageBox.Show("Completion date cannot be earlier than acceptance date.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            task.CompletionDate = completionDate;
-        }
-
-        dbRequest.IsProcessed = true;
-        dbRequest.IsApproved = true;
-
-        db.SaveChanges();
-
-        MessageBox.Show("Status request approved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private void RejectBtn(object sender, RoutedEventArgs e)
@@ -80,20 +57,11 @@ public partial class TaskRequestsPage : Page
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var dbRequest = db.TaskStatusRequests
-            .FirstOrDefault(r => r.Id == request.Id);
-
-        if (dbRequest == null)
-            return;
-
-        dbRequest.IsProcessed = true;
-        dbRequest.IsApproved = false;
-
-        db.SaveChanges();
-
-        MessageBox.Show("Status request rejected.", "Rejected", MessageBoxButton.OK, MessageBoxImage.Information);
+        if (RequestService.RejectStatusRequest(request.Id))
+        {
+            MessageBox.Show("Status request rejected.", "Rejected", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadStatusRequests();
+        }
     }
 
     private void ApproveOrderBtn(object sender, RoutedEventArgs e)
@@ -104,20 +72,11 @@ public partial class TaskRequestsPage : Page
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var task = db.Tasks.FirstOrDefault(t => t.Id == selectedTask.Id);
-
-        if (task == null)
-            return;
-
-        task.Status = CRM.Data.Task.TaskStatus.Available;
-
-        db.SaveChanges();
-
-        MessageBox.Show("Order approved and set as Available.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-        LoadPendingOrders();
+        if (RequestService.ApproveOrder(selectedTask.Id))
+        {
+            MessageBox.Show("Order approved and set as Available.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadPendingOrders();
+        }
     }
 
     private void DeleteOrderBtn(object sender, RoutedEventArgs e)
@@ -137,66 +96,35 @@ public partial class TaskRequestsPage : Page
         if (result != MessageBoxResult.Yes)
             return;
 
-        using var db = new AppDbContext();
-
-        var task = db.Tasks.FirstOrDefault(t => t.Id == selectedTask.Id);
-
-        if (task == null)
-            return;
-
-        var client = db.Clients.FirstOrDefault(c => c.Id == task.ClientId);
-
-        if (client != null)
-            client.CountOrders--;
-
-        db.Tasks.Remove(task);
-
-        db.SaveChanges();
-
-        MessageBox.Show("Order deleted.", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
-
-        LoadPendingOrders();
-    }
-
-    private void OpenRequestDetails(TaskStatusRequest request)
-    {
-        if (request == null) return;
-        new DetailsWindow(request).ShowDialog();
-    }
-
-    private void OpenOrderDetails(CRM.Data.Task task)
-    {
-        if (task == null) return;
-        new DetailsWindow(task).ShowDialog();
+        if (RequestService.DeleteOrder(selectedTask.Id))
+        {
+            MessageBox.Show("Order deleted.", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadPendingOrders();
+        }
     }
 
     private void RequestDetailsBtn(object sender, RoutedEventArgs e)
     {
-        OpenRequestDetails(RequestsList.SelectedItem as TaskStatusRequest);
+        if (RequestsList.SelectedItem is TaskStatusRequest request)
+            new DetailsWindow(request).ShowDialog();
     }
 
     private void RequestsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        OpenRequestDetails(RequestsList.SelectedItem as TaskStatusRequest);
+        if (RequestsList.SelectedItem is TaskStatusRequest request)
+            new DetailsWindow(request).ShowDialog();
     }
 
     private void OrderDetailsBtn(object sender, RoutedEventArgs e)
     {
-        OpenOrderDetails(PendingOrdersList.SelectedItem as CRM.Data.Task);
+        if (PendingOrdersList.SelectedItem is CRM.Data.Task task)
+            new DetailsWindow(task).ShowDialog();
     }
 
     private void PendingOrdersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        OpenOrderDetails(PendingOrdersList.SelectedItem as CRM.Data.Task);
-    }
-
-    private void LoadProfileRequests()
-    {
-        using var db = new AppDbContext();
-
-        ProfileRequestsList.ItemsSource = db.ProfileChangeRequests
-            .Where(r => !r.IsProcessed)
-            .ToList();
+        if (PendingOrdersList.SelectedItem is CRM.Data.Task task)
+            new DetailsWindow(task).ShowDialog();
     }
 
     private void ApproveProfileBtn(object sender, RoutedEventArgs e)
@@ -207,56 +135,11 @@ public partial class TaskRequestsPage : Page
             return;
         }
 
-        if (request.NewEmail != null && !Validation.ValidateEmail(request.NewEmail))
-            return;
-
-        if (request.NewPhone != null && !Validation.ValidatePhone(request.NewPhone))
-            return;
-
-        using var db = new AppDbContext();
-
-        var dbRequest = db.ProfileChangeRequests
-            .FirstOrDefault(r => r.Id == request.Id);
-
-        if (dbRequest == null) return;
-
-        if (dbRequest.UserId != null)
+        if (RequestService.ApproveProfileRequest(request.Id))
         {
-            var user = db.Users.FirstOrDefault(u => u.Id == dbRequest.UserId);
-
-            if (user == null)
-            {
-                MessageBox.Show("User not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (dbRequest.NewEmail != null) user.Email = dbRequest.NewEmail;
-            if (dbRequest.NewPhone != null) user.Phone = dbRequest.NewPhone;
-            if (dbRequest.NewPosition != null) user.Position = dbRequest.NewPosition;
+            MessageBox.Show("Profile changes approved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadProfileRequests();
         }
-        else if (dbRequest.ClientId != null)
-        {
-            var client = db.Clients.FirstOrDefault(c => c.Id == dbRequest.ClientId);
-
-            if (client == null)
-            {
-                MessageBox.Show("Client not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (dbRequest.NewEmail != null) client.Email = dbRequest.NewEmail;
-            if (dbRequest.NewPhone != null) client.Phone = dbRequest.NewPhone;
-            if (dbRequest.NewAddress != null) client.Address = dbRequest.NewAddress;
-        }
-
-        dbRequest.IsProcessed = true;
-        dbRequest.IsApproved = true;
-
-        db.SaveChanges();
-
-        MessageBox.Show("Profile changes approved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-        LoadProfileRequests();
     }
 
     private void RejectProfileBtn(object sender, RoutedEventArgs e)
@@ -267,32 +150,22 @@ public partial class TaskRequestsPage : Page
             return;
         }
 
-        using var db = new AppDbContext();
-
-        var dbRequest = db.ProfileChangeRequests
-            .FirstOrDefault(r => r.Id == request.Id);
-
-        if (dbRequest == null) return;
-
-        dbRequest.IsProcessed = true;
-        dbRequest.IsApproved = false;
-
-        db.SaveChanges();
-
-        MessageBox.Show("Profile changes rejected.", "Rejected", MessageBoxButton.OK, MessageBoxImage.Information);
-
-        LoadProfileRequests();
+        if (RequestService.RejectProfileRequest(request.Id))
+        {
+            MessageBox.Show("Profile changes rejected.", "Rejected", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoadProfileRequests();
+        }
     }
 
     private void ProfileDetailsBtn(object sender, RoutedEventArgs e)
     {
-        if (ProfileRequestsList.SelectedItem is not ProfileChangeRequest request) return;
-        new DetailsWindow(request).ShowDialog();
+        if (ProfileRequestsList.SelectedItem is ProfileChangeRequest request)
+            new DetailsWindow(request).ShowDialog();
     }
 
     private void ProfileRequestsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        if (ProfileRequestsList.SelectedItem is not ProfileChangeRequest request) return;
-        new DetailsWindow(request).ShowDialog();
+        if (ProfileRequestsList.SelectedItem is ProfileChangeRequest request)
+            new DetailsWindow(request).ShowDialog();
     }
 }

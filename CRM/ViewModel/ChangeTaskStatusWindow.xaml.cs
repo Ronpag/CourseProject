@@ -1,6 +1,5 @@
 using System;
 using System.Windows;
-using CRM.Data;
 
 namespace CRM.ViewModel.UserWindow;
 
@@ -48,27 +47,11 @@ public partial class ChangeTaskStatusWindow : Window
             }
         }
 
-        using var db = new AppDbContext();
-
-        var task = db.Tasks.FirstOrDefault(t => t.Id == _taskId);
-
-        if (task == null)
-            return;
-
-        db.TaskStatusRequests.Add(new TaskStatusRequest
+        if (TaskService.ChangeStatus(_taskId, requestedStatus, CommentBox.Text.Trim(), completionDate))
         {
-            TaskId = _taskId,
-            RequestedStatus = requestedStatus,
-            Comment = CommentBox.Text.Trim(),
-            RequestedCompletionDate = completionDate,
-            IsProcessed = false
-        });
-
-        db.SaveChanges();
-
-        MessageBox.Show("Request has been sent to administrator.", "Success");
-
-        DialogResult = true;
-        Close();
+            MessageBox.Show("Request has been sent to administrator.", "Success");
+            DialogResult = true;
+            Close();
+        }
     }
 }
