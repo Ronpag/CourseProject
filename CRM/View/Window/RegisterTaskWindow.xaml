@@ -5,21 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="CRM" 
-        Height="350" Width="400"
+        MinHeight="300"
+        Height="300" Width="400"
         WindowStartupLocation="CenterScreen">
 
     <Grid>
         <StackPanel Margin="15">
 
-            <TextBlock Text="Order Name"/>
-            <TextBox x:Name="OrderNameBox" Margin="0,5,0,10"/>
+            <TextBlock Text="Order Name" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="OrderNameBox" Style="{StaticResource FieldTextBox}"/>
 
-            <TextBlock Text="Description"/>
+            <TextBlock Text="Description" Style="{StaticResource FieldLabel}"/>
             <TextBox x:Name="DescriptionBox" MinHeight="80"
                      TextWrapping="Wrap" AcceptsReturn="True"
-                     Margin="0,5,0,15"/>
+                     Style="{StaticResource FieldTextBox}"/>
 
-            <Button Content="Create" Click="CreateBtn"/>
+            <Button Content="Create" Style="{StaticResource PrimaryButton}" Click="CreateBtn"/>
 
         </StackPanel>
     </Grid>

@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="CRM" 
+        MinHeight="300"
         Height="300" Width="350"
         WindowStartupLocation="CenterScreen">
 
-    <Grid Margin="15" ShowGridLines="False">
+    <Grid Margin="15">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,19 +18,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Client Name"/>
-        <TextBox x:Name="NameBox" Grid.Row="1" Margin="0,5,0,10"/>
+        <TextBlock Text="Client Name" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="NameBox" Grid.Row="1" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Grid.Row="2" Text="Login"/>
-        <TextBox x:Name="LoginBox" Grid.Row="3" Margin="0,5,0,10"/>
+        <TextBlock Grid.Row="2" Text="Login" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="LoginBox" Grid.Row="3" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Grid.Row="4" Text="Password"/>
-        <PasswordBox x:Name="PasswordBox" Grid.Row="5" Margin="0,5,0,10"/>
-        
-        <Button Grid.Row="6" Margin="0,15,0,0" Height="35" Content="Register" Click="RegisterBtn"/>
+        <TextBlock Grid.Row="4" Text="Password" Style="{StaticResource FieldLabel}"/>
+        <PasswordBox x:Name="PasswordBox" Grid.Row="5" Style="{StaticResource FieldPasswordBox}"/>
+
+        <Button Grid.Row="6" Content="Register" Style="{StaticResource PrimaryButton}" Click="RegisterBtn"/>
     </Grid>
 
 </Window>

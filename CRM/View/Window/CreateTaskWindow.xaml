@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="CRM" 
-        Height="480" Width="400"
+        MinHeight="450"
+        Height="450" Width="400"
         WindowStartupLocation="CenterScreen">
 
     <Grid Margin="15">
@@ -20,31 +21,29 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Task Name"/>
-        <TextBox x:Name="TaskNameBox" Grid.Row="1" Margin="0,5,0,10"/>
+        <TextBlock Text="Task Name" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="TaskNameBox" Grid.Row="1" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Grid.Row="2" Text="Description"/>
-        <TextBox x:Name="DescriptionBox" Grid.Row="3" Margin="0,5,0,10"
+        <TextBlock Grid.Row="2" Text="Description" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="DescriptionBox" Grid.Row="3" Style="{StaticResource FieldTextBox}"
                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
 
-        <TextBlock Grid.Row="4" Text="Client"/>
-        <ComboBox x:Name="ClientsBox" Grid.Row="5" Margin="0,5,0,10"
+        <TextBlock Grid.Row="4" Text="Client" Style="{StaticResource FieldLabel}"/>
+        <ComboBox x:Name="ClientsBox" Grid.Row="5" Style="{StaticResource FieldComboBox}"
                   DisplayMemberPath="NameClient"/>
 
         <CheckBox x:Name="AssignUserCheckBox"
-                  Grid.Row="6" Margin="0,0,0,10"
-                  Content="Assign User"
+                  Grid.Row="6" Content="Assign User" Style="{StaticResource FieldCheckBox}"
                   Checked="AssignUserChanged"
                   Unchecked="AssignUserChanged"/>
 
-        <ComboBox x:Name="UsersBox" Grid.Row="7" Margin="0,0,0,10"
+        <ComboBox x:Name="UsersBox" Grid.Row="7" Style="{StaticResource FieldComboBox}"
                   DisplayMemberPath="UserName"
                   Visibility="Collapsed"/>
 
-        <Button Grid.Row="9" Height="35" Content="Register" Click="RegisterBtn"/>
-
+        <Button Grid.Row="9" Content="Register" Style="{StaticResource PrimaryButton}" Click="RegisterBtn"/>
     </Grid>
 </Window>

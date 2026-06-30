@@ -8,44 +8,27 @@
         Height="450" Width="300"
         WindowStartupLocation="CenterScreen">
     
-    <Grid ShowGridLines="False">
+    <Grid Margin="20">
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>  
-            <RowDefinition Height="0.4*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="0.3*"/>  
-            <RowDefinition Height="0.4*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="0.2*"/>
-        </Grid.ColumnDefinitions>
-        
-        <Label Grid.Row="1" Grid.Column="1">
-            Login
-        </Label>
-        <TextBox Name="Login" Grid.Row="2" Grid.Column="1"/>
-        
-        <Label Grid.Row="4" Grid.Column="1">
-            Password
-        </Label>
-        <TextBox Name="Password" Grid.Row="5" Grid.Column="1"/>
-        
-        <Button Grid.Row="7" Grid.Column="1" Click="LoginBtn">
-            Login
-        </Button>
-        
-        <Button Grid.Row="8" Grid.Column="1" Click="RegisterBtn">
-            Register
-        </Button>
+
+        <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="Login" Grid.Row="1" Style="{StaticResource FieldTextBox}"/>
+
+        <TextBlock Grid.Row="3" Text="Password" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="Password" Grid.Row="4" Style="{StaticResource FieldTextBox}"/>
+
+        <Button Grid.Row="6" Content="Login" Style="{StaticResource PrimaryButton}" Click="LoginBtn"/>
+        <Button Grid.Row="7" Content="Register" Style="{StaticResource PrimaryButton}" Click="RegisterBtn"/>
         
     </Grid>
 </Window>

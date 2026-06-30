@@ -5,32 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="CRM" 
-        Height="400" Width="380"
+        MinHeight="450"
+        Height="450" Width="380"
         WindowStartupLocation="CenterScreen">
 
-    <StackPanel Margin="20">
+    <StackPanel Margin="15">
 
-        <TextBlock FontSize="16" FontWeight="Bold" Margin="0,0,0,15">
-            Profile Change Request
-        </TextBlock>
+        <TextBlock Text="Profile Change Request" Style="{StaticResource PageTitle}"/>
         <TextBlock Text="Changes need admin approval." Foreground="Gray" Margin="0,0,0,15"/>
 
-        <TextBlock Text="Name"/>
+        <TextBlock Text="Name" Style="{StaticResource FieldLabel}"/>
         <TextBlock x:Name="NameText" FontWeight="Bold" Margin="0,2,0,10"/>
 
-        <TextBlock Text="Login"/>
+        <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
         <TextBlock x:Name="LoginText" FontWeight="Bold" Margin="0,2,0,10"/>
 
-        <TextBlock Text="Email"/>
-        <TextBox x:Name="EmailBox" Margin="0,2,0,10"/>
+        <TextBlock Text="Email" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="EmailBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Phone"/>
-        <TextBox x:Name="PhoneBox" Margin="0,2,0,10"/>
+        <TextBlock Text="Phone" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="PhoneBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Address"/>
-        <TextBox x:Name="AddressBox" Margin="0,2,0,10"/>
+        <TextBlock Text="Address" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="AddressBox" Style="{StaticResource FieldTextBox}"/>
 
-        <Button Content="Submit for Approval" Height="35" Click="SubmitBtn"/>
+        <Button Content="Submit for Approval" Style="{StaticResource PrimaryButton}" Click="SubmitBtn"/>
 
     </StackPanel>
 

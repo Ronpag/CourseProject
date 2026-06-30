@@ -4,25 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" 
-        Height="320" Width="350"
+        Title="CRM"
+        MinHeight="350"
+        Height="350" Width="350"
         WindowStartupLocation="CenterScreen">
 
-    <StackPanel Margin="20">
+    <StackPanel Margin="15">
 
-        <TextBlock Text="Client Name"/>
-        <TextBox x:Name="NameClientBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Client Name" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="NameClientBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Login"/>
-        <TextBox x:Name="LoginBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="LoginBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Password"/>
-        <TextBox x:Name="PasswordBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Password" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="PasswordBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Count Orders"/>
-        <TextBox x:Name="CountOrdersBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Count Orders" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="CountOrdersBox" Style="{StaticResource FieldTextBox}"/>
 
-        <Button Content="Save" Height="30" Click="SaveChangesBtn"/>
+        <Button Content="Save" Style="{StaticResource PrimaryButton}" Click="SaveChangesBtn"/>
 
     </StackPanel>
 

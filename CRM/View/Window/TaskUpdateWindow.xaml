@@ -5,37 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="CRM" 
-        Height="550" Width="350"
+        MinHeight="570"
+        Height="570" Width="350"
         WindowStartupLocation="CenterScreen">
 
-    <StackPanel Margin="20">
+    <StackPanel Margin="15">
 
-        <TextBlock Text="Task Name"/>
-        <TextBox x:Name="TaskNameBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Task Name" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="TaskNameBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Description"/>
-        <TextBox x:Name="DescriptionBox" Margin="0,5,0,10"
+        <TextBlock Text="Description" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="DescriptionBox" Style="{StaticResource FieldTextBox}"
                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="40"/>
 
-        <TextBlock Text="Client Id"/>
-        <TextBox x:Name="ClientIdBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Client Id" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="ClientIdBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="User Id"/>
-        <TextBox x:Name="UserIdBox" Margin="0,5,0,10"/>
+        <TextBlock Text="User Id" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="UserIdBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Status"/>
-        <ComboBox x:Name="StatusBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Status" Style="{StaticResource FieldLabel}"/>
+        <ComboBox x:Name="StatusBox" Style="{StaticResource FieldComboBox}"/>
 
-        <TextBlock Text="Start Date (dd.MM.yyyy)"/>
-        <TextBox x:Name="StartDateBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Start Date (dd.MM.yyyy)" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="StartDateBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Acceptance Date (dd.MM.yyyy)"/>
-        <TextBox x:Name="AcceptanceDateBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Acceptance Date (dd.MM.yyyy)" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="AcceptanceDateBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Completion Date (dd.MM.yyyy)"/>
-        <TextBox x:Name="CompletionDateBox" Margin="0,5,0,10"/>
+        <TextBlock Text="Completion Date (dd.MM.yyyy)" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="CompletionDateBox" Style="{StaticResource FieldTextBox}"/>
 
-        <Button Content="Save" Height="30" Click="SaveChangesBtn"/>
+        <Button Content="Save" Style="{StaticResource PrimaryButton}" Click="SaveChangesBtn"/>
 
     </StackPanel>
 

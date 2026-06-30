@@ -5,42 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="CRM" 
-        Height="450" Width="400"
+        MinHeight="400"
+        Height="400" Width="400"
         WindowStartupLocation="CenterScreen">
     
-    <Grid ShowGridLines="False">
+    <Grid Margin="20">
         
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="0.2*"/>
-            <RowDefinition/>
-            <RowDefinition Height="0.2*"/>
-            <RowDefinition/>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
-        <Label Grid.Row="0" Grid.Column="0">First StartUp</Label>
-        <Label Grid.Row="0" Grid.Column="1">Write login and password</Label>
-        
-        <Label Grid.Row="1" Grid.Column="0">User Name</Label>
-        <TextBox Name="FUserName" Grid.Row="2" Grid.Column="0"></TextBox>
 
-        <Label Grid.Row="3" Grid.Column="0">Login</Label>
-        <Label Grid.Row="3" Grid.Column="1">Password</Label>
-        
-        <TextBox Name="FLogin" Grid.Row="4" Grid.Column="0"></TextBox>
-        <TextBox Name="FPassword" Grid.Row="4" Grid.Column="1"></TextBox>
+        <TextBlock Text="First StartUp" Style="{StaticResource PageTitle}" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Write login and password" Margin="0,0,0,12"/>
 
-        <Button Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Click="FirstLoginBtn">START</Button>
+        <TextBlock Grid.Row="2" Text="User Name" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="FUserName" Grid.Row="3" Style="{StaticResource FieldTextBox}" Grid.ColumnSpan="2"/>
+
+        <TextBlock Grid.Row="4" Text="Login" Style="{StaticResource FieldLabel}"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="Password" Style="{StaticResource FieldLabel}"/>
+
+        <TextBox x:Name="FLogin" Grid.Row="5" Style="{StaticResource FieldTextBox}"/>
+        <TextBox x:Name="FPassword" Grid.Row="5" Grid.Column="1" Style="{StaticResource FieldTextBox}"/>
+
+        <Button Grid.Row="6" Grid.ColumnSpan="2" Content="START" Style="{StaticResource PrimaryButton}" Click="FirstLoginBtn"/>
         
     </Grid>
 </Window>
