@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CRM.Data;
 using CRM.View;
 using CRM.ViewModel.UserWindow;
 
@@ -35,5 +36,10 @@ public partial class UserWindow : Window
     private void ClientsBtn(object sender, RoutedEventArgs e)
     {
         MainFrame.Navigate(new ClientsPage());
+    }
+
+    private void ProfileBtn(object sender, RoutedEventArgs e)
+    {
+        new UserProfileWindow(_userId).ShowDialog();
     }
 }

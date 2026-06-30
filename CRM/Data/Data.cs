@@ -8,6 +8,7 @@ public class AppDbContext : DbContext
     public DbSet<Task> Tasks { get; set; }
     public DbSet<Client> Clients { get; set; }
     public DbSet<TaskStatusRequest> TaskStatusRequests { get; set; }
+    public DbSet<ProfileChangeRequest> ProfileChangeRequests { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

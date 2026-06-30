@@ -35,4 +35,9 @@ public partial class ClientWindow : Window
             MainFrame.Navigate(new ClientOrdersPage(_clientId));
         }
     }
+
+    private void ProfileBtn(object sender, RoutedEventArgs e)
+    {
+        new ClientProfileWindow(_clientId).ShowDialog();
+    }
 }

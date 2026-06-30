@@ -41,6 +41,24 @@
                     <ListBox x:Name="PendingOrdersList" Grid.Row="2" MouseDoubleClick="PendingOrdersList_MouseDoubleClick"/>
                 </Grid>
             </TabItem>
+
+            <TabItem Header="Profile Requests">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Approve" Width="80" Margin="0,0,5,0" Click="ApproveProfileBtn"/>
+                        <Button Content="Reject" Width="80" Margin="0,0,5,0" Click="RejectProfileBtn"/>
+                        <Button Content="Details" Width="80" Click="ProfileDetailsBtn"/>
+                    </StackPanel>
+
+                    <ListBox x:Name="ProfileRequestsList" Grid.Row="2" MouseDoubleClick="ProfileRequestsList_MouseDoubleClick"/>
+                </Grid>
+            </TabItem>
         </TabControl>
 
     </Grid>

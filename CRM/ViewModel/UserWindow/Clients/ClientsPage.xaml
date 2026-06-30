@@ -1,0 +1,21 @@
+<Page x:Class="CRM.ViewModel.UserWindow.ClientsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="ClientsPage">
+
+    <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Details" Width="80" Click="DetailsBtn"/>
+        </StackPanel>
+
+        <ListBox x:Name="ClientsList" Grid.Row="2" MouseDoubleClick="ClientsList_MouseDoubleClick"/>
+
+    </Grid>
+</Page>

@@ -14,6 +14,7 @@ public partial class TaskRequestsPage : Page
         InitializeComponent();
         LoadRequests();
         LoadPendingOrders();
+        LoadProfileRequests();
     }
 
     private void LoadRequests()
@@ -191,5 +192,105 @@ public partial class TaskRequestsPage : Page
     private void PendingOrdersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         OpenOrderDetails(PendingOrdersList.SelectedItem as CRM.Data.Task);
+    }
+
+    private void LoadProfileRequests()
+    {
+        using var db = new AppDbContext();
+
+        ProfileRequestsList.ItemsSource = db.ProfileChangeRequests
+            .Where(r => !r.IsProcessed)
+            .ToList();
+    }
+
+    private void ApproveProfileBtn(object sender, RoutedEventArgs e)
+    {
+        if (ProfileRequestsList.SelectedItem is not ProfileChangeRequest request)
+        {
+            MessageBox.Show("Select a request");
+            return;
+        }
+
+        using var db = new AppDbContext();
+
+        var dbRequest = db.ProfileChangeRequests
+            .FirstOrDefault(r => r.Id == request.Id);
+
+        if (dbRequest == null) return;
+
+        if (dbRequest.UserId != null)
+        {
+            var user = db.Users.FirstOrDefault(u => u.Id == dbRequest.UserId);
+
+            if (user == null)
+            {
+                MessageBox.Show("User not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (dbRequest.NewEmail != null) user.Email = dbRequest.NewEmail;
+            if (dbRequest.NewPhone != null) user.Phone = dbRequest.NewPhone;
+            if (dbRequest.NewPosition != null) user.Position = dbRequest.NewPosition;
+        }
+        else if (dbRequest.ClientId != null)
+        {
+            var client = db.Clients.FirstOrDefault(c => c.Id == dbRequest.ClientId);
+
+            if (client == null)
+            {
+                MessageBox.Show("Client not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (dbRequest.NewEmail != null) client.Email = dbRequest.NewEmail;
+            if (dbRequest.NewPhone != null) client.Phone = dbRequest.NewPhone;
+            if (dbRequest.NewAddress != null) client.Address = dbRequest.NewAddress;
+        }
+
+        dbRequest.IsProcessed = true;
+        dbRequest.IsApproved = true;
+
+        db.SaveChanges();
+
+        MessageBox.Show("Profile changes approved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+        LoadProfileRequests();
+    }
+
+    private void RejectProfileBtn(object sender, RoutedEventArgs e)
+    {
+        if (ProfileRequestsList.SelectedItem is not ProfileChangeRequest request)
+        {
+            MessageBox.Show("Select a request");
+            return;
+        }
+
+        using var db = new AppDbContext();
+
+        var dbRequest = db.ProfileChangeRequests
+            .FirstOrDefault(r => r.Id == request.Id);
+
+        if (dbRequest == null) return;
+
+        dbRequest.IsProcessed = true;
+        dbRequest.IsApproved = false;
+
+        db.SaveChanges();
+
+        MessageBox.Show("Profile changes rejected.", "Rejected", MessageBoxButton.OK, MessageBoxImage.Information);
+
+        LoadProfileRequests();
+    }
+
+    private void ProfileDetailsBtn(object sender, RoutedEventArgs e)
+    {
+        if (ProfileRequestsList.SelectedItem is not ProfileChangeRequest request) return;
+        new DetailsWindow(request).ShowDialog();
+    }
+
+    private void ProfileRequestsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (ProfileRequestsList.SelectedItem is not ProfileChangeRequest request) return;
+        new DetailsWindow(request).ShowDialog();
     }
 }
