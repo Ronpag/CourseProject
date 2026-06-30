@@ -1,11 +1,13 @@
 <Window x:Class="CRM.View.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:CRM.View"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" Height="450" Width="300">
+        Title="CRM" 
+        Height="450" Width="300"
+        WindowStartupLocation="CenterScreen">
+    
     <Grid ShowGridLines="False">
         
         <Grid.RowDefinitions>
@@ -17,6 +19,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="0.3*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
         

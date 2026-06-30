@@ -31,6 +31,12 @@ public static class UserService
         return db.Users.Any(u => u.Name == login);
     }
 
+    public static bool LoginExistsAnywhere(string login)
+    {
+        using var db = new AppDbContext();
+        return db.Users.Any(u => u.Name == login) || db.Clients.Any(c => c.Login == login);
+    }
+
     public static User? Authenticate(string login, string password)
     {
         using var db = new AppDbContext();
@@ -51,7 +57,7 @@ public static class UserService
         if (!ValidationService.ValidateLoginPassword(name, password))
             return false;
 
-        if (LoginExists(name))
+        if (LoginExistsAnywhere(name))
         {
             MessageBox.Show("Login already exists", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
             return false;
@@ -91,6 +97,13 @@ public static class UserService
         }
 
         using var db = new AppDbContext();
+
+        if (db.Clients.Any(c => c.Login == name))
+        {
+            MessageBox.Show("Login already exists", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
         var user = db.Users.FirstOrDefault(u => u.Id == id);
         if (user == null) return false;
 

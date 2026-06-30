@@ -13,47 +13,37 @@ public partial class UserPage : Page
     public UserPage(int UserId)
     {
         InitializeComponent();
-
         _UserId = UserId;
-
         LoadTasks();
     }
 
     private void LoadTasks()
     {
         if (TasksList == null) return;
-
         var statusFilters = new List<CRM.Data.Task.TaskStatus>();
         if (ChkAssigned.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Assigned);
         if (ChkInProgress.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.InProgress);
         if (ChkCompleted.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Completed);
-
-        TasksList.ItemsSource = TaskService.GetFiltered(
-            UserId: _UserId, statusFilters: statusFilters);
+        TasksList.ItemsSource = TaskService.GetFiltered(UserId: _UserId, statusFilters: statusFilters);
     }
 
-    private void FilterChanged(object sender, RoutedEventArgs e)
-    {
-        LoadTasks();
-    }
+    private void FilterChanged(object sender, RoutedEventArgs e) => LoadTasks();
 
     private void ChangeStatusBtn(object sender, RoutedEventArgs e)
     {
-        if (TasksList.SelectedItem is not CRM.Data.Task task)
+        if ((sender as Button)?.DataContext is not CRM.Data.Task task)
         {
             MessageBox.Show("Select task");
             return;
         }
-
         var window = new ChangeTaskStatusWindow(task);
-
         if (window.ShowDialog() == true)
             LoadTasks();
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)
     {
-        if (TasksList.SelectedItem is not CRM.Data.Task task) return;
+        if ((sender as Button)?.DataContext is not CRM.Data.Task task) return;
         new DetailsWindow(task).ShowDialog();
     }
 

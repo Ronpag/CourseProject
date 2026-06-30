@@ -1,7 +1,6 @@
 <Page x:Class="CRM.ViewModel.AdminWindow.StatsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="StatsPage">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="20">

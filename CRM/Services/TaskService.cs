@@ -158,6 +158,10 @@ public static class TaskService
         var task = db.Tasks.FirstOrDefault(t => t.Id == taskId);
         if (task == null) return false;
 
+        var existing = db.TaskStatusRequests.FirstOrDefault(r => r.TaskId == taskId && !r.IsProcessed);
+        if (existing != null)
+            db.TaskStatusRequests.Remove(existing);
+
         var request = new TaskStatusRequest
         {
             TaskId = taskId,

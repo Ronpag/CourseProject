@@ -17,7 +17,6 @@ public partial class TaskListPage : Page
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
         var window = new RegisterTaskWindow();
-
         if (window.ShowDialog() == true)
         {
             LoadTasks();
@@ -27,12 +26,11 @@ public partial class TaskListPage : Page
 
     private void DeleteBtn(object sender, RoutedEventArgs e)
     {
-        if (TasksList.SelectedItem is not CRM.Data.Task selectedTask)
+        if ((sender as Button)?.DataContext is not CRM.Data.Task selectedTask)
         {
             MessageBox.Show("Select task");
             return;
         }
-
         if (TaskService.Delete(selectedTask.Id))
         {
             LoadTasks();
@@ -42,14 +40,12 @@ public partial class TaskListPage : Page
 
     private void UpdateBtn(object sender, RoutedEventArgs e)
     {
-        if (TasksList.SelectedItem is not CRM.Data.Task selectedTask)
+        if ((sender as Button)?.DataContext is not CRM.Data.Task selectedTask)
         {
             MessageBox.Show("Select task", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
-
         var window = new TaskUpdateWindow(selectedTask);
-
         if (window.ShowDialog() == true)
         {
             LoadTasks();
@@ -60,33 +56,24 @@ public partial class TaskListPage : Page
     private void LoadTasks()
     {
         if (TasksList == null) return;
-
         var statusFilters = new List<CRM.Data.Task.TaskStatus>();
         if (ChkPending.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Pending);
         if (ChkAvailable.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Available);
         if (ChkAssigned.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Assigned);
         if (ChkInProgress.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.InProgress);
         if (ChkCompleted.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Completed);
-
         TasksList.ItemsSource = TaskService.GetFiltered(
             statusFilters: statusFilters,
             dateFrom: DateFrom?.SelectedDate,
             dateTo: DateTo?.SelectedDate);
     }
 
-    private void FilterChanged(object sender, RoutedEventArgs e)
-    {
-        LoadTasks();
-    }
-
-    private void DateFilterChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-    {
-        LoadTasks();
-    }
+    private void FilterChanged(object sender, RoutedEventArgs e) => LoadTasks();
+    private void DateFilterChanged(object sender, SelectionChangedEventArgs e) => LoadTasks();
 
     private void DetailsBtn(object sender, RoutedEventArgs e)
     {
-        if (TasksList.SelectedItem is not CRM.Data.Task task) return;
+        if ((sender as Button)?.DataContext is not CRM.Data.Task task) return;
         new DetailsWindow(task).ShowDialog();
     }
 

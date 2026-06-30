@@ -13,27 +13,23 @@ public partial class AvailableTasksPage : Page
     public AvailableTasksPage(int UserId)
     {
         InitializeComponent();
-
         _UserId = UserId;
-
         LoadTasks();
     }
 
     private void LoadTasks()
     {
         if (TasksList == null) return;
-
         TasksList.ItemsSource = TaskService.GetAvailable();
     }
 
     private void TakeTaskBtn(object sender, RoutedEventArgs e)
     {
-        if (TasksList.SelectedItem is not CRM.Data.Task selectedTask)
+        if ((sender as Button)?.DataContext is not CRM.Data.Task selectedTask)
         {
             MessageBox.Show("Select task");
             return;
         }
-
         if (TaskService.TakeTask(selectedTask.Id, _UserId))
         {
             LoadTasks();
@@ -43,7 +39,7 @@ public partial class AvailableTasksPage : Page
 
     private void DetailsBtn(object sender, RoutedEventArgs e)
     {
-        if (TasksList.SelectedItem is not CRM.Data.Task task) return;
+        if ((sender as Button)?.DataContext is not CRM.Data.Task task) return;
         new DetailsWindow(task).ShowDialog();
     }
 

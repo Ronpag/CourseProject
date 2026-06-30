@@ -36,12 +36,11 @@ public partial class TaskRequestsPage : Page
 
     private void ApproveBtn(object sender, RoutedEventArgs e)
     {
-        if (RequestsList.SelectedItem is not TaskStatusRequest request)
+        if ((sender as Button)?.DataContext is not TaskStatusRequest request)
         {
             MessageBox.Show("Select request");
             return;
         }
-
         if (RequestService.ApproveStatusRequest(request.Id))
         {
             MessageBox.Show("Status request approved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -51,12 +50,11 @@ public partial class TaskRequestsPage : Page
 
     private void RejectBtn(object sender, RoutedEventArgs e)
     {
-        if (RequestsList.SelectedItem is not TaskStatusRequest request)
+        if ((sender as Button)?.DataContext is not TaskStatusRequest request)
         {
             MessageBox.Show("Select request");
             return;
         }
-
         if (RequestService.RejectStatusRequest(request.Id))
         {
             MessageBox.Show("Status request rejected.", "Rejected", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -66,12 +64,11 @@ public partial class TaskRequestsPage : Page
 
     private void ApproveOrderBtn(object sender, RoutedEventArgs e)
     {
-        if (PendingOrdersList.SelectedItem is not CRM.Data.Task selectedTask)
+        if ((sender as Button)?.DataContext is not CRM.Data.Task selectedTask)
         {
             MessageBox.Show("Select order");
             return;
         }
-
         if (RequestService.ApproveOrder(selectedTask.Id))
         {
             MessageBox.Show("Order approved and set as Available.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -81,21 +78,14 @@ public partial class TaskRequestsPage : Page
 
     private void DeleteOrderBtn(object sender, RoutedEventArgs e)
     {
-        if (PendingOrdersList.SelectedItem is not CRM.Data.Task selectedTask)
+        if ((sender as Button)?.DataContext is not CRM.Data.Task selectedTask)
         {
             MessageBox.Show("Select order");
             return;
         }
-
-        var result = MessageBox.Show(
-            "Delete this order permanently?",
-            "Confirm deletion",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Warning);
-
-        if (result != MessageBoxResult.Yes)
-            return;
-
+        var result = MessageBox.Show("Delete this order permanently?", "Confirm deletion",
+            MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (result != MessageBoxResult.Yes) return;
         if (RequestService.DeleteOrder(selectedTask.Id))
         {
             MessageBox.Show("Order deleted.", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -105,7 +95,7 @@ public partial class TaskRequestsPage : Page
 
     private void RequestDetailsBtn(object sender, RoutedEventArgs e)
     {
-        if (RequestsList.SelectedItem is TaskStatusRequest request)
+        if ((sender as Button)?.DataContext is TaskStatusRequest request)
             new DetailsWindow(request).ShowDialog();
     }
 
@@ -117,7 +107,7 @@ public partial class TaskRequestsPage : Page
 
     private void OrderDetailsBtn(object sender, RoutedEventArgs e)
     {
-        if (PendingOrdersList.SelectedItem is CRM.Data.Task task)
+        if ((sender as Button)?.DataContext is CRM.Data.Task task)
             new DetailsWindow(task).ShowDialog();
     }
 
@@ -129,12 +119,11 @@ public partial class TaskRequestsPage : Page
 
     private void ApproveProfileBtn(object sender, RoutedEventArgs e)
     {
-        if (ProfileRequestsList.SelectedItem is not ProfileChangeRequest request)
+        if ((sender as Button)?.DataContext is not ProfileChangeRequest request)
         {
             MessageBox.Show("Select a request");
             return;
         }
-
         if (RequestService.ApproveProfileRequest(request.Id))
         {
             MessageBox.Show("Profile changes approved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -144,12 +133,11 @@ public partial class TaskRequestsPage : Page
 
     private void RejectProfileBtn(object sender, RoutedEventArgs e)
     {
-        if (ProfileRequestsList.SelectedItem is not ProfileChangeRequest request)
+        if ((sender as Button)?.DataContext is not ProfileChangeRequest request)
         {
             MessageBox.Show("Select a request");
             return;
         }
-
         if (RequestService.RejectProfileRequest(request.Id))
         {
             MessageBox.Show("Profile changes rejected.", "Rejected", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -159,7 +147,7 @@ public partial class TaskRequestsPage : Page
 
     private void ProfileDetailsBtn(object sender, RoutedEventArgs e)
     {
-        if (ProfileRequestsList.SelectedItem is ProfileChangeRequest request)
+        if ((sender as Button)?.DataContext is ProfileChangeRequest request)
             new DetailsWindow(request).ShowDialog();
     }
 

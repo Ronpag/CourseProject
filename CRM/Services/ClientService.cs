@@ -66,6 +66,12 @@ public static class ClientService
         }
 
         using var db = new AppDbContext();
+        if (db.Users.Any(u => u.Name == login))
+        {
+            MessageBox.Show("Login already exists", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
         db.Clients.Add(new Client
         {
             NameClient = name,
@@ -98,6 +104,12 @@ public static class ClientService
         }
 
         using var db = new AppDbContext();
+        if (db.Users.Any(u => u.Name == login))
+        {
+            MessageBox.Show("Login already exists", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
         var client = db.Clients.FirstOrDefault(c => c.Id == id);
         if (client == null) return false;
 

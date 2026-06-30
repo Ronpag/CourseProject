@@ -24,7 +24,7 @@ public partial class UserListPage : Page
 
     private void DeleteBtn(object sender, RoutedEventArgs e)
     {
-        if (UsersList.SelectedItem is not User selectedUser)
+        if ((sender as Button)?.DataContext is not User selectedUser)
         {
             MessageBox.Show("Select user");
             return;
@@ -36,7 +36,7 @@ public partial class UserListPage : Page
 
     private void UpdateBtn(object sender, RoutedEventArgs e)
     {
-        if (UsersList.SelectedItem is not User selectedUser)
+        if ((sender as Button)?.DataContext is not User selectedUser)
         {
             MessageBox.Show("Select user");
             return;
@@ -79,7 +79,7 @@ public partial class UserListPage : Page
 
     private void DetailsBtn(object sender, RoutedEventArgs e)
     {
-        if (UsersList.SelectedItem is not User user) return;
+        if ((sender as Button)?.DataContext is not User user) return;
         new DetailsWindow(user).ShowDialog();
     }
 

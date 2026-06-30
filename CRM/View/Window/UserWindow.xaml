@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CRM"
         mc:Ignorable="d"
-        Title="CRM" Height="450" Width="800">
+        Title="CRM" 
+        MinHeight="410" MinWidth="950"
+        Height="410" Width="950"
+        WindowStartupLocation="CenterScreen">
+    
     <Grid ShowGridLines="False">
         
         <Grid.RowDefinitions>

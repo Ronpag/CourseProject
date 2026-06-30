@@ -17,13 +17,12 @@ public partial class ClientsPage : Page
     private void LoadClients()
     {
         if (ClientsList == null) return;
-
         ClientsList.ItemsSource = ClientService.GetAll();
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)
     {
-        if (ClientsList.SelectedItem is not Client client) return;
+        if ((sender as Button)?.DataContext is not Client client) return;
         new DetailsWindow(client).ShowDialog();
     }
 
