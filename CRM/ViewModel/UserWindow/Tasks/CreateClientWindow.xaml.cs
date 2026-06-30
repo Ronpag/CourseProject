@@ -13,12 +13,17 @@ public partial class CreateClientWindow : Window
     private void CreateBtn(object sender, RoutedEventArgs e)
     {
         string name = ClientNameBox.Text.Trim();
+        string login = LoginBox.Text.Trim();
+        string password = PasswordBox.Password.Trim();
 
         if (string.IsNullOrWhiteSpace(name))
         {
             MessageBox.Show("Enter client name");
             return;
         }
+
+        if (!Validation.ValidateLoginPassword(login, password))
+            return;
 
         using var db = new AppDbContext();
 
@@ -28,9 +33,19 @@ public partial class CreateClientWindow : Window
             return;
         }
 
+        bool loginExists = db.Clients.Any(c => c.Login == login);
+
+        if (loginExists)
+        {
+            MessageBox.Show("Login already taken");
+            return;
+        }
+
         db.Clients.Add(new Client
         {
             NameClient = name,
+            Login = login,
+            Password = BCrypt.Net.BCrypt.HashPassword(password),
             CountOrders = 0
         });
 

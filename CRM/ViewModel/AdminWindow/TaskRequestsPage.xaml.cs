@@ -1,7 +1,9 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using CRM.Data;
+using CRM.View;
 
 namespace CRM.ViewModel.AdminWindow;
 
@@ -157,5 +159,37 @@ public partial class TaskRequestsPage : Page
         MessageBox.Show("Order deleted.", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
 
         LoadPendingOrders();
+    }
+
+    private void OpenRequestDetails(TaskStatusRequest request)
+    {
+        if (request == null) return;
+        new DetailsWindow(request).ShowDialog();
+    }
+
+    private void OpenOrderDetails(CRM.Data.Task task)
+    {
+        if (task == null) return;
+        new DetailsWindow(task).ShowDialog();
+    }
+
+    private void RequestDetailsBtn(object sender, RoutedEventArgs e)
+    {
+        OpenRequestDetails(RequestsList.SelectedItem as TaskStatusRequest);
+    }
+
+    private void RequestsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        OpenRequestDetails(RequestsList.SelectedItem as TaskStatusRequest);
+    }
+
+    private void OrderDetailsBtn(object sender, RoutedEventArgs e)
+    {
+        OpenOrderDetails(PendingOrdersList.SelectedItem as CRM.Data.Task);
+    }
+
+    private void PendingOrdersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        OpenOrderDetails(PendingOrdersList.SelectedItem as CRM.Data.Task);
     }
 }

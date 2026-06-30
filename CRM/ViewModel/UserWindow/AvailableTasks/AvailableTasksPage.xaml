@@ -10,10 +10,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListBox x:Name="TasksList"/>
+        <ListBox x:Name="TasksList" MouseDoubleClick="TasksList_MouseDoubleClick"/>
 
-        <Button Grid.Row="1" Margin="0,10,0,0" Height="35"
-                Content="Take task" Click="TakeTaskBtn"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Right">
+            <Button Height="35" Width="100" Margin="0,0,10,0"
+                    Content="Take task" Click="TakeTaskBtn"/>
+            <Button Height="35" Width="100"
+                    Content="Details" Click="DetailsBtn"/>
+        </StackPanel>
 
     </Grid>
 

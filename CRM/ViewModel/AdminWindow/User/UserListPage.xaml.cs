@@ -1,6 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using CRM.Data;
+using CRM.View;
 
 namespace CRM.View;
 
@@ -66,5 +68,17 @@ public partial class UserListPage : Page
     {
         using var db = new AppDbContext();
         UsersList.ItemsSource = db.Users.ToList();
+    }
+
+    private void DetailsBtn(object sender, RoutedEventArgs e)
+    {
+        if (UsersList.SelectedItem is not User user) return;
+        new DetailsWindow(user).ShowDialog();
+    }
+
+    private void UsersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (UsersList.SelectedItem is not User user) return;
+        new DetailsWindow(user).ShowDialog();
     }
 }

@@ -20,6 +20,10 @@ public class Task
 
     public DateTime? CompletionDate { get; set; }
 
+    public User? Worker { get; set; }
+
+    public Client? Client { get; set; }
+
     public override string ToString()
     {
         string info = $"ID: {Id} | {TaskName} | Status: {Status}";

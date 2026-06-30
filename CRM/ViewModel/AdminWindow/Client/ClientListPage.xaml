@@ -15,8 +15,9 @@
             <Button Content="Register" Width="70" Click="RegisterBtn"/>
             <Button Content="Delete" Width="70" Click="DeleteBtn"/>
             <Button Content="Update" Width="70" Click="UpdateBtn"/>
+            <Button Content="Details" Width="70" Click="DetailsBtn"/>
         </StackPanel>
-        <ListBox x:Name="ClientsList" Grid.Row="2"/>
+        <ListBox x:Name="ClientsList" Grid.Row="2" MouseDoubleClick="ClientsList_MouseDoubleClick"/>
 
     </Grid>
 </Page>

@@ -1,7 +1,9 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using CRM.Data;
+using CRM.View;
 
 namespace CRM.ViewModel.ClientWindow;
 
@@ -68,5 +70,17 @@ public partial class ClientOrdersPage : Page
         MessageBox.Show("Order deleted.", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
 
         LoadOrders();
+    }
+
+    private void DetailsBtn(object sender, RoutedEventArgs e)
+    {
+        if (OrdersList.SelectedItem is not CRM.Data.Task task) return;
+        new DetailsWindow(task).ShowDialog();
+    }
+
+    private void OrdersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (OrdersList.SelectedItem is not CRM.Data.Task task) return;
+        new DetailsWindow(task).ShowDialog();
     }
 }

@@ -16,10 +16,11 @@
 
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Approve" Width="80" Margin="0,0,5,0" Click="ApproveBtn"/>
-                        <Button Content="Reject" Width="80" Click="RejectBtn"/>
+                        <Button Content="Reject" Width="80" Margin="0,0,5,0" Click="RejectBtn"/>
+                        <Button Content="Details" Width="80" Click="RequestDetailsBtn"/>
                     </StackPanel>
 
-                    <ListBox x:Name="RequestsList" Grid.Row="2"/>
+                    <ListBox x:Name="RequestsList" Grid.Row="2" MouseDoubleClick="RequestsList_MouseDoubleClick"/>
                 </Grid>
             </TabItem>
 
@@ -34,9 +35,10 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Approve" Width="80" Margin="0,0,5,0" Click="ApproveOrderBtn"/>
                         <Button Content="Delete" Width="80" Margin="0,0,5,0" Click="DeleteOrderBtn"/>
+                        <Button Content="Details" Width="80" Click="OrderDetailsBtn"/>
                     </StackPanel>
 
-                    <ListBox x:Name="PendingOrdersList" Grid.Row="2"/>
+                    <ListBox x:Name="PendingOrdersList" Grid.Row="2" MouseDoubleClick="PendingOrdersList_MouseDoubleClick"/>
                 </Grid>
             </TabItem>
         </TabControl>

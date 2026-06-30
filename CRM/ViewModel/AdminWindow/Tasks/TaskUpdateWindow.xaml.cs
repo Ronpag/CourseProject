@@ -16,12 +16,16 @@ public partial class TaskUpdateWindow : Window
         TaskNameBox.Text = task.TaskName;
         DescriptionBox.Text = task.Description;
         ClientIdBox.Text = task.ClientId.ToString();
-        WorkerIdBox.Text = task.WorkerId.ToString();
+        WorkerIdBox.Text = task.WorkerId?.ToString() ?? "";
 
         StatusBox.ItemsSource =
             Enum.GetValues(typeof(CRM.Data.Task.TaskStatus));
 
         StatusBox.SelectedItem = task.Status;
+
+        StartDateBox.Text = task.StartDate?.ToString("yyyy-MM-dd") ?? "";
+        AcceptanceDateBox.Text = task.AcceptanceDate?.ToString("yyyy-MM-dd") ?? "";
+        CompletionDateBox.Text = task.CompletionDate?.ToString("yyyy-MM-dd") ?? "";
     }
 
     private void SaveChangesBtn(object sender, RoutedEventArgs e)
@@ -44,7 +48,7 @@ public partial class TaskUpdateWindow : Window
 
         int? workerId = null;
 
-        if (status != CRM.Data.Task.TaskStatus.Available)
+        if (status != CRM.Data.Task.TaskStatus.Available && status != CRM.Data.Task.TaskStatus.Pending)
         {
             if (!int.TryParse(WorkerIdBox.Text, out int parsedWorkerId))
             {
@@ -53,6 +57,42 @@ public partial class TaskUpdateWindow : Window
             }
 
             workerId = parsedWorkerId;
+        }
+
+        DateTime? startDate = null;
+        if (!string.IsNullOrWhiteSpace(StartDateBox.Text))
+        {
+            if (DateTime.TryParse(StartDateBox.Text, out var parsedStart))
+                startDate = parsedStart;
+            else
+            {
+                MessageBox.Show("Invalid Start Date", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+        }
+
+        DateTime? acceptanceDate = null;
+        if (!string.IsNullOrWhiteSpace(AcceptanceDateBox.Text))
+        {
+            if (DateTime.TryParse(AcceptanceDateBox.Text, out var parsedAccept))
+                acceptanceDate = parsedAccept;
+            else
+            {
+                MessageBox.Show("Invalid Acceptance Date", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+        }
+
+        DateTime? completionDate = null;
+        if (!string.IsNullOrWhiteSpace(CompletionDateBox.Text))
+        {
+            if (DateTime.TryParse(CompletionDateBox.Text, out var parsedComplete))
+                completionDate = parsedComplete;
+            else
+            {
+                MessageBox.Show("Invalid Completion Date", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
         }
 
         using var db = new AppDbContext();
@@ -89,9 +129,7 @@ public partial class TaskUpdateWindow : Window
             var oldClient = db.Clients.FirstOrDefault(c => c.Id == task.ClientId);
 
             if (oldClient != null && oldClient.CountOrders > 0)
-            {
                 oldClient.CountOrders--;
-            }
 
             client.CountOrders++;
         }
@@ -101,6 +139,9 @@ public partial class TaskUpdateWindow : Window
         task.ClientId = clientId;
         task.WorkerId = workerId;
         task.Status = status;
+        task.StartDate = startDate;
+        task.AcceptanceDate = acceptanceDate;
+        task.CompletionDate = completionDate;
 
         db.SaveChanges();
 

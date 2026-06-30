@@ -31,13 +31,19 @@
 
             <Button Content="Change Status"
                     Width="120"
+                    Margin="0,0,10,0"
                     Click="ChangeStatusBtn"/>
+
+            <Button Content="Details"
+                    Width="80"
+                    Click="DetailsBtn"/>
 
         </StackPanel>
 
         <ListBox x:Name="TasksList"
                  Grid.Row="3"
-                 Margin="0,10,0,0"/>
+                 Margin="0,10,0,0"
+                 MouseDoubleClick="TasksList_MouseDoubleClick"/>
 
     </Grid>
 </Page>

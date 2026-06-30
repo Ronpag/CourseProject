@@ -14,6 +14,8 @@ public partial class ClientUpdateWindow : Window
         _clientId = client.Id;
 
         NameClientBox.Text = client.NameClient;
+        LoginBox.Text = client.Login;
+        PasswordBox.Text = "";
         CountOrdersBox.Text = client.CountOrders.ToString();
     }
 
@@ -21,25 +23,23 @@ public partial class ClientUpdateWindow : Window
     {
         if (!int.TryParse(CountOrdersBox.Text, out int countOrders))
         {
-            MessageBox.Show(
-                "Invalid count orders",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Invalid count orders", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
         string newName = NameClientBox.Text.Trim();
+        string newLogin = LoginBox.Text.Trim();
+        string newPassword = PasswordBox.Text.Trim();
 
         if (string.IsNullOrWhiteSpace(newName))
         {
-            MessageBox.Show(
-                "Client name is empty",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+            MessageBox.Show("Client name is empty", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
 
+        if (string.IsNullOrWhiteSpace(newLogin))
+        {
+            MessageBox.Show("Login is empty", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -51,12 +51,17 @@ public partial class ClientUpdateWindow : Window
 
         if (clientExists)
         {
-            MessageBox.Show(
-                "Client with this name already exists",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+            MessageBox.Show("Client with this name already exists", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
 
+        bool loginExists = db.Clients.Any(c =>
+            c.Id != _clientId &&
+            c.Login == newLogin);
+
+        if (loginExists)
+        {
+            MessageBox.Show("Login already taken", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -64,16 +69,16 @@ public partial class ClientUpdateWindow : Window
 
         if (client == null)
         {
-            MessageBox.Show(
-                "Client not found",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
+            MessageBox.Show("Client not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
         client.NameClient = newName;
+        client.Login = newLogin;
+
+        if (!string.IsNullOrWhiteSpace(newPassword))
+            client.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+
         client.CountOrders = countOrders;
 
         db.SaveChanges();

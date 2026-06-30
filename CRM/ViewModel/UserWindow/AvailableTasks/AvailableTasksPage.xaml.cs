@@ -1,6 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using CRM.Data;
+using CRM.View;
 
 namespace CRM.ViewModel.UserWindow;
 
@@ -50,5 +52,17 @@ public partial class AvailableTasksPage : Page
         LoadTasks();
 
         MessageBox.Show("Task accepted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void DetailsBtn(object sender, RoutedEventArgs e)
+    {
+        if (TasksList.SelectedItem is not CRM.Data.Task task) return;
+        new DetailsWindow(task).ShowDialog();
+    }
+
+    private void TasksList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        if (TasksList.SelectedItem is not CRM.Data.Task task) return;
+        new DetailsWindow(task).ShowDialog();
     }
 }

@@ -13,4 +13,19 @@ public class AppDbContext : DbContext
     {
         optionsBuilder.UseSqlite("Data Source=Crm.db");
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Task>()
+            .HasOne(t => t.Client)
+            .WithMany(c => c.Tasks)
+            .HasForeignKey(t => t.ClientId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Task>()
+            .HasOne(t => t.Worker)
+            .WithMany(u => u.Tasks)
+            .HasForeignKey(t => t.WorkerId)
+            .OnDelete(DeleteBehavior.SetNull);
+    }
 }
