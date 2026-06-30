@@ -21,12 +21,6 @@ public partial class ClientListPage : Page
         if (window.ShowDialog() == true)
         {
             LoadClients();
-
-            MessageBox.Show(
-                "Client was created",
-                "Success",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
         }
     }
 
@@ -86,7 +80,19 @@ public partial class ClientListPage : Page
     {
         using var db = new AppDbContext();
 
-        ClientsList.ItemsSource = db.Clients.ToList();
+        var query = db.Clients.AsQueryable();
+
+        string filter = SearchBox?.Text?.Trim();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(c => c.NameClient.Contains(filter));
+
+        ClientsList.ItemsSource = query.ToList();
+    }
+
+    private void SearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        LoadClients();
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)

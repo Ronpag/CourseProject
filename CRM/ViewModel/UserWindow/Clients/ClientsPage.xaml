@@ -8,6 +8,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -15,7 +17,9 @@
             <Button Content="Details" Width="80" Click="DetailsBtn"/>
         </StackPanel>
 
-        <ListBox x:Name="ClientsList" Grid.Row="2" MouseDoubleClick="ClientsList_MouseDoubleClick"/>
+        <TextBox x:Name="SearchBox" Grid.Row="2" TextChanged="SearchBox_TextChanged"/>
+
+        <ListBox x:Name="ClientsList" Grid.Row="4" MouseDoubleClick="ClientsList_MouseDoubleClick"/>
 
     </Grid>
 </Page>

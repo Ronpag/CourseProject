@@ -23,9 +23,19 @@ public partial class AvailableTasksPage : Page
     {
         using var db = new AppDbContext();
 
-        TasksList.ItemsSource = db.Tasks
-            .Where(t => t.Status == CRM.Data.Task.TaskStatus.Available)
-            .ToList();
+        var query = db.Tasks.Where(t => t.Status == CRM.Data.Task.TaskStatus.Available);
+
+        string filter = SearchBox?.Text?.Trim();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(t => t.TaskName.Contains(filter));
+
+        TasksList.ItemsSource = query.ToList();
+    }
+
+    private void SearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        LoadTasks();
     }
 
     private void TakeTaskBtn(object sender, RoutedEventArgs e)
@@ -42,6 +52,12 @@ public partial class AvailableTasksPage : Page
 
         if (task == null)
             return;
+
+        if (task.StartDate.HasValue && DateTime.Now < task.StartDate.Value)
+        {
+            MessageBox.Show("Task cannot be accepted before its start date.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
 
         task.WorkerId = _workerId;
         task.Status = CRM.Data.Task.TaskStatus.Assigned;

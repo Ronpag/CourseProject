@@ -10,7 +10,9 @@
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="5"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -20,7 +22,9 @@
                         <Button Content="Details" Width="80" Click="RequestDetailsBtn"/>
                     </StackPanel>
 
-                    <ListBox x:Name="RequestsList" Grid.Row="2" MouseDoubleClick="RequestsList_MouseDoubleClick"/>
+                    <TextBox x:Name="RequestsSearchBox" Grid.Row="2" TextChanged="RequestsSearchBox_TextChanged"/>
+
+                    <ListBox x:Name="RequestsList" Grid.Row="4" MouseDoubleClick="RequestsList_MouseDoubleClick"/>
                 </Grid>
             </TabItem>
 
@@ -28,7 +32,9 @@
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="5"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -38,7 +44,9 @@
                         <Button Content="Details" Width="80" Click="OrderDetailsBtn"/>
                     </StackPanel>
 
-                    <ListBox x:Name="PendingOrdersList" Grid.Row="2" MouseDoubleClick="PendingOrdersList_MouseDoubleClick"/>
+                    <TextBox x:Name="OrdersSearchBox" Grid.Row="2" TextChanged="OrdersSearchBox_TextChanged"/>
+
+                    <ListBox x:Name="PendingOrdersList" Grid.Row="4" MouseDoubleClick="PendingOrdersList_MouseDoubleClick"/>
                 </Grid>
             </TabItem>
 
@@ -46,7 +54,9 @@
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="5"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -56,7 +66,9 @@
                         <Button Content="Details" Width="80" Click="ProfileDetailsBtn"/>
                     </StackPanel>
 
-                    <ListBox x:Name="ProfileRequestsList" Grid.Row="2" MouseDoubleClick="ProfileRequestsList_MouseDoubleClick"/>
+                    <TextBox x:Name="ProfileSearchBox" Grid.Row="2" TextChanged="ProfileSearchBox_TextChanged"/>
+
+                    <ListBox x:Name="ProfileRequestsList" Grid.Row="4" MouseDoubleClick="ProfileRequestsList_MouseDoubleClick"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -21,18 +21,38 @@ public partial class TaskRequestsPage : Page
     {
         using var db = new AppDbContext();
 
-        RequestsList.ItemsSource = db.TaskStatusRequests
-            .Where(r => !r.IsProcessed)
-            .ToList();
+        var query = db.TaskStatusRequests.Where(r => !r.IsProcessed);
+
+        string filter = RequestsSearchBox?.Text?.Trim();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(r => r.TaskId.ToString().Contains(filter));
+
+        RequestsList.ItemsSource = query.ToList();
+    }
+
+    private void RequestsSearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        LoadRequests();
     }
 
     private void LoadPendingOrders()
     {
         using var db = new AppDbContext();
 
-        PendingOrdersList.ItemsSource = db.Tasks
-            .Where(t => t.Status == CRM.Data.Task.TaskStatus.Pending)
-            .ToList();
+        var query = db.Tasks.Where(t => t.Status == CRM.Data.Task.TaskStatus.Pending);
+
+        string filter = OrdersSearchBox?.Text?.Trim();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(t => t.TaskName.Contains(filter));
+
+        PendingOrdersList.ItemsSource = query.ToList();
+    }
+
+    private void OrdersSearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        LoadPendingOrders();
     }
 
     private void ApproveBtn(object sender, RoutedEventArgs e)
@@ -62,7 +82,17 @@ public partial class TaskRequestsPage : Page
         task.Status = dbRequest.RequestedStatus;
 
         if (dbRequest.RequestedStatus == CRM.Data.Task.TaskStatus.Completed)
-            task.CompletionDate = DateTime.Now;
+        {
+            DateTime completionDate = dbRequest.RequestedCompletionDate ?? DateTime.Now;
+
+            if (task.AcceptanceDate.HasValue && completionDate < task.AcceptanceDate.Value)
+            {
+                MessageBox.Show("Completion date cannot be earlier than acceptance date.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            task.CompletionDate = completionDate;
+        }
 
         dbRequest.IsProcessed = true;
         dbRequest.IsApproved = true;
@@ -198,9 +228,19 @@ public partial class TaskRequestsPage : Page
     {
         using var db = new AppDbContext();
 
-        ProfileRequestsList.ItemsSource = db.ProfileChangeRequests
-            .Where(r => !r.IsProcessed)
-            .ToList();
+        var query = db.ProfileChangeRequests.Where(r => !r.IsProcessed);
+
+        string filter = ProfileSearchBox?.Text?.Trim();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(r => r.Id.ToString().Contains(filter));
+
+        ProfileRequestsList.ItemsSource = query.ToList();
+    }
+
+    private void ProfileSearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        LoadProfileRequests();
     }
 
     private void ApproveProfileBtn(object sender, RoutedEventArgs e)
@@ -210,6 +250,12 @@ public partial class TaskRequestsPage : Page
             MessageBox.Show("Select a request");
             return;
         }
+
+        if (request.NewEmail != null && !Validation.ValidateEmail(request.NewEmail))
+            return;
+
+        if (request.NewPhone != null && !Validation.ValidatePhone(request.NewPhone))
+            return;
 
         using var db = new AppDbContext();
 

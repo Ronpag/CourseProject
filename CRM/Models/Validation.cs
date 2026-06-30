@@ -47,4 +47,34 @@ public static class Validation
 
         return true;
     }
+
+    public static bool ValidateEmail(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+            return true;
+
+        if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            MessageBox.Show("Invalid email format", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
+        return true;
+    }
+
+    public static bool ValidatePhone(string phone)
+    {
+        if (string.IsNullOrWhiteSpace(phone))
+            return true;
+
+        string digitsOnly = Regex.Replace(phone, @"[\s\-\+\(\)]", "");
+
+        if (!Regex.IsMatch(digitsOnly, @"^\d{7,15}$"))
+        {
+            MessageBox.Show("Phone must contain 7-15 digits", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
+        return true;
+    }
 }

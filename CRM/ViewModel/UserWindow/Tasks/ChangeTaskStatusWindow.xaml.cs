@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using CRM.Data;
 
@@ -19,8 +20,34 @@ public partial class ChangeTaskStatusWindow : Window
         StatusBox.SelectedItem = task.Status;
     }
 
+    private void StatusBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        CompletionDatePanel.Visibility =
+            StatusBox.SelectedItem is CRM.Data.Task.TaskStatus status && status == CRM.Data.Task.TaskStatus.Completed
+                ? Visibility.Visible
+                : Visibility.Collapsed;
+    }
+
     private void SaveBtn(object sender, RoutedEventArgs e)
     {
+        var requestedStatus = (CRM.Data.Task.TaskStatus)StatusBox.SelectedItem;
+
+        DateTime? completionDate = null;
+
+        if (requestedStatus == CRM.Data.Task.TaskStatus.Completed)
+        {
+            if (!string.IsNullOrWhiteSpace(CompletionDateBox.Text))
+            {
+                if (!DateTime.TryParse(CompletionDateBox.Text, out var parsed))
+                {
+                    MessageBox.Show("Invalid completion date", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                completionDate = parsed;
+            }
+        }
+
         using var db = new AppDbContext();
 
         var task = db.Tasks.FirstOrDefault(t => t.Id == _taskId);
@@ -31,9 +58,9 @@ public partial class ChangeTaskStatusWindow : Window
         db.TaskStatusRequests.Add(new TaskStatusRequest
         {
             TaskId = _taskId,
-            RequestedStatus =
-                (CRM.Data.Task.TaskStatus)StatusBox.SelectedItem,
+            RequestedStatus = requestedStatus,
             Comment = CommentBox.Text.Trim(),
+            RequestedCompletionDate = completionDate,
             IsProcessed = false
         });
 

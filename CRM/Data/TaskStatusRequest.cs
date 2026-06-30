@@ -10,6 +10,8 @@ public class TaskStatusRequest
 
     public string Comment { get; set; }
 
+    public DateTime? RequestedCompletionDate { get; set; }
+
     public bool IsProcessed { get; set; }
 
     public bool? IsApproved { get; set; }

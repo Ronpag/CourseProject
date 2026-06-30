@@ -36,6 +36,12 @@ public partial class UserProfileWindow : Window
         string phone = PhoneBox.Text.Trim();
         string position = PositionBox.Text.Trim();
 
+        if (!string.IsNullOrWhiteSpace(email) && !Validation.ValidateEmail(email))
+            return;
+
+        if (!string.IsNullOrWhiteSpace(phone) && !Validation.ValidatePhone(phone))
+            return;
+
         using var db = new AppDbContext();
         var user = db.Users.FirstOrDefault(u => u.Id == _userId);
 

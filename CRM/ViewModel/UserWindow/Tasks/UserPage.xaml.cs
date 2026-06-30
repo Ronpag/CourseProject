@@ -23,29 +23,19 @@ public partial class UserPage : Page
     {
         using var db = new AppDbContext();
 
-        TasksList.ItemsSource = db.Tasks
-            .Where(t => t.WorkerId == _workerId)
-            .ToList();
+        var query = db.Tasks.Where(t => t.WorkerId == _workerId);
+
+        string filter = SearchBox?.Text?.Trim();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(t => t.TaskName.Contains(filter));
+
+        TasksList.ItemsSource = query.ToList();
     }
 
-    private void AddClientBtn(object sender, RoutedEventArgs e)
+    private void SearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
     {
-        var window = new CreateClientWindow();
-
-        if (window.ShowDialog() == true)
-        {
-            MessageBox.Show("Client created");
-        }
-    }
-
-    private void AddTaskBtn(object sender, RoutedEventArgs e)
-    {
-        var window = new CreateTaskWindow(_workerId);
-
-        if (window.ShowDialog() == true)
-        {
-            LoadTasks();
-        }
+        LoadTasks();
     }
 
     private void ChangeStatusBtn(object sender, RoutedEventArgs e)

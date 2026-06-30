@@ -24,13 +24,13 @@
         <TextBlock Text="Status"/>
         <ComboBox x:Name="StatusBox" Margin="0,5,0,10"/>
 
-        <TextBlock Text="Start Date (yyyy-MM-dd)"/>
+        <TextBlock Text="Start Date (dd.MM.yyyy)"/>
         <TextBox x:Name="StartDateBox" Margin="0,5,0,10"/>
 
-        <TextBlock Text="Acceptance Date (yyyy-MM-dd)"/>
+        <TextBlock Text="Acceptance Date (dd.MM.yyyy)"/>
         <TextBox x:Name="AcceptanceDateBox" Margin="0,5,0,10"/>
 
-        <TextBlock Text="Completion Date (yyyy-MM-dd)"/>
+        <TextBlock Text="Completion Date (dd.MM.yyyy)"/>
         <TextBox x:Name="CompletionDateBox" Margin="0,5,0,10"/>
 
         <Button Content="Save" Height="30" Click="SaveChangesBtn"/>

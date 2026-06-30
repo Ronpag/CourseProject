@@ -22,10 +22,22 @@ public partial class ClientOrdersPage : Page
     {
         using var db = new AppDbContext();
 
-        OrdersList.ItemsSource = db.Tasks
-            .Where(t => t.ClientId == _clientId)
+        var query = db.Tasks
+            .Where(t => t.ClientId == _clientId);
+
+        string filter = SearchBox?.Text?.Trim();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(t => t.TaskName.Contains(filter));
+
+        OrdersList.ItemsSource = query
             .OrderByDescending(t => t.Id)
             .ToList();
+    }
+
+    private void SearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        LoadOrders();
     }
 
     private void DeleteOrderBtn(object sender, RoutedEventArgs e)

@@ -97,7 +97,19 @@ public partial class TaskListPage : Page
     {
         using var db = new AppDbContext();
 
-        TasksList.ItemsSource = db.Tasks.ToList();
+        var query = db.Tasks.AsQueryable();
+
+        string filter = SearchBox?.Text?.Trim();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(t => t.TaskName.Contains(filter));
+
+        TasksList.ItemsSource = query.ToList();
+    }
+
+    private void SearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        LoadTasks();
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)

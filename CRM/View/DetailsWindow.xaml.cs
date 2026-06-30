@@ -26,6 +26,7 @@ public partial class DetailsWindow : Window
             Current Status: {task?.Status}
             Requested Status: {request.RequestedStatus}
             Comment: {request.Comment ?? "(no comment)"}
+            Requested Completion Date: {request.RequestedCompletionDate?.ToString("dd.MM.yyyy") ?? "N/A"}
 
             Processed: {(request.IsProcessed ? "Yes" : "No")}
             Approved: {(request.IsApproved.HasValue ? (request.IsApproved.Value ? "Yes" : "No") : "N/A")}
@@ -49,12 +50,15 @@ public partial class DetailsWindow : Window
 
             Client: {db.Clients.FirstOrDefault(c => c.Id == task.ClientId)?.NameClient ?? "N/A"} (ID: {task.ClientId})
             Worker: {task.Worker?.WorkerName ?? (task.WorkerId != null ? db.Users.FirstOrDefault(u => u.Id == task.WorkerId)?.WorkerName : "Not assigned")}
+            Worker Email: {task.Worker?.Email ?? (task.WorkerId != null ? db.Users.FirstOrDefault(u => u.Id == task.WorkerId)?.Email : "N/A")}
+            Worker Phone: {task.Worker?.Phone ?? (task.WorkerId != null ? db.Users.FirstOrDefault(u => u.Id == task.WorkerId)?.Phone : "N/A")}
+            Worker Position: {task.Worker?.Position ?? (task.WorkerId != null ? db.Users.FirstOrDefault(u => u.Id == task.WorkerId)?.Position : "N/A")}
 
             Status: {task.Status}
 
-            Start Date: {task.StartDate?.ToString("yyyy-MM-dd") ?? "N/A"}
-            Acceptance Date: {task.AcceptanceDate?.ToString("yyyy-MM-dd") ?? "N/A"}
-            Completion Date: {task.CompletionDate?.ToString("yyyy-MM-dd") ?? "N/A"}
+            Start Date: {task.StartDate?.ToString("dd.MM.yyyy") ?? "N/A"}
+            Acceptance Date: {task.AcceptanceDate?.ToString("dd.MM.yyyy") ?? "N/A"}
+            Completion Date: {task.CompletionDate?.ToString("dd.MM.yyyy") ?? "N/A"}
             """;
 
         DetailsContent.Text = text;

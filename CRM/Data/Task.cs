@@ -29,13 +29,13 @@ public class Task
         string info = $"ID: {Id} | {TaskName} | Status: {Status}";
 
         if (StartDate.HasValue)
-            info += $" | Start: {StartDate.Value:d}";
+            info += $" | Start: {StartDate.Value:dd.MM.yyyy}";
 
         if (AcceptanceDate.HasValue)
-            info += $" | Accepted: {AcceptanceDate.Value:d}";
+            info += $" | Accepted: {AcceptanceDate.Value:dd.MM.yyyy}";
 
         if (CompletionDate.HasValue)
-            info += $" | Done: {CompletionDate.Value:d}";
+            info += $" | Done: {CompletionDate.Value:dd.MM.yyyy}";
 
         return info;
     }

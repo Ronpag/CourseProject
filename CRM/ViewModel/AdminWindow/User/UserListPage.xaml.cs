@@ -67,7 +67,20 @@ public partial class UserListPage : Page
     private void LoadUsers()
     {
         using var db = new AppDbContext();
-        UsersList.ItemsSource = db.Users.ToList();
+
+        var query = db.Users.AsQueryable();
+
+        string filter = SearchBox?.Text?.Trim();
+
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(u => u.WorkerName.Contains(filter) || u.Name.Contains(filter));
+
+        UsersList.ItemsSource = query.ToList();
+    }
+
+    private void SearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        LoadUsers();
     }
 
     private void DetailsBtn(object sender, RoutedEventArgs e)

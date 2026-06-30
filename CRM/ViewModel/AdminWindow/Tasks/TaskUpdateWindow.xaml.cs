@@ -23,9 +23,9 @@ public partial class TaskUpdateWindow : Window
 
         StatusBox.SelectedItem = task.Status;
 
-        StartDateBox.Text = task.StartDate?.ToString("yyyy-MM-dd") ?? "";
-        AcceptanceDateBox.Text = task.AcceptanceDate?.ToString("yyyy-MM-dd") ?? "";
-        CompletionDateBox.Text = task.CompletionDate?.ToString("yyyy-MM-dd") ?? "";
+        StartDateBox.Text = task.StartDate?.ToString("dd.MM.yyyy") ?? "";
+        AcceptanceDateBox.Text = task.AcceptanceDate?.ToString("dd.MM.yyyy") ?? "";
+        CompletionDateBox.Text = task.CompletionDate?.ToString("dd.MM.yyyy") ?? "";
     }
 
     private void SaveChangesBtn(object sender, RoutedEventArgs e)
@@ -122,6 +122,18 @@ public partial class TaskUpdateWindow : Window
                 MessageBox.Show("Worker with this ID does not exist", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+        }
+
+        if (startDate.HasValue && acceptanceDate.HasValue && acceptanceDate < startDate)
+        {
+            MessageBox.Show("Acceptance date cannot be earlier than start date.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (acceptanceDate.HasValue && completionDate.HasValue && completionDate < acceptanceDate)
+        {
+            MessageBox.Show("Completion date cannot be earlier than acceptance date.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
         }
 
         if (task.ClientId != clientId)
