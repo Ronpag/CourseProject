@@ -20,7 +20,7 @@ public partial class AdminWindow : Window
         currentWindow?.Close();
     }
     
-    private void WorkerPageBtn(object sender, RoutedEventArgs e)
+    private void UserPageBtn(object sender, RoutedEventArgs e)
     {
         MainFrame.Navigate(new UserListPage());
     }

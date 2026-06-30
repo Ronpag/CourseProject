@@ -20,7 +20,7 @@ public class ProfileChangeRequest
         if (UserId != null)
         {
             var user = db.Users.FirstOrDefault(u => u.Id == UserId);
-            who = $"Worker: {user?.WorkerName ?? "N/A"} (ID: {UserId})";
+            who = $"User: {user?.UserName ?? "N/A"} (ID: {UserId})";
         }
         else if (ClientId != null)
         {

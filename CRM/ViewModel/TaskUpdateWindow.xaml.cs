@@ -16,7 +16,7 @@ public partial class TaskUpdateWindow : Window
         TaskNameBox.Text = task.TaskName;
         DescriptionBox.Text = task.Description;
         ClientIdBox.Text = task.ClientId.ToString();
-        WorkerIdBox.Text = task.WorkerId?.ToString() ?? "";
+        UserIdBox.Text = task.UserId?.ToString() ?? "";
 
         StatusBox.ItemsSource =
             Enum.GetValues(typeof(CRM.Data.Task.TaskStatus));
@@ -46,17 +46,17 @@ public partial class TaskUpdateWindow : Window
 
         var status = (CRM.Data.Task.TaskStatus)StatusBox.SelectedItem;
 
-        int? workerId = null;
+        int? UserId = null;
 
         if (status != CRM.Data.Task.TaskStatus.Available && status != CRM.Data.Task.TaskStatus.Pending)
         {
-            if (!int.TryParse(WorkerIdBox.Text, out int parsedWorkerId))
+            if (!int.TryParse(UserIdBox.Text, out int parsedUserId))
             {
-                MessageBox.Show("Invalid Worker Id", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Invalid User Id", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            workerId = parsedWorkerId;
+            UserId = parsedUserId;
         }
 
         DateTime? startDate = null;
@@ -113,13 +113,13 @@ public partial class TaskUpdateWindow : Window
             return;
         }
 
-        if (workerId != null)
+        if (UserId != null)
         {
-            var worker = db.Users.FirstOrDefault(u => u.Id == workerId);
+            var User = db.Users.FirstOrDefault(u => u.Id == UserId);
 
-            if (worker == null)
+            if (User == null)
             {
-                MessageBox.Show("Worker with this ID does not exist", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("User with this ID does not exist", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
         }
@@ -149,7 +149,7 @@ public partial class TaskUpdateWindow : Window
         task.TaskName = taskName;
         task.Description = DescriptionBox.Text.Trim();
         task.ClientId = clientId;
-        task.WorkerId = workerId;
+        task.UserId = UserId;
         task.Status = status;
         task.StartDate = startDate;
         task.AcceptanceDate = acceptanceDate;

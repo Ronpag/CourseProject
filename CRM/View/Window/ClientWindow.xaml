@@ -45,7 +45,6 @@
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
 
-        <Label Content="Client Panel"/>
         <Button Grid.Row="0" Grid.Column="4" Click="BackBtn" Content="Exit"/>
 
     </Grid>

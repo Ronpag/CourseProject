@@ -11,7 +11,7 @@ public static class UserService
         return db.Users.ToList();
     }
 
-    public static List<User> GetWorkers()
+    public static List<User> GetUsers()
     {
         using var db = new AppDbContext();
         return db.Users.Where(u => !u.IsAdmin).ToList();
@@ -40,11 +40,11 @@ public static class UserService
         return user;
     }
 
-    public static bool Create(string name, string workerName, string password, bool isAdmin, bool isActive)
+    public static bool Create(string name, string UserName, string password, bool isAdmin, bool isActive)
     {
-        if (string.IsNullOrWhiteSpace(workerName))
+        if (string.IsNullOrWhiteSpace(UserName))
         {
-            MessageBox.Show("Worker name cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("User name cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
             return false;
         }
 
@@ -61,7 +61,7 @@ public static class UserService
         db.Users.Add(new User
         {
             Name = name,
-            WorkerName = workerName,
+            UserName = UserName,
             Password = PasswordService.Hash(password),
             IsAdmin = isAdmin,
             IsActive = isActive
@@ -70,11 +70,11 @@ public static class UserService
         return true;
     }
 
-    public static bool Update(int id, string name, string workerName, string? newPassword, bool? isActive)
+    public static bool Update(int id, string name, string UserName, string? newPassword, bool? isActive)
     {
-        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(workerName))
+        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(UserName))
         {
-            MessageBox.Show("Name and Worker name cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Login and name cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
             return false;
         }
 
@@ -95,7 +95,7 @@ public static class UserService
         if (user == null) return false;
 
         user.Name = name;
-        user.WorkerName = workerName;
+        user.UserName = UserName;
 
         if (!string.IsNullOrWhiteSpace(newPassword))
             user.Password = PasswordService.Hash(newPassword);

@@ -11,11 +11,11 @@ public partial class RegisterUserWindow : Window
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
-        string workerName = WorkerNameBox.Text.Trim();
+        string UserName = UserNameBox.Text.Trim();
         string login = LoginBox.Text.Trim();
         string password = PasswordBox.Password.Trim();
 
-        if (UserService.Create(login, workerName, password, isAdmin: false, isActive: ActiveCheckBox.IsChecked == true))
+        if (UserService.Create(login, UserName, password, isAdmin: false, isActive: ActiveCheckBox.IsChecked == true))
         {
             DialogResult = true;
             Close();

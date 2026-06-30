@@ -19,8 +19,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Worker Name"/>
-        <TextBox x:Name="WorkerNameBox" Grid.Row="1" Margin="0,5,0,10"/>
+        <TextBlock Text="User Name"/>
+        <TextBox x:Name="UserNameBox" Grid.Row="1" Margin="0,5,0,10"/>
 
         <TextBlock Grid.Row="2" Text="Login"/>
         <TextBox x:Name="LoginBox" Grid.Row="3" Margin="0,5,0,10"/>

@@ -10,13 +10,13 @@ public partial class RegisterTaskWindow : Window
         InitializeComponent();
 
         ClientsBox.ItemsSource = ClientService.GetAll();
-        WorkersBox.ItemsSource = UserService.GetWorkers();
+        UsersBox.ItemsSource = UserService.GetUsers();
     }
 
-    private void AssignWorkerChanged(object sender, RoutedEventArgs e)
+    private void AssignUserChanged(object sender, RoutedEventArgs e)
     {
-        WorkersBox.Visibility =
-            AssignWorkerCheckBox.IsChecked == true
+        UsersBox.Visibility =
+            AssignUserCheckBox.IsChecked == true
                 ? Visibility.Visible
                 : Visibility.Collapsed;
     }
@@ -37,25 +37,25 @@ public partial class RegisterTaskWindow : Window
             return;
         }
 
-        int? workerId = null;
+        int? UserId = null;
         var status = CRM.Data.Task.TaskStatus.Available;
         DateTime? acceptanceDate = null;
 
-        if (AssignWorkerCheckBox.IsChecked == true)
+        if (AssignUserCheckBox.IsChecked == true)
         {
-            if (WorkersBox.SelectedItem is not User selectedWorker)
+            if (UsersBox.SelectedItem is not User selectedUser)
             {
-                MessageBox.Show("Select worker", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Select User", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            workerId = selectedWorker.Id;
+            UserId = selectedUser.Id;
             status = CRM.Data.Task.TaskStatus.Assigned;
             acceptanceDate = DateTime.Now;
         }
 
         if (TaskService.Create(taskName, DescriptionBox.Text.Trim(),
-                selectedClient.Id, workerId, status,
+                selectedClient.Id, UserId, status,
                 DateTime.Now, acceptanceDate))
         {
             DialogResult = true;

@@ -8,13 +8,13 @@ namespace CRM.ViewModel.UserWindow;
 
 public partial class AvailableTasksPage : Page
 {
-    private readonly int _workerId;
+    private readonly int _UserId;
 
-    public AvailableTasksPage(int workerId)
+    public AvailableTasksPage(int UserId)
     {
         InitializeComponent();
 
-        _workerId = workerId;
+        _UserId = UserId;
 
         LoadTasks();
     }
@@ -34,7 +34,7 @@ public partial class AvailableTasksPage : Page
             return;
         }
 
-        if (TaskService.TakeTask(selectedTask.Id, _workerId))
+        if (TaskService.TakeTask(selectedTask.Id, _UserId))
         {
             LoadTasks();
             MessageBox.Show("Task accepted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

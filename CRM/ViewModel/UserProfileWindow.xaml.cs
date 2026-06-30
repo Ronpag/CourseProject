@@ -20,7 +20,7 @@ public partial class UserProfileWindow : Window
             return;
         }
 
-        WorkerNameText.Text = user.WorkerName;
+        UserNameText.Text = user.UserName;
         LoginText.Text = user.Name;
         EmailBox.Text = user.Email ?? "";
         PhoneBox.Text = user.Phone ?? "";

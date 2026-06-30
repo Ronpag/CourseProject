@@ -5,7 +5,7 @@ namespace CRM;
 
 public static class TaskService
 {
-    public static List<CRM.Data.Task> GetFiltered(int? workerId = null, int? clientId = null,
+    public static List<CRM.Data.Task> GetFiltered(int? UserId = null, int? clientId = null,
         List<CRM.Data.Task.TaskStatus>? statusFilters = null,
         DateTime? dateFrom = null, DateTime? dateTo = null)
     {
@@ -13,8 +13,8 @@ public static class TaskService
 
         var query = db.Tasks.AsQueryable();
 
-        if (workerId.HasValue)
-            query = query.Where(t => t.WorkerId == workerId.Value);
+        if (UserId.HasValue)
+            query = query.Where(t => t.UserId == UserId.Value);
 
         if (clientId.HasValue)
             query = query.Where(t => t.ClientId == clientId.Value);
@@ -43,7 +43,7 @@ public static class TaskService
         return db.Tasks.FirstOrDefault(t => t.Id == id);
     }
 
-    public static bool Create(string taskName, string? description, int clientId, int? workerId,
+    public static bool Create(string taskName, string? description, int clientId, int? UserId,
         CRM.Data.Task.TaskStatus status, DateTime? startDate, DateTime? acceptanceDate)
     {
         if (string.IsNullOrWhiteSpace(taskName))
@@ -66,7 +66,7 @@ public static class TaskService
             TaskName = taskName,
             Description = description ?? "",
             ClientId = clientId,
-            WorkerId = workerId,
+            UserId = UserId,
             Status = status,
             StartDate = startDate,
             AcceptanceDate = acceptanceDate
@@ -78,7 +78,7 @@ public static class TaskService
         return true;
     }
 
-    public static bool Update(int taskId, string taskName, string? description, int clientId, int? workerId,
+    public static bool Update(int taskId, string taskName, string? description, int clientId, int? UserId,
         CRM.Data.Task.TaskStatus status, DateTime? startDate, DateTime? acceptanceDate, DateTime? completionDate)
     {
         using var db = new AppDbContext();
@@ -95,8 +95,8 @@ public static class TaskService
         task.AcceptanceDate = acceptanceDate;
         task.CompletionDate = completionDate;
 
-        if (workerId.HasValue)
-            task.WorkerId = workerId;
+        if (UserId.HasValue)
+            task.UserId = UserId;
 
         if (clientId != oldClientId)
         {
@@ -131,7 +131,7 @@ public static class TaskService
         return true;
     }
 
-    public static bool TakeTask(int taskId, int workerId)
+    public static bool TakeTask(int taskId, int UserId)
     {
         using var db = new AppDbContext();
 
@@ -144,7 +144,7 @@ public static class TaskService
             return false;
         }
 
-        task.WorkerId = workerId;
+        task.UserId = UserId;
         task.Status = CRM.Data.Task.TaskStatus.Assigned;
         task.AcceptanceDate = DateTime.Now;
         db.SaveChanges();

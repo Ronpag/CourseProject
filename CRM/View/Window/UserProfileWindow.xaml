@@ -13,8 +13,8 @@
         </TextBlock>
         <TextBlock Text="Changes need admin approval." Foreground="Gray" Margin="0,0,0,15"/>
 
-        <TextBlock Text="Worker Name"/>
-        <TextBlock x:Name="WorkerNameText" FontWeight="Bold" Margin="0,2,0,10"/>
+        <TextBlock Text="User Name"/>
+        <TextBlock x:Name="UserNameText" FontWeight="Bold" Margin="0,2,0,10"/>
 
         <TextBlock Text="Login"/>
         <TextBlock x:Name="LoginText" FontWeight="Bold" Margin="0,2,0,10"/>

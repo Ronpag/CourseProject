@@ -33,14 +33,14 @@
         <ComboBox x:Name="ClientsBox" Grid.Row="5" Margin="0,5,0,10"
                   DisplayMemberPath="NameClient"/>
 
-        <CheckBox x:Name="AssignWorkerCheckBox"
+        <CheckBox x:Name="AssignUserCheckBox"
                   Grid.Row="6" Margin="0,0,0,10"
-                  Content="Assign worker"
-                  Checked="AssignWorkerChanged"
-                  Unchecked="AssignWorkerChanged"/>
+                  Content="Assign User"
+                  Checked="AssignUserChanged"
+                  Unchecked="AssignUserChanged"/>
 
-        <ComboBox x:Name="WorkersBox" Grid.Row="7" Margin="0,0,0,10"
-                  DisplayMemberPath="WorkerName"
+        <ComboBox x:Name="UsersBox" Grid.Row="7" Margin="0,0,0,10"
+                  DisplayMemberPath="UserName"
                   Visibility="Collapsed"/>
 
         <Button Grid.Row="9" Height="35" Content="Register" Click="RegisterBtn"/>

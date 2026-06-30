@@ -10,7 +10,7 @@ public static class StatsService
         var query = db.Tasks.AsQueryable();
 
         if (userId.HasValue)
-            query = query.Where(t => t.WorkerId == userId.Value);
+            query = query.Where(t => t.UserId == userId.Value);
 
         if (clientId.HasValue)
             query = query.Where(t => t.ClientId == clientId.Value);

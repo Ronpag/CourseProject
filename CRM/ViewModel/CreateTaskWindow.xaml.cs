@@ -5,13 +5,13 @@ namespace CRM.ViewModel.UserWindow;
 
 public partial class CreateTaskWindow : Window
 {
-    private readonly int _workerId;
+    private readonly int _UserId;
 
-    public CreateTaskWindow(int workerId)
+    public CreateTaskWindow(int UserId)
     {
         InitializeComponent();
 
-        _workerId = workerId;
+        _UserId = UserId;
 
         ClientsBox.ItemsSource = ClientService.GetAll();
     }
@@ -33,7 +33,7 @@ public partial class CreateTaskWindow : Window
         }
 
         if (TaskService.Create(taskName, DescriptionBox.Text.Trim(),
-                selectedClient.Id, _workerId,
+                selectedClient.Id, _UserId,
                 CRM.Data.Task.TaskStatus.Assigned,
                 DateTime.Now, DateTime.Now))
         {

@@ -18,8 +18,8 @@
         <TextBlock Text="Client Id"/>
         <TextBox x:Name="ClientIdBox" Margin="0,5,0,10"/>
 
-        <TextBlock Text="Worker Id"/>
-        <TextBox x:Name="WorkerIdBox" Margin="0,5,0,10"/>
+        <TextBlock Text="User Id"/>
+        <TextBox x:Name="UserIdBox" Margin="0,5,0,10"/>
 
         <TextBlock Text="Status"/>
         <ComboBox x:Name="StatusBox" Margin="0,5,0,10"/>

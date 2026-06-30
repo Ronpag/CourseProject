@@ -21,7 +21,7 @@ public partial class DetailsWindow : Window
             Task ID: {request.TaskId}
             Task Name: {task?.TaskName ?? "N/A"}
             Client: {(task != null ? db.Clients.FirstOrDefault(c => c.Id == task.ClientId)?.NameClient : "N/A")}
-            Worker: {(task?.WorkerId != null ? db.Users.FirstOrDefault(u => u.Id == task.WorkerId)?.WorkerName : "Not assigned")}
+            User: {(task?.UserId != null ? db.Users.FirstOrDefault(u => u.Id == task.UserId)?.UserName : "Not assigned")}
 
             Current Status: {task?.Status}
             Requested Status: {request.RequestedStatus}
@@ -49,10 +49,10 @@ public partial class DetailsWindow : Window
             Description: {task.Description ?? "(no description)"}
 
             Client: {db.Clients.FirstOrDefault(c => c.Id == task.ClientId)?.NameClient ?? "N/A"} (ID: {task.ClientId})
-            Worker: {task.Worker?.WorkerName ?? (task.WorkerId != null ? db.Users.FirstOrDefault(u => u.Id == task.WorkerId)?.WorkerName : "Not assigned")}
-            Worker Email: {task.Worker?.Email ?? (task.WorkerId != null ? db.Users.FirstOrDefault(u => u.Id == task.WorkerId)?.Email : "N/A")}
-            Worker Phone: {task.Worker?.Phone ?? (task.WorkerId != null ? db.Users.FirstOrDefault(u => u.Id == task.WorkerId)?.Phone : "N/A")}
-            Worker Position: {task.Worker?.Position ?? (task.WorkerId != null ? db.Users.FirstOrDefault(u => u.Id == task.WorkerId)?.Position : "N/A")}
+            User: {task.User?.UserName ?? (task.UserId != null ? db.Users.FirstOrDefault(u => u.Id == task.UserId)?.UserName : "Not assigned")}
+            User Email: {task.User?.Email ?? (task.UserId != null ? db.Users.FirstOrDefault(u => u.Id == task.UserId)?.Email : "N/A")}
+            User Phone: {task.User?.Phone ?? (task.UserId != null ? db.Users.FirstOrDefault(u => u.Id == task.UserId)?.Phone : "N/A")}
+            User Position: {task.User?.Position ?? (task.UserId != null ? db.Users.FirstOrDefault(u => u.Id == task.UserId)?.Position : "N/A")}
 
             Status: {task.Status}
 
@@ -68,11 +68,11 @@ public partial class DetailsWindow : Window
     {
         InitializeComponent();
 
-        Title = $"Worker #{user.Id} Details";
+        Title = $"User #{user.Id} Details";
 
         var text = $"""
             ID: {user.Id}
-            Worker Name: {user.WorkerName}
+            User Name: {user.UserName}
             Login: {user.Name}
             Email: {user.Email ?? "N/A"}
             Phone: {user.Phone ?? "N/A"}
@@ -97,7 +97,7 @@ public partial class DetailsWindow : Window
         if (request.UserId != null)
         {
             var user = db.Users.FirstOrDefault(u => u.Id == request.UserId);
-            who = $"Worker: {user?.WorkerName ?? "N/A"} (ID: {request.UserId})";
+            who = $"User: {user?.UserName ?? "N/A"} (ID: {request.UserId})";
             details += $"\nCurrent Values:\n  Email: {user?.Email ?? "N/A"}\n  Phone: {user?.Phone ?? "N/A"}\n  Position: {user?.Position ?? "N/A"}";
         }
         else if (request.ClientId != null)

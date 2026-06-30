@@ -56,7 +56,7 @@ public partial class UserListPage : Page
 
         var query = db.Users.AsQueryable();
 
-        if (ChkWorkers.IsChecked == true)
+        if (ChkUsers.IsChecked == true)
             query = query.Where(u => !u.IsAdmin);
         if (ChkAdmins.IsChecked == true)
             query = query.Where(u => u.IsAdmin);

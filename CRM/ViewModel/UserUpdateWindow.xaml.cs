@@ -13,7 +13,7 @@ public partial class UserUpdateWindow : Window
 
         _user = user;
 
-        WorkerNameBox.Text = user.WorkerName;
+        UserNameBox.Text = user.UserName;
         LoginBox.Text = user.Name;
         PasswordBox.Text = "";
 
@@ -25,13 +25,13 @@ public partial class UserUpdateWindow : Window
 
     private void SaveChangesBtn(object sender, RoutedEventArgs e)
     {
-        string workerName = WorkerNameBox.Text.Trim();
+        string UserName = UserNameBox.Text.Trim();
         string login = LoginBox.Text?.Trim() ?? "";
         string password = PasswordBox.Text?.Trim() ?? "";
 
         bool? isActive = _user.IsAdmin ? null : (bool?)IsActiveBox.IsChecked;
 
-        if (UserService.Update(_user.Id, login, workerName,
+        if (UserService.Update(_user.Id, login, UserName,
                 string.IsNullOrWhiteSpace(password) ? null : password, isActive))
         {
             DialogResult = true;

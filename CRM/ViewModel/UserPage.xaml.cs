@@ -8,13 +8,13 @@ namespace CRM.ViewModel.UserWindow;
 
 public partial class UserPage : Page
 {
-    private readonly int _workerId;
+    private readonly int _UserId;
 
-    public UserPage(int workerId)
+    public UserPage(int UserId)
     {
         InitializeComponent();
 
-        _workerId = workerId;
+        _UserId = UserId;
 
         LoadTasks();
     }
@@ -29,7 +29,7 @@ public partial class UserPage : Page
         if (ChkCompleted.IsChecked == true) statusFilters.Add(CRM.Data.Task.TaskStatus.Completed);
 
         TasksList.ItemsSource = TaskService.GetFiltered(
-            workerId: _workerId, statusFilters: statusFilters);
+            UserId: _UserId, statusFilters: statusFilters);
     }
 
     private void FilterChanged(object sender, RoutedEventArgs e)

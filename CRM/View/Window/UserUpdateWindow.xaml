@@ -8,8 +8,8 @@
 
     <StackPanel Margin="20">
 
-        <TextBlock Text="Worker Name"/>
-        <TextBox x:Name="WorkerNameBox" Margin="0,5,0,10"/>
+        <TextBlock Text="User Name"/>
+        <TextBox x:Name="UserNameBox" Margin="0,5,0,10"/>
 
         <TextBlock Text="Login"/>
         <TextBox x:Name="LoginBox" Margin="0,5,0,10"/>

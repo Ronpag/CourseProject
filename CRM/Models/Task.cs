@@ -10,7 +10,7 @@ public class Task
 
     public int ClientId { get; set; }
 
-    public int? WorkerId { get; set; }
+    public int? UserId { get; set; }
 
     public TaskStatus Status { get; set; }
 
@@ -20,7 +20,7 @@ public class Task
 
     public DateTime? CompletionDate { get; set; }
 
-    public User? Worker { get; set; }
+    public User? User { get; set; }
 
     public Client? Client { get; set; }
 

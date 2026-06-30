@@ -12,20 +12,20 @@ public partial class FSWindow : Window
 
     private void FirstLoginBtn(object sender, RoutedEventArgs e)
     {
-        string workerName = FWorkerName.Text?.Trim() ?? "";
+        string UserName = FUserName.Text?.Trim() ?? "";
         string login = FLogin.Text?.Trim() ?? "";
         string password = FPassword.Text?.Trim() ?? "";
 
-        if (string.IsNullOrWhiteSpace(workerName))
+        if (string.IsNullOrWhiteSpace(UserName))
         {
-            MessageBox.Show("Enter worker name", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Enter User name", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
         if (!ValidationService.ValidateLoginPassword(login, password))
             return;
 
-        if (UserService.Create(login, workerName, password, isAdmin: true, isActive: true))
+        if (UserService.Create(login, UserName, password, isAdmin: true, isActive: true))
         {
             new LoginWindow().Show();
             Close();

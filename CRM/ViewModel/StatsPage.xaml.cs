@@ -16,7 +16,7 @@ public partial class StatsPage : Page
         var counts = StatsService.GetTaskCounts();
         int totalTasks = counts.Values.Sum();
 
-        TotalUsers.Text = $"Total Workers: {StatsService.GetUserCount()}";
+        TotalUsers.Text = $"Total Users: {StatsService.GetUserCount()}";
         TotalClients.Text = $"Total Clients: {StatsService.GetClientCount()}";
         TotalTasks.Text = $"Total Tasks: {totalTasks}";
         PendingOrders.Text = $"Pending Orders: {counts[CRM.Data.Task.TaskStatus.Pending]}";

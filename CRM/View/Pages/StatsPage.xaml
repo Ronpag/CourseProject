@@ -31,7 +31,7 @@
             <TextBlock x:Name="CompletedTasks" Grid.Row="8" Margin="0,5,0,0" FontSize="14"/>
             <TextBlock x:Name="PendingRequests" Grid.Row="9" Margin="0,5,0,0" FontSize="14"/>
             <TextBlock x:Name="ProfileRequests" Grid.Row="10" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="WorkerCount" Grid.Row="11" Margin="0,5,0,0" FontSize="14"/>
+            <TextBlock x:Name="UserCount" Grid.Row="11" Margin="0,5,0,0" FontSize="14"/>
         </Grid>
     </ScrollViewer>
 </Page>

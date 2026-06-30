@@ -31,7 +31,7 @@
         
         
         <Button Grid.Row="1" Grid.Column="0" Background="AliceBlue"
-                Content="Worker" Click="UserPageBtn"/>
+                Content="User" Click="UserPageBtn"/>
         <Button Grid.Row="2" Grid.Column="0" Background="AliceBlue"
                 Content="Available Tasks" Click="AvailableBtn"/>
         <Button Grid.Row="3" Grid.Column="0" Background="AliceBlue"
@@ -45,7 +45,6 @@
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
         
-        <Label Content="User Panel"/>
         <Button Grid.Row="0" Grid.Column="4" Click="BackBtn" Content="Exit"/>
         
     </Grid>
