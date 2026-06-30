@@ -16,7 +16,7 @@ public partial class ClientListPage : Page
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
-        var window = new RegisterClientWindow();
+        var window = new CreateClientWindow();
         if (window.ShowDialog() == true)
             LoadClients();
     }

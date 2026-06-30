@@ -16,7 +16,7 @@ public partial class UserListPage : Page
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
-        var window = new RegisterUserWindow();
+        var window = new CreateUserWindow();
 
         if (window.ShowDialog() == true)
             LoadUsers();

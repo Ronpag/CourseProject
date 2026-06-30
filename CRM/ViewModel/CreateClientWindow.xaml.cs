@@ -2,9 +2,9 @@ using System.Windows;
 
 namespace CRM.View;
 
-public partial class RegisterClientWindow : Window
+public partial class CreateClientWindow : Window
 {
-    public RegisterClientWindow()
+    public CreateClientWindow()
     {
         InitializeComponent();
     }

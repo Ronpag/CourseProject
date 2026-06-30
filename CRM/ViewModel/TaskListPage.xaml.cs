@@ -16,7 +16,7 @@ public partial class TaskListPage : Page
 
     private void RegisterBtn(object sender, RoutedEventArgs e)
     {
-        var window = new RegisterTaskWindow();
+        var window = new CreateTaskWindow();
         if (window.ShowDialog() == true)
         {
             LoadTasks();

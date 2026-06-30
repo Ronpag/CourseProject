@@ -28,7 +28,7 @@ public partial class ClientWindow : Window
 
     private void CreateOrderBtn(object sender, RoutedEventArgs e)
     {
-        var window = new CreateOrderWindow(_clientId);
+        var window = new RegisterTaskWindow(_clientId);
 
         if (window.ShowDialog() == true)
         {
