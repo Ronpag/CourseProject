@@ -52,9 +52,12 @@ public partial class CreateTaskWindow : Window
         db.Tasks.Add(new CRM.Data.Task
         {
             TaskName = taskName,
+            Description = DescriptionBox.Text.Trim(),
             ClientId = client.Id,
             WorkerId = _workerId,
-            Status = CRM.Data.Task.TaskStatus.Assigned
+            Status = CRM.Data.Task.TaskStatus.Assigned,
+            StartDate = DateTime.Now,
+            AcceptanceDate = DateTime.Now
         });
 
         client.CountOrders++;

@@ -8,6 +8,8 @@ public class TaskStatusRequest
 
     public Task.TaskStatus RequestedStatus { get; set; }
 
+    public string Comment { get; set; }
+
     public bool IsProcessed { get; set; }
 
     public bool? IsApproved { get; set; }
@@ -18,6 +20,11 @@ public class TaskStatusRequest
 
         var task = db.Tasks.FirstOrDefault(t => t.Id == TaskId);
 
-        return $"Task #{TaskId} ({task?.TaskName}) -> {RequestedStatus}";
+        string s = $"Task #{TaskId} ({task?.TaskName}) -> {RequestedStatus}";
+
+        if (!string.IsNullOrWhiteSpace(Comment))
+            s += $" | Comment: {Comment}";
+
+        return s;
     }
 }

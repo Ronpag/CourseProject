@@ -33,14 +33,13 @@ public partial class ChangeTaskStatusWindow : Window
             TaskId = _taskId,
             RequestedStatus =
                 (CRM.Data.Task.TaskStatus)StatusBox.SelectedItem,
+            Comment = CommentBox.Text.Trim(),
             IsProcessed = false
         });
 
         db.SaveChanges();
 
-        MessageBox.Show(
-            "Request has been sent to administrator.",
-            "Success");
+        MessageBox.Show("Request has been sent to administrator.", "Success");
 
         DialogResult = true;
         Close();

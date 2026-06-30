@@ -1,17 +1,21 @@
 <Window x:Class="CRM.ViewModel.ClientWindow.CreateOrderWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Create Order" Height="250" Width="400"
+        Title="Create Order" Height="350" Width="400"
         WindowStartupLocation="CenterScreen">
 
     <Grid>
         <StackPanel Margin="15">
 
             <TextBlock Text="Order Name"/>
-            <TextBox x:Name="OrderNameBox" Margin="0,5,0,15"/>
+            <TextBox x:Name="OrderNameBox" Margin="0,5,0,10"/>
 
-            <Button Content="Create"
-                    Click="CreateBtn"/>
+            <TextBlock Text="Description"/>
+            <TextBox x:Name="DescriptionBox" MinHeight="80"
+                     TextWrapping="Wrap" AcceptsReturn="True"
+                     Margin="0,5,0,15"/>
+
+            <Button Content="Create" Click="CreateBtn"/>
 
         </StackPanel>
     </Grid>

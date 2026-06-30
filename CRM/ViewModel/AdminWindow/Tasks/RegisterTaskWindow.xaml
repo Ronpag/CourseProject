@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Register task"
-        Height="400"
+        Height="480"
         Width="400"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
@@ -17,39 +17,33 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Task Name"/>
+        <TextBox x:Name="TaskNameBox" Grid.Row="1" Margin="0,5,0,10"/>
 
-        <TextBox x:Name="TaskNameBox"
-                 Grid.Row="1"
-                 Margin="0,5,0,10"/>
+        <TextBlock Grid.Row="2" Text="Description"/>
+        <TextBox x:Name="DescriptionBox" Grid.Row="3" Margin="0,5,0,10"
+                 TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60"/>
 
-        <TextBlock Grid.Row="2" Text="Client"/>
-
-        <ComboBox x:Name="ClientsBox"
-                  Grid.Row="3"
-                  Margin="0,5,0,10"
+        <TextBlock Grid.Row="4" Text="Client"/>
+        <ComboBox x:Name="ClientsBox" Grid.Row="5" Margin="0,5,0,10"
                   DisplayMemberPath="NameClient"/>
 
         <CheckBox x:Name="AssignWorkerCheckBox"
-                  Grid.Row="4"
-                  Margin="0,0,0,10"
+                  Grid.Row="6" Margin="0,0,0,10"
                   Content="Assign worker"
                   Checked="AssignWorkerChanged"
                   Unchecked="AssignWorkerChanged"/>
 
-        <ComboBox x:Name="WorkersBox"
-                  Grid.Row="5"
-                  Margin="0,0,0,10"
+        <ComboBox x:Name="WorkersBox" Grid.Row="7" Margin="0,0,0,10"
                   DisplayMemberPath="WorkerName"
                   Visibility="Collapsed"/>
 
-        <Button Grid.Row="7"
-                Height="35"
-                Content="Register"
-                Click="RegisterBtn"/>
+        <Button Grid.Row="9" Height="35" Content="Register" Click="RegisterBtn"/>
 
     </Grid>
 </Window>

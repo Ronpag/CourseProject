@@ -43,23 +43,13 @@ public partial class RegisterTaskWindow : Window
 
         if (string.IsNullOrWhiteSpace(taskName))
         {
-            MessageBox.Show(
-                "Task name is empty",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Task name is empty", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
         if (ClientsBox.SelectedItem is not Client selectedClient)
         {
-            MessageBox.Show(
-                "Select client",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Select client", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -69,41 +59,36 @@ public partial class RegisterTaskWindow : Window
 
         if (client == null)
         {
-            MessageBox.Show(
-                "Client not found",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
+            MessageBox.Show("Client not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
         int? workerId = null;
         CRM.Data.Task.TaskStatus status = CRM.Data.Task.TaskStatus.Available;
+        DateTime? acceptanceDate = null;
 
         if (AssignWorkerCheckBox.IsChecked == true)
         {
             if (WorkersBox.SelectedItem is not User selectedWorker)
             {
-                MessageBox.Show(
-                    "Select worker",
-                    "Warning",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-
+                MessageBox.Show("Select worker", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             workerId = selectedWorker.Id;
             status = CRM.Data.Task.TaskStatus.Assigned;
+            acceptanceDate = DateTime.Now;
         }
 
         db.Tasks.Add(new CRM.Data.Task
         {
             TaskName = taskName,
+            Description = DescriptionBox.Text.Trim(),
             ClientId = client.Id,
             WorkerId = workerId,
-            Status = status
+            Status = status,
+            StartDate = DateTime.Now,
+            AcceptanceDate = acceptanceDate
         });
 
         client.CountOrders++;

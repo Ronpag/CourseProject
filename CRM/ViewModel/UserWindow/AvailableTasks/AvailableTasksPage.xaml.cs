@@ -43,15 +43,12 @@ public partial class AvailableTasksPage : Page
 
         task.WorkerId = _workerId;
         task.Status = CRM.Data.Task.TaskStatus.Assigned;
+        task.AcceptanceDate = DateTime.Now;
 
         db.SaveChanges();
 
         LoadTasks();
 
-        MessageBox.Show(
-            "Task accepted",
-            "Success",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+        MessageBox.Show("Task accepted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 }

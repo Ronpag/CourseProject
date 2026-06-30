@@ -36,9 +36,11 @@ public partial class CreateOrderWindow : Window
         db.Tasks.Add(new CRM.Data.Task
         {
             TaskName = orderName,
+            Description = DescriptionBox.Text.Trim(),
             ClientId = client.Id,
             WorkerId = null,
-            Status = CRM.Data.Task.TaskStatus.Pending
+            Status = CRM.Data.Task.TaskStatus.Pending,
+            StartDate = DateTime.Now
         });
 
         client.CountOrders++;

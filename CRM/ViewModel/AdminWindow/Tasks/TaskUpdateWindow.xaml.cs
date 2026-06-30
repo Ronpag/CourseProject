@@ -14,6 +14,7 @@ public partial class TaskUpdateWindow : Window
         _taskId = task.Id;
 
         TaskNameBox.Text = task.TaskName;
+        DescriptionBox.Text = task.Description;
         ClientIdBox.Text = task.ClientId.ToString();
         WorkerIdBox.Text = task.WorkerId.ToString();
 
@@ -29,23 +30,13 @@ public partial class TaskUpdateWindow : Window
 
         if (string.IsNullOrWhiteSpace(taskName))
         {
-            MessageBox.Show(
-                "Task name is empty",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Task name is empty", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
         if (!int.TryParse(ClientIdBox.Text, out int clientId))
         {
-            MessageBox.Show(
-                "Invalid Client Id",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Invalid Client Id", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -57,12 +48,7 @@ public partial class TaskUpdateWindow : Window
         {
             if (!int.TryParse(WorkerIdBox.Text, out int parsedWorkerId))
             {
-                MessageBox.Show(
-                    "Invalid Worker Id",
-                    "Warning",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-
+                MessageBox.Show("Invalid Worker Id", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -75,12 +61,7 @@ public partial class TaskUpdateWindow : Window
 
         if (task == null)
         {
-            MessageBox.Show(
-                "Task not found",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
+            MessageBox.Show("Task not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
 
@@ -88,12 +69,7 @@ public partial class TaskUpdateWindow : Window
 
         if (client == null)
         {
-            MessageBox.Show(
-                "Client with this ID does not exist",
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-
+            MessageBox.Show("Client with this ID does not exist", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -103,12 +79,7 @@ public partial class TaskUpdateWindow : Window
 
             if (worker == null)
             {
-                MessageBox.Show(
-                    "Worker with this ID does not exist",
-                    "Warning",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-
+                MessageBox.Show("Worker with this ID does not exist", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
         }
@@ -126,6 +97,7 @@ public partial class TaskUpdateWindow : Window
         }
 
         task.TaskName = taskName;
+        task.Description = DescriptionBox.Text.Trim();
         task.ClientId = clientId;
         task.WorkerId = workerId;
         task.Status = status;

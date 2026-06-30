@@ -58,6 +58,9 @@ public partial class TaskRequestsPage : Page
 
         task.Status = dbRequest.RequestedStatus;
 
+        if (dbRequest.RequestedStatus == CRM.Data.Task.TaskStatus.Completed)
+            task.CompletionDate = DateTime.Now;
+
         dbRequest.IsProcessed = true;
         dbRequest.IsApproved = true;
 
