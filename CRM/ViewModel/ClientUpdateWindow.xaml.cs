@@ -31,6 +31,9 @@ public partial class ClientUpdateWindow : Window
         string newLogin = LoginBox.Text.Trim();
         string newPassword = PasswordBox.Text.Trim();
 
+        if (!ValidationService.ValidateEnglishText(newName, "Client name"))
+            return;
+
         if (ClientService.Update(_client.Id, newName, newLogin,
                 string.IsNullOrWhiteSpace(newPassword) ? null : newPassword, countOrders))
         {

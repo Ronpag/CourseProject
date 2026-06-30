@@ -20,6 +20,9 @@ public partial class LoginWindow : Window
             return;
         }
 
+        if (!ValidationService.ValidateEnglishText(login, "Login") || !ValidationService.ValidateEnglishText(password, "Password"))
+            return;
+
         var user = UserService.Authenticate(login, password);
 
         if (user != null)

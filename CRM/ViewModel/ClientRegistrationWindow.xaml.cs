@@ -15,6 +15,9 @@ public partial class ClientRegistrationWindow : Window
         string login = LoginBox.Text.Trim();
         string password = PasswordBox.Password.Trim();
 
+        if (!ValidationService.ValidateEnglishText(name, "Client name"))
+            return;
+
         if (ClientService.Create(name, login, password))
         {
             DialogResult = true;

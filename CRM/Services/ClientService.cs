@@ -44,11 +44,8 @@ public static class ClientService
 
     public static bool Create(string name, string login, string password)
     {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            MessageBox.Show("Client name cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+        if (!ValidationService.ValidateEnglishText(name, "Client name"))
             return false;
-        }
 
         if (!ValidationService.ValidateLoginPassword(login, password))
             return false;
@@ -85,11 +82,8 @@ public static class ClientService
 
     public static bool Update(int id, string name, string login, string? newPassword, int countOrders)
     {
-        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(login))
-        {
-            MessageBox.Show("Name and login cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+        if (!ValidationService.ValidateEnglishText(name, "Client name"))
             return false;
-        }
 
         if (NameExists(name, id))
         {

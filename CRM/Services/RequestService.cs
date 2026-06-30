@@ -113,28 +113,34 @@ public static class RequestService
                 return false;
             }
 
-            bool hasChanges = false;
             string? newEmail = email != (user.Email ?? "") ? email : null;
             string? newPhone = phone != (user.Phone ?? "") ? phone : null;
             string? newPosition = extraField != (user.Position ?? "") ? extraField : null;
 
-            if (newEmail != null || newPhone != null || newPosition != null)
-                hasChanges = true;
-
-            if (!hasChanges)
+            if (newEmail == null && newPhone == null && newPosition == null)
             {
                 MessageBox.Show("No changes detected", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
 
-            db.ProfileChangeRequests.Add(new ProfileChangeRequest
+            var existing = db.ProfileChangeRequests.FirstOrDefault(r => r.UserId == userId && !r.IsProcessed);
+            if (existing != null)
             {
-                UserId = userId,
-                NewEmail = newEmail,
-                NewPhone = newPhone,
-                NewPosition = newPosition,
-                IsProcessed = false
-            });
+                existing.NewEmail = newEmail;
+                existing.NewPhone = newPhone;
+                existing.NewPosition = newPosition;
+            }
+            else
+            {
+                db.ProfileChangeRequests.Add(new ProfileChangeRequest
+                {
+                    UserId = userId,
+                    NewEmail = newEmail,
+                    NewPhone = newPhone,
+                    NewPosition = newPosition,
+                    IsProcessed = false
+                });
+            }
         }
         else
         {
@@ -145,28 +151,34 @@ public static class RequestService
                 return false;
             }
 
-            bool hasChanges = false;
             string? newEmail = email != (client.Email ?? "") ? email : null;
             string? newPhone = phone != (client.Phone ?? "") ? phone : null;
             string? newAddress = extraField != (client.Address ?? "") ? extraField : null;
 
-            if (newEmail != null || newPhone != null || newAddress != null)
-                hasChanges = true;
-
-            if (!hasChanges)
+            if (newEmail == null && newPhone == null && newAddress == null)
             {
                 MessageBox.Show("No changes detected", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                 return false;
             }
 
-            db.ProfileChangeRequests.Add(new ProfileChangeRequest
+            var existing = db.ProfileChangeRequests.FirstOrDefault(r => r.ClientId == clientId && !r.IsProcessed);
+            if (existing != null)
             {
-                ClientId = clientId,
-                NewEmail = newEmail,
-                NewPhone = newPhone,
-                NewAddress = newAddress,
-                IsProcessed = false
-            });
+                existing.NewEmail = newEmail;
+                existing.NewPhone = newPhone;
+                existing.NewAddress = newAddress;
+            }
+            else
+            {
+                db.ProfileChangeRequests.Add(new ProfileChangeRequest
+                {
+                    ClientId = clientId,
+                    NewEmail = newEmail,
+                    NewPhone = newPhone,
+                    NewAddress = newAddress,
+                    IsProcessed = false
+                });
+            }
         }
 
         db.SaveChanges();

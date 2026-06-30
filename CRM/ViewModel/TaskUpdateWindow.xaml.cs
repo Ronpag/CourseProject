@@ -38,6 +38,16 @@ public partial class TaskUpdateWindow : Window
             return;
         }
 
+        if (!ValidationService.ValidateEnglishText(taskName, "Task name"))
+            return;
+
+        string description = DescriptionBox.Text.Trim();
+        if (!string.IsNullOrWhiteSpace(description) && !ValidationService.IsEnglishText(description))
+        {
+            MessageBox.Show("Description must contain only English characters", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
         if (!int.TryParse(ClientIdBox.Text, out int clientId))
         {
             MessageBox.Show("Invalid Client Id", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);

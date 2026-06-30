@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="CRM" 
-        Height="400" Width="380"
+        Height="450" Width="380"
         WindowStartupLocation="CenterScreen">
 
     <StackPanel Margin="20">
@@ -14,22 +14,16 @@
             Profile Change Request
         </TextBlock>
         <TextBlock Text="Changes need admin approval." Foreground="Gray" Margin="0,0,0,15"/>
-
         <TextBlock Text="User Name"/>
         <TextBlock x:Name="UserNameText" FontWeight="Bold" Margin="0,2,0,10"/>
-
         <TextBlock Text="Login"/>
         <TextBlock x:Name="LoginText" FontWeight="Bold" Margin="0,2,0,10"/>
-
         <TextBlock Text="Email"/>
         <TextBox x:Name="EmailBox" Margin="0,2,0,10"/>
-
         <TextBlock Text="Phone"/>
         <TextBox x:Name="PhoneBox" Margin="0,2,0,10"/>
-
         <TextBlock Text="Position"/>
         <TextBox x:Name="PositionBox" Margin="0,2,0,10"/>
-
         <Button Content="Submit for Approval" Height="35" Click="SubmitBtn"/>
 
     </StackPanel>

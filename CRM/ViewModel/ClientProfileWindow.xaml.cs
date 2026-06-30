@@ -33,6 +33,12 @@ public partial class ClientProfileWindow : Window
         string phone = PhoneBox.Text.Trim();
         string address = AddressBox.Text.Trim();
 
+        if (!string.IsNullOrWhiteSpace(address) && !ValidationService.IsEnglishText(address))
+        {
+            MessageBox.Show("Address must contain only English characters", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
         if (RequestService.CreateProfileChangeRequest(
                 userId: null, clientId: _clientId,
                 email, phone, address, isForUser: false))

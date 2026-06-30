@@ -11,6 +11,7 @@ public class User
     public string? Email { get; set; }
     public string? Phone { get; set; }
     public string? Position { get; set; }
+    public DateTime RegistrationDate { get; set; }
 
     public ICollection<Task>? Tasks { get; set; }
 

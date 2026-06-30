@@ -4,7 +4,7 @@ namespace CRM;
 
 public static class StatsService
 {
-    public static Dictionary<CRM.Data.Task.TaskStatus, int> GetTaskCounts(int? userId = null, int? clientId = null)
+    public static Dictionary<CRM.Data.Task.TaskStatus, int> GetTaskCounts(int? userId = null, int? clientId = null, DateTime? from = null, DateTime? to = null)
     {
         using var db = new AppDbContext();
         var query = db.Tasks.AsQueryable();
@@ -16,6 +16,19 @@ public static class StatsService
             query = query.Where(t => t.ClientId == clientId.Value);
 
         var tasks = query.ToList();
+
+        if (from.HasValue)
+            tasks = tasks.Where(t =>
+                (t.StartDate.HasValue && t.StartDate.Value >= from.Value) ||
+                (t.AcceptanceDate.HasValue && t.AcceptanceDate.Value >= from.Value) ||
+                (t.CompletionDate.HasValue && t.CompletionDate.Value >= from.Value)
+            ).ToList();
+        if (to.HasValue)
+            tasks = tasks.Where(t =>
+                (t.StartDate.HasValue && t.StartDate.Value <= to.Value) ||
+                (t.AcceptanceDate.HasValue && t.AcceptanceDate.Value <= to.Value) ||
+                (t.CompletionDate.HasValue && t.CompletionDate.Value <= to.Value)
+            ).ToList();
 
         return new Dictionary<CRM.Data.Task.TaskStatus, int>
         {

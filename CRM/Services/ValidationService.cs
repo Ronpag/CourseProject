@@ -10,6 +10,29 @@ public static class ValidationService
         return Regex.IsMatch(text, @"^[A-Za-z0-9]+$");
     }
 
+    public static bool IsEnglishText(string text)
+    {
+        return Regex.IsMatch(text, @"^[\x20-\x7E]+$");
+    }
+
+    public static bool ValidateEnglishText(string text, string fieldName, bool allowEmpty = false)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            if (allowEmpty) return true;
+            MessageBox.Show($"{fieldName} cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
+        if (!IsEnglishText(text))
+        {
+            MessageBox.Show($"{fieldName} must contain only English characters", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
+        return true;
+    }
+
     public static bool ValidateLoginPassword(string login, string password)
     {
         if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))

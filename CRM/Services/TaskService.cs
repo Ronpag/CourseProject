@@ -52,6 +52,15 @@ public static class TaskService
             return false;
         }
 
+        if (!ValidationService.ValidateEnglishText(taskName, "Task name"))
+            return false;
+
+        if (!string.IsNullOrWhiteSpace(description) && !ValidationService.IsEnglishText(description))
+        {
+            MessageBox.Show("Description must contain only English characters", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
         using var db = new AppDbContext();
 
         var client = db.Clients.FirstOrDefault(c => c.Id == clientId);
@@ -81,6 +90,21 @@ public static class TaskService
     public static bool Update(int taskId, string taskName, string? description, int clientId, int? UserId,
         CRM.Data.Task.TaskStatus status, DateTime? startDate, DateTime? acceptanceDate, DateTime? completionDate)
     {
+        if (string.IsNullOrWhiteSpace(taskName))
+        {
+            MessageBox.Show("Task name cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
+        if (!ValidationService.ValidateEnglishText(taskName, "Task name"))
+            return false;
+
+        if (!string.IsNullOrWhiteSpace(description) && !ValidationService.IsEnglishText(description))
+        {
+            MessageBox.Show("Description must contain only English characters", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
+
         using var db = new AppDbContext();
 
         var task = db.Tasks.FirstOrDefault(t => t.Id == taskId);

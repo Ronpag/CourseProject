@@ -22,6 +22,16 @@ public partial class CreateOrderWindow : Window
             return;
         }
 
+        if (!ValidationService.ValidateEnglishText(orderName, "Order name"))
+            return;
+
+        string description = DescriptionBox.Text.Trim();
+        if (!string.IsNullOrWhiteSpace(description) && !ValidationService.IsEnglishText(description))
+        {
+            MessageBox.Show("Description must contain only English characters", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
         if (TaskService.Create(orderName, DescriptionBox.Text.Trim(),
                 _clientId, null,
                 CRM.Data.Task.TaskStatus.Pending,

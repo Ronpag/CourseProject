@@ -15,6 +15,9 @@ public partial class RegisterUserWindow : Window
         string login = LoginBox.Text.Trim();
         string password = PasswordBox.Password.Trim();
 
+        if (!ValidationService.ValidateEnglishText(UserName, "User name"))
+            return;
+
         if (UserService.Create(login, UserName, password, isAdmin: false, isActive: ActiveCheckBox.IsChecked == true))
         {
             DialogResult = true;

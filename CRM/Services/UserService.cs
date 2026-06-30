@@ -48,11 +48,8 @@ public static class UserService
 
     public static bool Create(string name, string UserName, string password, bool isAdmin, bool isActive)
     {
-        if (string.IsNullOrWhiteSpace(UserName))
-        {
-            MessageBox.Show("User name cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+        if (!ValidationService.ValidateEnglishText(UserName, "User name"))
             return false;
-        }
 
         if (!ValidationService.ValidateLoginPassword(name, password))
             return false;
@@ -70,7 +67,8 @@ public static class UserService
             UserName = UserName,
             Password = PasswordService.Hash(password),
             IsAdmin = isAdmin,
-            IsActive = isActive
+            IsActive = isActive,
+            RegistrationDate = DateTime.Now
         });
         db.SaveChanges();
         return true;
@@ -78,11 +76,8 @@ public static class UserService
 
     public static bool Update(int id, string name, string UserName, string? newPassword, bool? isActive)
     {
-        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(UserName))
-        {
-            MessageBox.Show("Login and name cannot be empty", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+        if (!ValidationService.ValidateEnglishText(UserName, "User name"))
             return false;
-        }
 
         if (LoginExists(name, id))
         {

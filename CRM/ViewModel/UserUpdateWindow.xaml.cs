@@ -29,6 +29,9 @@ public partial class UserUpdateWindow : Window
         string login = LoginBox.Text?.Trim() ?? "";
         string password = PasswordBox.Text?.Trim() ?? "";
 
+        if (!ValidationService.ValidateEnglishText(UserName, "User name"))
+            return;
+
         bool? isActive = _user.IsAdmin ? null : (bool?)IsActiveBox.IsChecked;
 
         if (UserService.Update(_user.Id, login, UserName,

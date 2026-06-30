@@ -3,34 +3,41 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Margin="20">
+        <Grid Margin="20" Background="White">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="System Statistics" FontSize="20" FontWeight="Bold"/>
-            <TextBlock x:Name="TotalUsers" Grid.Row="1" Margin="0,15,0,0" FontSize="14"/>
-            <TextBlock x:Name="TotalClients" Grid.Row="2" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="TotalTasks" Grid.Row="3" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="PendingOrders" Grid.Row="4" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="AvailableTasks" Grid.Row="5" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="AssignedTasks" Grid.Row="6" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="InProgressTasks" Grid.Row="7" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="CompletedTasks" Grid.Row="8" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="PendingRequests" Grid.Row="9" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="ProfileRequests" Grid.Row="10" Margin="0,5,0,0" FontSize="14"/>
-            <TextBlock x:Name="UserCount" Grid.Row="11" Margin="0,5,0,0" FontSize="14"/>
+
+            <Border Grid.Row="1" Style="{StaticResource CardBorder}" Margin="0,12,0,0">
+                <StackPanel>
+                    <TextBlock Text="Date Filter" Style="{StaticResource CardTitle}"/>
+                    <WrapPanel Margin="0,6,0,0">
+                        <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <DatePicker x:Name="DateFrom" Width="130"/>
+                        <TextBlock Text="To:" VerticalAlignment="Center" Margin="12,0,6,0"/>
+                        <DatePicker x:Name="DateTo" Width="130"/>
+                        <Button Content="Apply" Click="ApplyFilter" Width="80" Margin="12,0,0,0" Height="26"/>
+                        <Button Content="Reset" Click="ResetFilter" Width="80" Margin="6,0,0,0" Height="26"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Row="2" Margin="0,15,0,0">
+                <TextBlock x:Name="TotalUsers" Margin="0,0,0,5" FontSize="14"/>
+                <TextBlock x:Name="TotalClients" Margin="0,0,0,5" FontSize="14"/>
+                <TextBlock x:Name="TotalTasks" Margin="0,0,0,5" FontSize="14"/>
+                <TextBlock x:Name="PendingOrders" Margin="0,0,0,5" FontSize="14"/>
+                <TextBlock x:Name="AvailableTasks" Margin="0,0,0,5" FontSize="14"/>
+                <TextBlock x:Name="AssignedTasks" Margin="0,0,0,5" FontSize="14"/>
+                <TextBlock x:Name="InProgressTasks" Margin="0,0,0,5" FontSize="14"/>
+                <TextBlock x:Name="CompletedTasks" Margin="0,0,0,5" FontSize="14"/>
+                <TextBlock x:Name="PendingRequests" Margin="0,0,0,5" FontSize="14"/>
+                <TextBlock x:Name="ProfileRequests" Margin="0,0,0,5" FontSize="14"/>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </Page>

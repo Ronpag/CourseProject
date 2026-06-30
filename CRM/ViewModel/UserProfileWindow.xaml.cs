@@ -33,6 +33,12 @@ public partial class UserProfileWindow : Window
         string phone = PhoneBox.Text.Trim();
         string position = PositionBox.Text.Trim();
 
+        if (!string.IsNullOrWhiteSpace(position) && !ValidationService.IsEnglishText(position))
+        {
+            MessageBox.Show("Position must contain only English characters", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
         if (RequestService.CreateProfileChangeRequest(
                 userId: _userId, clientId: null,
                 email, phone, position, isForUser: true))

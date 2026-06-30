@@ -31,6 +31,16 @@ public partial class RegisterTaskWindow : Window
             return;
         }
 
+        if (!ValidationService.ValidateEnglishText(taskName, "Task name"))
+            return;
+
+        string description = DescriptionBox.Text.Trim();
+        if (!string.IsNullOrWhiteSpace(description) && !ValidationService.IsEnglishText(description))
+        {
+            MessageBox.Show("Description must contain only English characters", "Validation", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
         if (ClientsBox.SelectedItem is not Client selectedClient)
         {
             MessageBox.Show("Select client", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);

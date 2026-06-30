@@ -22,6 +22,9 @@ public partial class FSWindow : Window
             return;
         }
 
+        if (!ValidationService.ValidateEnglishText(UserName, "User name"))
+            return;
+
         if (!ValidationService.ValidateLoginPassword(login, password))
             return;
 
