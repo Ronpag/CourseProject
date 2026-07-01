@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" 
-        MinHeight="550"
-        Height="550" Width="380"
+        Icon="pack://application:,,,/Assets/relic.ico"
+        Title="CRM"
+        MinHeight="600" MinWidth="400"
+        Height="600" Width="400"
         WindowStartupLocation="CenterScreen">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="15">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20,24">
+        <StackPanel>
+            <TextBlock Text="Update User" Style="{StaticResource PageTitle}"/>
 
             <TextBlock Text="User Name" Style="{StaticResource FieldLabel}"/>
             <TextBox x:Name="UserNameBox" Style="{StaticResource FieldTextBox}"/>
@@ -30,14 +32,10 @@
             <TextBlock Text="Position" Style="{StaticResource FieldLabel}"/>
             <TextBox x:Name="PositionBox" Style="{StaticResource FieldTextBox}"/>
 
-            <CheckBox x:Name="IsActiveBox"
-                      Content="Active user"
-                      Style="{StaticResource FieldCheckBox}"/>
+            <CheckBox x:Name="IsActiveBox" Content="Active User"
+                      Style="{StaticResource FieldCheckBox}" Margin="0,0,0,8"/>
 
-            <Button Content="Save"
-                    Style="{StaticResource PrimaryButton}"
-                    Click="SaveChangesBtn"/>
+            <Button Content="Save Changes" Style="{StaticResource PrimaryButton}" Click="SaveChangesBtn" Height="36"/>
         </StackPanel>
     </ScrollViewer>
-
 </Window>

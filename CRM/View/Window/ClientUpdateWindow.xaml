@@ -4,13 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        Icon="pack://application:,,,/Assets/relic.ico"
         Title="CRM"
-        MinHeight="480"
-        Height="480" Width="380"
+        MinHeight="650" MinWidth="400"
+        Height="650" Width="400"
         WindowStartupLocation="CenterScreen">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="15">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20,24">
+        <StackPanel>
+            <TextBlock Text="Update Client" HorizontalAlignment="Center" Style="{StaticResource PageTitle}"/>
 
             <TextBlock Text="Client Name" Style="{StaticResource FieldLabel}"/>
             <TextBox x:Name="NameClientBox" Style="{StaticResource FieldTextBox}"/>
@@ -33,9 +35,7 @@
             <TextBlock Text="Address" Style="{StaticResource FieldLabel}"/>
             <TextBox x:Name="AddressBox" Style="{StaticResource FieldTextBox}"/>
 
-            <Button Content="Save" Style="{StaticResource PrimaryButton}" Click="SaveChangesBtn"/>
-
+            <Button Content="Save Changes" Style="{StaticResource PrimaryButton}" Click="SaveChangesBtn" Height="36"/>
         </StackPanel>
     </ScrollViewer>
-
 </Window>

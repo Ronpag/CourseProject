@@ -2,17 +2,16 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid Margin="15">
+    <Grid Margin="24,20,24,20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="12"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="My Orders"
-                   Style="{StaticResource PageTitle}"/>
+        <TextBlock Text="My Orders" Style="{StaticResource PageTitle}"/>
 
         <WrapPanel Grid.Row="2">
             <TextBlock Text="Status:" Style="{StaticResource FilterLabel}"/>
@@ -25,7 +24,7 @@
 
         <ListBox x:Name="OrdersList"
                  Grid.Row="4"
-                 Margin="0,10,0,0"
+                 Margin="0,12,0,0"
                  MouseDoubleClick="OrdersList_MouseDoubleClick">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
@@ -46,8 +45,8 @@
                             </TextBlock>
                             <TextBlock Style="{StaticResource CardText}" TextTrimming="CharacterEllipsis"
                                        Text="{Binding Description}" MaxHeight="32"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,6,0,0">
-                                <Button Content="Delete" Style="{StaticResource CardButton}" Click="DeleteOrderBtn"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+                                <Button Content="Delete" Style="{StaticResource DangerButton}" Click="DeleteOrderBtn"/>
                                 <Button Content="Details" Style="{StaticResource CardButton}" Click="DetailsBtn"/>
                             </StackPanel>
                         </StackPanel>

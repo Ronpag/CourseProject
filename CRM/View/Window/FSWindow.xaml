@@ -4,41 +4,45 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" 
-        MinHeight="400"
-        Height="400" Width="400"
+        Icon="pack://application:,,,/Assets/relic.ico"
+        Title="CRM"
+        MinHeight="420" MinWidth="400"
+        Height="420" Width="400"
         WindowStartupLocation="CenterScreen">
-    
-    <Grid Margin="20">
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+    <Border CornerRadius="12" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+            Margin="12" Background="{StaticResource SurfaceBrush}">
+        <Grid Margin="24,28,24,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <TextBlock Text="First StartUp" Style="{StaticResource PageTitle}" Grid.ColumnSpan="2"/>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Write login and password" Margin="0,0,0,12"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="2" Text="User Name" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="FUserName" Grid.Row="3" Style="{StaticResource FieldTextBox}" Grid.ColumnSpan="2"/>
+            <TextBlock Text="First Startup" HorizontalAlignment="Center" Style="{StaticResource PageTitle}" Grid.ColumnSpan="2"/>
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Create an initial administrator account"
+                       Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,16"/>
 
-        <TextBlock Grid.Row="4" Text="Login" Style="{StaticResource FieldLabel}"/>
-        <TextBlock Grid.Row="4" Grid.Column="1" Text="Password" Style="{StaticResource FieldLabel}"/>
+            <TextBlock Grid.Row="2" Text="User Name" Style="{StaticResource FieldLabel}" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="FUserName" Grid.Row="3" Style="{StaticResource FieldTextBox}" Grid.ColumnSpan="2"/>
 
-        <TextBox x:Name="FLogin" Grid.Row="5" Style="{StaticResource FieldTextBox}"/>
-        <TextBox x:Name="FPassword" Grid.Row="5" Grid.Column="1" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Grid.Row="4" Text="Login" Style="{StaticResource FieldLabel}"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="Password" Style="{StaticResource FieldLabel}"/>
 
-        <Button Grid.Row="6" Grid.ColumnSpan="2" Content="START" Style="{StaticResource PrimaryButton}" Click="FirstLoginBtn"/>
-        
-    </Grid>
+            <TextBox x:Name="FLogin" Grid.Row="5" Style="{StaticResource FieldTextBox}"/>
+            <TextBox x:Name="FPassword" Grid.Row="5" Grid.Column="1" Style="{StaticResource FieldTextBox}"/>
+
+            <Button Grid.Row="6" Grid.ColumnSpan="2" Content="Get Started" Style="{StaticResource PrimaryButton}"
+                    Click="FirstLoginBtn" Height="36" Margin="0,20,0,0"/>
+        </Grid>
+    </Border>
 </Window>

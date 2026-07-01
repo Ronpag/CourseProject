@@ -4,51 +4,46 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" 
-        MinHeight="410" MinWidth="950"
-        Height="410" Width="950"
-        WindowStartupLocation="CenterScreen">
-    
-    <Grid ShowGridLines="False">
+        Icon="pack://application:,,,/Assets/relic.ico"
+        Title="CRM"
+        MinHeight="500" MinWidth="1100"
+        Height="550" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BackgroundBrush}">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="1" Grid.Column="0" Background="AliceBlue"
-                Content="My Orders" Click="MyOrdersBtn"/>
+        <Border Grid.Column="0" Background="{StaticResource SidebarBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-        <Button Grid.Row="2" Grid.Column="0" Background="AliceBlue"
-                Content="Create Order" Click="CreateOrderBtn"/>
+                <StackPanel Margin="16,20,16,24">
+                    <TextBlock Text="CRM" FontSize="22" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Text="Client Portal" FontSize="12" Foreground="#94A3B8" Margin="0,4,0,0"/>
+                </StackPanel>
 
-        <Button Grid.Row="3" Grid.Column="0" Background="AliceBlue"
-                Content="Stats" Click="StatsBtn"/>
+                <StackPanel Grid.Row="1" Margin="0,0,0,0">
+                    <Button Content="My Orders" Style="{StaticResource SidebarButton}" Click="MyOrdersBtn"/>
+                    <Button Content="Create Order" Style="{StaticResource SidebarButton}" Click="CreateOrderBtn"/>
+                    <Button Content="Stats" Style="{StaticResource SidebarButton}" Click="StatsBtn"/>
+                    <Button Content="Profile" Style="{StaticResource SidebarButton}" Click="ProfileBtn"/>
+                </StackPanel>
 
-        <Button Grid.Row="4" Grid.Column="0" Background="AliceBlue"
-                Content="Profile" Click="ProfileBtn"/>
+                <Button Grid.Row="2" Content="Exit" Style="{StaticResource SidebarButton}"
+                        Click="BackBtn" Margin="0,0,0,12"/>
+            </Grid>
+        </Border>
 
-        <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="9" Grid.ColumnSpan="4" x:Name="AppArea" Background="LightGray">
+        <Grid Grid.Column="1" x:Name="AppArea">
             <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
-
-        <Button Grid.Row="0" Grid.Column="4" Click="BackBtn" Content="Exit"/>
-
     </Grid>
 </Window>

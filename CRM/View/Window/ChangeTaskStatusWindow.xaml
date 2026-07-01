@@ -4,24 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" 
-        MinHeight="300"
-        Height="300" Width="400"
+        Icon="pack://application:,,,/Assets/relic.ico"
+        Title="CRM"
+        MinHeight="400" MinWidth="400"
+        Height="400" Width="400"
         WindowStartupLocation="CenterScreen">
 
-    <Grid>
-        <StackPanel Margin="15">
+    <Border Margin="12" Background="{StaticResource SurfaceBrush}"
+            CornerRadius="12" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+        <StackPanel Margin="24,20">
+            <TextBlock Text="Change Status" HorizontalAlignment="Center" Style="{StaticResource PageTitle}"/>
 
-            <TextBlock Text="Status" Style="{StaticResource FieldLabel}"/>
+            <TextBlock Text="New Status" Style="{StaticResource FieldLabel}"/>
             <ComboBox x:Name="StatusBox" Style="{StaticResource FieldComboBox}"/>
 
             <TextBlock Text="Work Progress / Comment" Style="{StaticResource FieldLabel}"/>
             <TextBox x:Name="CommentBox" MinHeight="80"
                      TextWrapping="Wrap" AcceptsReturn="True"
-                     Style="{StaticResource FieldTextBox}"/>
+                     Style="{StaticResource FieldTextBox}" Height="Auto"/>
 
-            <Button Content="Send Request" Style="{StaticResource PrimaryButton}" Click="SaveBtn"/>
-
+            <Button Content="Send Request" Style="{StaticResource PrimaryButton}" Click="SaveBtn" Height="36"/>
         </StackPanel>
-    </Grid>
+    </Border>
 </Window>

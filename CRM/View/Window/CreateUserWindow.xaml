@@ -4,15 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" 
-        MinHeight="500"
-        Height="500" Width="380"
+        Icon="pack://application:,,,/Assets/relic.ico"
+        Title="CRM"
+        MinHeight="600" MinWidth="400"
+        Height="600" Width="400"
         WindowStartupLocation="CenterScreen">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Margin="15">
-
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20,24">
+        <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -29,28 +30,30 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="User Name" Style="{StaticResource FieldLabel}"/>
-            <TextBox x:Name="UserNameBox" Grid.Row="1" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Text="Create User" HorizontalAlignment="Center" Style="{StaticResource PageTitle}"/>
 
-            <TextBlock Grid.Row="2" Text="Login" Style="{StaticResource FieldLabel}"/>
-            <TextBox x:Name="LoginBox" Grid.Row="3" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Grid.Row="1" Text="User Name" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="UserNameBox" Grid.Row="2" Style="{StaticResource FieldTextBox}"/>
 
-            <TextBlock Grid.Row="4" Text="Password" Style="{StaticResource FieldLabel}"/>
-            <PasswordBox x:Name="PasswordBox" Grid.Row="5" Style="{StaticResource FieldPasswordBox}"/>
+            <TextBlock Grid.Row="3" Text="Login" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="LoginBox" Grid.Row="4" Style="{StaticResource FieldTextBox}"/>
 
-            <TextBlock Grid.Row="6" Text="Email" Style="{StaticResource FieldLabel}"/>
-            <TextBox x:Name="EmailBox" Grid.Row="7" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Grid.Row="5" Text="Password" Style="{StaticResource FieldLabel}"/>
+            <PasswordBox x:Name="PasswordBox" Grid.Row="6" Style="{StaticResource FieldPasswordBox}"/>
 
-            <TextBlock Grid.Row="8" Text="Phone" Style="{StaticResource FieldLabel}"/>
-            <TextBox x:Name="PhoneBox" Grid.Row="9" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Grid.Row="7" Text="Email" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="EmailBox" Grid.Row="8" Style="{StaticResource FieldTextBox}"/>
 
-            <TextBlock Grid.Row="10" Text="Position" Style="{StaticResource FieldLabel}"/>
-            <TextBox x:Name="PositionBox" Grid.Row="11" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Grid.Row="9" Text="Phone" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="PhoneBox" Grid.Row="10" Style="{StaticResource FieldTextBox}"/>
 
-            <CheckBox x:Name="ActiveCheckBox" Grid.Row="12" Content="Active" IsChecked="True" Style="{StaticResource FieldCheckBox}"/>
+            <TextBlock Grid.Row="11" Text="Position" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="PositionBox" Grid.Row="12" Style="{StaticResource FieldTextBox}"/>
 
-            <Button Grid.Row="13" Content="Register" Style="{StaticResource PrimaryButton}" Click="RegisterBtn"/>
+            <CheckBox x:Name="ActiveCheckBox" Grid.Row="13" Content="Active" IsChecked="True"
+                      Style="{StaticResource FieldCheckBox}" Margin="0,0,0,8"/>
+
+            <Button Grid.Row="14" Content="Register" Style="{StaticResource PrimaryButton}" Click="RegisterBtn" Height="36"/>
         </Grid>
     </ScrollViewer>
-
 </Window>

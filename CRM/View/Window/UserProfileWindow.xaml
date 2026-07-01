@@ -4,27 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" 
-        MinHeight="450"
-        Height="450" Width="380"
+        Icon="pack://application:,,,/Assets/relic.ico"
+        Title="CRM"
+        MinHeight="600" MinWidth="400"
+        Height="600" Width="400"
         WindowStartupLocation="CenterScreen">
 
-    <StackPanel Margin="15">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20,24">
+        <StackPanel>
+            <TextBlock Text="Profile Change Request" HorizontalAlignment="Center" Style="{StaticResource PageTitle}"/>
+            <TextBlock Text="Changes need admin approval."
+                       Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,20"/>
 
-        <TextBlock Text="Profile Change Request" Style="{StaticResource PageTitle}"/>
-        <TextBlock Text="Changes need admin approval." Foreground="Gray" Margin="0,0,0,15"/>
-        <TextBlock Text="User Name" Style="{StaticResource FieldLabel}"/>
-        <TextBlock x:Name="UserNameText" FontWeight="Bold" Margin="0,2,0,10"/>
-        <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
-        <TextBlock x:Name="LoginText" FontWeight="Bold" Margin="0,2,0,10"/>
-        <TextBlock Text="Email" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="EmailBox" Style="{StaticResource FieldTextBox}"/>
-        <TextBlock Text="Phone" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="PhoneBox" Style="{StaticResource FieldTextBox}"/>
-        <TextBlock Text="Position" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="PositionBox" Style="{StaticResource FieldTextBox}"/>
-        <Button Content="Submit for Approval" Style="{StaticResource PrimaryButton}" Click="SubmitBtn"/>
+            <TextBlock Text="User Name" Style="{StaticResource FieldLabel}"/>
+            <Border Background="{StaticResource BackgroundBrush}" CornerRadius="6" Padding="10,8" Margin="0,0,0,12">
+                <TextBlock x:Name="UserNameText" FontWeight="SemiBold" FontSize="13"/>
+            </Border>
 
-    </StackPanel>
+            <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
+            <Border Background="{StaticResource BackgroundBrush}" CornerRadius="6" Padding="10,8" Margin="0,0,0,12">
+                <TextBlock x:Name="LoginText" FontWeight="SemiBold" FontSize="13"/>
+            </Border>
 
+            <TextBlock Text="Email" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="EmailBox" Style="{StaticResource FieldTextBox}"/>
+
+            <TextBlock Text="Phone" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="PhoneBox" Style="{StaticResource FieldTextBox}"/>
+
+            <TextBlock Text="Position" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="PositionBox" Style="{StaticResource FieldTextBox}"/>
+
+            <Button Content="Submit for Approval" Style="{StaticResource PrimaryButton}" Click="SubmitBtn" Height="36"/>
+        </StackPanel>
+    </ScrollViewer>
 </Window>

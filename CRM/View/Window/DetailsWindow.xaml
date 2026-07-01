@@ -4,16 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" 
-        MinHeight="450"
-        Height="450" Width="450"
+        Icon="pack://application:,,,/Assets/relic.ico"
+        Title="CRM"
+        MinHeight="460" MinWidth="500"
+        Height="460" Width="500"
         WindowStartupLocation="CenterScreen">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="15">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,20">
+        <Border Style="{StaticResource CardBorder}" Padding="20">
             <TextBlock x:Name="DetailsContent" TextWrapping="Wrap" FontSize="14"
-                       LineHeight="22"/>
-        </StackPanel>
+                       LineHeight="24" Foreground="{StaticResource TextPrimaryBrush}"/>
+        </Border>
     </ScrollViewer>
-
 </Window>

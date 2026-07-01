@@ -4,31 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CRM" 
-        Height="450" Width="300"
-        WindowStartupLocation="CenterScreen">
-    
-    <Grid Margin="20">
-        
+        Icon="pack://application:,,,/Assets/relic.ico"
+        Title="CRM"
+        MaxHeight="400" MinWidth="400"
+        Height="400" Width="400"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource SurfaceBrush}">
+
+    <Grid Margin="28,28,28,24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="Login" Grid.Row="1" Style="{StaticResource FieldTextBox}"/>
+        <TextBlock Text="CRM" FontSize="28" FontWeight="Bold"
+                   Foreground="{StaticResource PrimaryBrush}"
+                   HorizontalAlignment="Center"/>
 
-        <TextBlock Grid.Row="3" Text="Password" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="Password" Grid.Row="4" Style="{StaticResource FieldTextBox}"/>
+        <TextBlock Grid.Row="2" Text="Login" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="Login" Grid.Row="3" Style="{StaticResource FieldTextBox}"/>
 
-        <Button Grid.Row="6" Content="Login" Style="{StaticResource PrimaryButton}" Click="LoginBtn"/>
-        <Button Grid.Row="7" Content="Register" Style="{StaticResource PrimaryButton}" Click="RegisterBtn"/>
-        
+        <TextBlock Grid.Row="5" Text="Password" Style="{StaticResource FieldLabel}"/>
+        <TextBox x:Name="Password" Grid.Row="6" Style="{StaticResource FieldTextBox}"/>
+
+        <Button Grid.Row="8" Content="Sign In" Style="{StaticResource PrimaryButton}" Click="LoginBtn" Height="36"/>
+        <Button Grid.Row="9" Content="Create Account" Style="{StaticResource SecondaryButton}" Click="RegisterBtn"/>
     </Grid>
 </Window>
