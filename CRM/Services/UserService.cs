@@ -46,7 +46,8 @@ public static class UserService
         return user;
     }
 
-    public static bool Create(string name, string UserName, string password, bool isAdmin, bool isActive)
+    public static bool Create(string name, string UserName, string password, bool isAdmin, bool isActive,
+        string? email = null, string? phone = null, string? position = null)
     {
         if (!ValidationService.ValidateEnglishText(UserName, "User name"))
             return false;
@@ -68,13 +69,17 @@ public static class UserService
             Password = PasswordService.Hash(password),
             IsAdmin = isAdmin,
             IsActive = isActive,
+            Email = email,
+            Phone = phone,
+            Position = position,
             RegistrationDate = DateTime.Now
         });
         db.SaveChanges();
         return true;
     }
 
-    public static bool Update(int id, string name, string UserName, string? newPassword, bool? isActive)
+    public static bool Update(int id, string name, string UserName, string? newPassword, bool? isActive,
+        string? email = null, string? phone = null, string? position = null)
     {
         if (!ValidationService.ValidateEnglishText(UserName, "User name"))
             return false;
@@ -110,6 +115,10 @@ public static class UserService
 
         if (isActive.HasValue)
             user.IsActive = isActive.Value;
+
+        user.Email = email;
+        user.Phone = phone;
+        user.Position = position;
 
         db.SaveChanges();
         return true;

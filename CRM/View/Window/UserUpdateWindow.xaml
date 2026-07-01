@@ -5,28 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="CRM" 
-        MinHeight="300"
-        Height="300" Width="350"
+        MinHeight="550"
+        Height="550" Width="380"
         WindowStartupLocation="CenterScreen">
 
-    <StackPanel Margin="15">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="15">
 
-        <TextBlock Text="User Name" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="UserNameBox" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Text="User Name" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="UserNameBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="LoginBox" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="LoginBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Password" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="PasswordBox" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Text="Password" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="PasswordBox" Style="{StaticResource FieldTextBox}"/>
 
-        <CheckBox x:Name="IsActiveBox"
-                  Content="Active user"
-                  Style="{StaticResource FieldCheckBox}"/>
+            <TextBlock Text="Email" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="EmailBox" Style="{StaticResource FieldTextBox}"/>
 
-        <Button Content="Save"
-                Style="{StaticResource PrimaryButton}"
-                Click="SaveChangesBtn"/>
-    </StackPanel>
+            <TextBlock Text="Phone" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="PhoneBox" Style="{StaticResource FieldTextBox}"/>
+
+            <TextBlock Text="Position" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="PositionBox" Style="{StaticResource FieldTextBox}"/>
+
+            <CheckBox x:Name="IsActiveBox"
+                      Content="Active user"
+                      Style="{StaticResource FieldCheckBox}"/>
+
+            <Button Content="Save"
+                    Style="{StaticResource PrimaryButton}"
+                    Click="SaveChangesBtn"/>
+        </StackPanel>
+    </ScrollViewer>
 
 </Window>

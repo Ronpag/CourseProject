@@ -5,26 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="CRM"
-        MinHeight="350"
-        Height="350" Width="350"
+        MinHeight="480"
+        Height="480" Width="380"
         WindowStartupLocation="CenterScreen">
 
-    <StackPanel Margin="15">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="15">
 
-        <TextBlock Text="Client Name" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="NameClientBox" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Text="Client Name" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="NameClientBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="LoginBox" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Text="Login" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="LoginBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Password" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="PasswordBox" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Text="Password" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="PasswordBox" Style="{StaticResource FieldTextBox}"/>
 
-        <TextBlock Text="Count Orders" Style="{StaticResource FieldLabel}"/>
-        <TextBox x:Name="CountOrdersBox" Style="{StaticResource FieldTextBox}"/>
+            <TextBlock Text="Count Orders" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="CountOrdersBox" Style="{StaticResource FieldTextBox}"/>
 
-        <Button Content="Save" Style="{StaticResource PrimaryButton}" Click="SaveChangesBtn"/>
+            <TextBlock Text="Email" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="EmailBox" Style="{StaticResource FieldTextBox}"/>
 
-    </StackPanel>
+            <TextBlock Text="Phone" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="PhoneBox" Style="{StaticResource FieldTextBox}"/>
+
+            <TextBlock Text="Address" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="AddressBox" Style="{StaticResource FieldTextBox}"/>
+
+            <Button Content="Save" Style="{StaticResource PrimaryButton}" Click="SaveChangesBtn"/>
+
+        </StackPanel>
+    </ScrollViewer>
 
 </Window>

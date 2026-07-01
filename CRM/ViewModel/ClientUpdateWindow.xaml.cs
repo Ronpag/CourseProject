@@ -17,6 +17,9 @@ public partial class ClientUpdateWindow : Window
         LoginBox.Text = client.Login;
         PasswordBox.Text = "";
         CountOrdersBox.Text = client.CountOrders.ToString();
+        EmailBox.Text = client.Email ?? "";
+        PhoneBox.Text = client.Phone ?? "";
+        AddressBox.Text = client.Address ?? "";
     }
 
     private void SaveChangesBtn(object sender, RoutedEventArgs e)
@@ -30,12 +33,18 @@ public partial class ClientUpdateWindow : Window
         string newName = NameClientBox.Text.Trim();
         string newLogin = LoginBox.Text.Trim();
         string newPassword = PasswordBox.Text.Trim();
+        string email = EmailBox.Text.Trim();
+        string phone = PhoneBox.Text.Trim();
+        string address = AddressBox.Text.Trim();
 
         if (!ValidationService.ValidateEnglishText(newName, "Client name"))
             return;
 
         if (ClientService.Update(_client.Id, newName, newLogin,
-                string.IsNullOrWhiteSpace(newPassword) ? null : newPassword, countOrders))
+                string.IsNullOrWhiteSpace(newPassword) ? null : newPassword, countOrders,
+                email: string.IsNullOrWhiteSpace(email) ? null : email,
+                phone: string.IsNullOrWhiteSpace(phone) ? null : phone,
+                address: string.IsNullOrWhiteSpace(address) ? null : address))
         {
             DialogResult = true;
             Close();

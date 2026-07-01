@@ -16,6 +16,9 @@ public partial class UserUpdateWindow : Window
         UserNameBox.Text = user.UserName;
         LoginBox.Text = user.Name;
         PasswordBox.Text = "";
+        EmailBox.Text = user.Email ?? "";
+        PhoneBox.Text = user.Phone ?? "";
+        PositionBox.Text = user.Position ?? "";
 
         IsActiveBox.IsChecked = user.IsActive;
 
@@ -34,8 +37,15 @@ public partial class UserUpdateWindow : Window
 
         bool? isActive = _user.IsAdmin ? null : (bool?)IsActiveBox.IsChecked;
 
+        string email = EmailBox.Text.Trim();
+        string phone = PhoneBox.Text.Trim();
+        string position = PositionBox.Text.Trim();
+
         if (UserService.Update(_user.Id, login, UserName,
-                string.IsNullOrWhiteSpace(password) ? null : password, isActive))
+                string.IsNullOrWhiteSpace(password) ? null : password, isActive,
+                email: string.IsNullOrWhiteSpace(email) ? null : email,
+                phone: string.IsNullOrWhiteSpace(phone) ? null : phone,
+                position: string.IsNullOrWhiteSpace(position) ? null : position))
         {
             DialogResult = true;
             Close();

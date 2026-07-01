@@ -42,12 +42,19 @@ public static class ClientService
         return client;
     }
 
-    public static bool Create(string name, string login, string password)
+    public static bool Create(string name, string login, string password,
+        string? email = null, string? phone = null, string? address = null)
     {
         if (!ValidationService.ValidateEnglishText(name, "Client name"))
             return false;
 
         if (!ValidationService.ValidateLoginPassword(login, password))
+            return false;
+
+        if (!ValidationService.ValidateEmail(email ?? ""))
+            return false;
+
+        if (!ValidationService.ValidatePhone(phone ?? ""))
             return false;
 
         if (NameExists(name))
@@ -74,15 +81,25 @@ public static class ClientService
             NameClient = name,
             Login = login,
             Password = PasswordService.Hash(password),
+            Email = email,
+            Phone = phone,
+            Address = address,
             CountOrders = 0
         });
         db.SaveChanges();
         return true;
     }
 
-    public static bool Update(int id, string name, string login, string? newPassword, int countOrders)
+    public static bool Update(int id, string name, string login, string? newPassword, int countOrders,
+        string? email = null, string? phone = null, string? address = null)
     {
         if (!ValidationService.ValidateEnglishText(name, "Client name"))
+            return false;
+
+        if (!ValidationService.ValidateEmail(email ?? ""))
+            return false;
+
+        if (!ValidationService.ValidatePhone(phone ?? ""))
             return false;
 
         if (NameExists(name, id))
@@ -110,6 +127,9 @@ public static class ClientService
         client.NameClient = name;
         client.Login = login;
         client.CountOrders = countOrders;
+        client.Email = email;
+        client.Phone = phone;
+        client.Address = address;
 
         if (!string.IsNullOrWhiteSpace(newPassword))
             client.Password = PasswordService.Hash(newPassword);
