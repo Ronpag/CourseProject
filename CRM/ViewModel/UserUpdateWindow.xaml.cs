@@ -31,15 +31,20 @@ public partial class UserUpdateWindow : Window
         string UserName = UserNameBox.Text.Trim();
         string login = LoginBox.Text?.Trim() ?? "";
         string password = PasswordBox.Text?.Trim() ?? "";
+        string email = EmailBox.Text.Trim();
+        string phone = PhoneBox.Text.Trim();
+        string position = PositionBox.Text.Trim();
 
         if (!ValidationService.ValidateEnglishText(UserName, "User name"))
             return;
 
-        bool? isActive = _user.IsAdmin ? null : (bool?)IsActiveBox.IsChecked;
+        if (!ValidationService.ValidateEmail(email))
+            return;
 
-        string email = EmailBox.Text.Trim();
-        string phone = PhoneBox.Text.Trim();
-        string position = PositionBox.Text.Trim();
+        if (!ValidationService.ValidatePhone(phone))
+            return;
+
+        bool? isActive = _user.IsAdmin ? null : (bool?)IsActiveBox.IsChecked;
 
         if (UserService.Update(_user.Id, login, UserName,
                 string.IsNullOrWhiteSpace(password) ? null : password, isActive,

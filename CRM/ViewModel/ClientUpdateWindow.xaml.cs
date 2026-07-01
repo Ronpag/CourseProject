@@ -40,6 +40,12 @@ public partial class ClientUpdateWindow : Window
         if (!ValidationService.ValidateEnglishText(newName, "Client name"))
             return;
 
+        if (!ValidationService.ValidateEmail(email))
+            return;
+
+        if (!ValidationService.ValidatePhone(phone))
+            return;
+
         if (ClientService.Update(_client.Id, newName, newLogin,
                 string.IsNullOrWhiteSpace(newPassword) ? null : newPassword, countOrders,
                 email: string.IsNullOrWhiteSpace(email) ? null : email,
